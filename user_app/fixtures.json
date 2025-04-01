@@ -3,8 +3,10 @@
     "model": "user_app.user",
     "pk": 1,
     "fields": {
-      "name": "Chase Coleman",
+      "first_name": "Chase",
+      "last_name": "Coleman",
       "email": "chase@gmail.com",
+      "username": "chase-coleman",
       "password": "password123"
     }
   }
