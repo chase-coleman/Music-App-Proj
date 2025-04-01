@@ -1,0 +1,11 @@
+[
+  {
+    "model": "user_app.user",
+    "pk": 1,
+    "fields": {
+      "name": "Chase Coleman",
+      "email": "chase@gmail.com",
+      "password": "password123"
+    }
+  }
+]
