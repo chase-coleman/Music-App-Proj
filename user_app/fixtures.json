@@ -7,7 +7,18 @@
       "last_name": "Coleman",
       "email": "chase@gmail.com",
       "username": "chase-coleman",
-      "password": "password123"
+      "password": "Password1!"
+    }
+  },
+  {
+    "model": "user_app.user",
+    "pk": 2,
+    "fields": {
+      "first_name": "Brian",
+      "last_name": "Kim",
+      "email": "brian@gmail.com",
+      "username": "brian-kim",
+      "password": "password"
     }
   }
 ]
