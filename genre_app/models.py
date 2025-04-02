@@ -5,5 +5,5 @@ class Genre(models.Model):
   name = models.CharField(max_length=25, unique=True, null=False, blank=False)
   description = models.CharField(max_length=255, null=True, default="This genre hasn't been given a description yet.")
   # albums field is created by Albums model as "albums" MtM
-  # songs field is created by the SOng model as "songs" MtM
-  
+  # songs field is created by the Song model as "songs" MtM
+  # artists field is created by the Artist model as "artists"

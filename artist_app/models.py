@@ -2,7 +2,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator, RegexVa
 from django.contrib.auth.password_validation import validate_password
 from django.contrib.auth.models import AbstractUser
 from django.db import models
-from genre_app.serializers import *
+from genre_app.serializers import Genre
 
 # Create your models here.
 class Artist(models.Model):

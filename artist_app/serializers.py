@@ -1,15 +1,16 @@
-from rest_framework.serializers import ModelSerializer
+from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from rest_framework import serializers
-from .models import *
-from album_app.serializers import *
-from song_app.serializers import *
+from .models import Artist
 
 class ArtistSerializer(ModelSerializer):
-  genres = GenreSerializer(many=True)
-  # albums = AlbumSerializer(many=True)
-  # songs = SongSerializer(many=True)
+  genres = SerializerMethodField() # SerializerMethodField auto-calls the get_<field-name> 
+
+  def get_genres(self, obj): # obj refers to the model instance that is being serialized
+    from genre_app.serializers import GenreSerializer
+    return GenreSerializer(obj.genres.all(), many=True).data
 
   class Meta:
     model = Artist
-    fields = '__all__'
+    fields = ['id', 'name', 'genres', 'albums', 'songs']
   
+  # from artist_app.serializers import * 

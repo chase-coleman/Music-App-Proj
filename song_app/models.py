@@ -1,9 +1,9 @@
 from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 from django.contrib.auth.password_validation import validate_password
 from django.db import models
-from artist_app.serializers import *
-from album_app.serializers import *
-from genre_app.serializers import *
+from artist_app.serializers import Artist
+from album_app.serializers import Album
+from genre_app.serializers import Genre
 
 # Create your models here.
 class Song(models.Model):

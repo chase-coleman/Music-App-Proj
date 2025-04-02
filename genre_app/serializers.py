@@ -1,8 +1,8 @@
 from rest_framework.serializers import ModelSerializer
 from rest_framework import serializers
-from .models import *
+from .models import Genre
 
 class GenreSerializer(ModelSerializer):
   class Meta:
     model = Genre
-    fields = '__all__'
+    fields = ['id', 'name', 'artists', 'albums', 'songs']
