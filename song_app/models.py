@@ -1,6 +1,5 @@
 from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
 from django.contrib.auth.password_validation import validate_password
-from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 # Create your models here.

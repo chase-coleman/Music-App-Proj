@@ -1,0 +1,11 @@
+[
+  {
+    "model": "playlist_app.playlist",
+    "pk": 1,
+    "fields": {
+      "name": "Playlist 1",
+      "user_id": [1],
+      "songs": [1]
+    }
+  }
+]
