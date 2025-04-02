@@ -1,0 +1,9 @@
+[
+  {
+    "model": "song_app.song",
+    "pk": 1,
+    "fields": {
+      "name" : "Champagne Coast"
+    }
+  }
+]
