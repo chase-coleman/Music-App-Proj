@@ -3,7 +3,8 @@
   "model": "artist_app.artist",
    "pk": 1,
    "fields": {
-    "name": "Blood Orange"
+    "name": "Blood Orange",
+    "genres": [1]
    }
   }
 ]

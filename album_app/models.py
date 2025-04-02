@@ -10,3 +10,5 @@ class Album(models.Model):
   description = models.CharField(max_length=255, null=True, default="This album hasn't been given a description yet.")
   artist = models.ManyToManyField(Artist, related_name="albums")
   genres = models.ManyToManyField(Genre, related_name="genres")
+  # songs field will be created by the Song model as "songs"
+  
