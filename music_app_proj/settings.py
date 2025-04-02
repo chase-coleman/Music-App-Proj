@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'user_app',
     'genre_app',
+    'artist_app',
 ]
 
 MIDDLEWARE = [
