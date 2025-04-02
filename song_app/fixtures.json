@@ -3,7 +3,10 @@
     "model": "song_app.song",
     "pk": 1,
     "fields": {
-      "name" : "Champagne Coast"
+      "name" : "Champagne Coast",
+      "artist": [1],
+      "albums": [1],
+      "genres": [1]
     }
   }
 ]
