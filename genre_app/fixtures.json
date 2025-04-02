@@ -1,0 +1,10 @@
+[
+  {
+    "model": "genre_app.genre",
+    "pk": 1,
+    "fields": {
+      "name": "Electronic Dance Music",
+      "description": "Electronic Dance Music, also known as EDM, is a broad term encompassing various genres. It's typically characterized by strong beats, rhythmic pulses, and electronic instruments."
+    }
+  }
+]
