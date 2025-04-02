@@ -3,9 +3,9 @@ from rest_framework import serializers
 from .models import Song
 
 class SongSerializer(ModelSerializer):
-  artist = SerializerMethodField()
-  albums = SerializerMethodField()
-  genres = SerializerMethodField()
+  artist = SerializerMethodField() # SerializerMethodField auto-calls the get_<field-name>
+  albums = SerializerMethodField() # SerializerMethodField auto-calls the get_<field-name>
+  genres = SerializerMethodField() # SerializerMethodField auto-calls the get_<field-name>
 
   def get_artist(self, obj): # obj refers to the model instance that is being serialized
     from artist_app.serializers import ArtistSerializer

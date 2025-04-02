@@ -12,7 +12,7 @@ class Song(models.Model):
   # TO DO : create song_img field
   name = models.CharField(max_length=100, null=False, blank=False)
   description = models.CharField(max_length=255, null=True, default="This song hasn't been given a description yet.")
-  artist = models.ManyToManyField(Artist, related_name="songs")
-  albums = models.ManyToManyField(Album, related_name="songs")
-  genres = models.ManyToManyField(Genre, related_name="songs")
+  artist = models.ManyToManyField(Artist, related_name="songs") # creating association between Song-Artist
+  albums = models.ManyToManyField(Album, related_name="songs") # creating association between Song-Albums
+  genres = models.ManyToManyField(Genre, related_name="songs") # creating association between Song-Genre
   # playlist field will be created by the Playlist model as "playlists"
