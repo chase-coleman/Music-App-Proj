@@ -1,0 +1,10 @@
+[
+  {
+    "model": "album_app.album",
+    "pk": 1,
+    "fields": {
+      "name": "Coastal Grooves",
+      "description": "Coastal Grooves is Blood Orange's debut studio album. Released on August 30, 2011."
+    }
+  }
+]
