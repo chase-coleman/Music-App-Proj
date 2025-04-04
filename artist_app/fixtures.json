@@ -1,10 +1,42 @@
 [
   {
-  "model": "artist_app.artist",
-   "pk": 1,
-   "fields": {
-    "name": "Blood Orange",
-    "genres": [1]
-   }
+    "model": "artist_app.artist",
+    "pk": 1,
+    "fields": {
+      "name": "Blood Orange",
+      "genres": [1]
+    }
+  },
+  {
+    "model": "artist_app.artist",
+    "pk": 2,
+    "fields": {
+      "name": "Tame Impala",
+      "genres": [2]
+    }
+  },
+  {
+    "model": "artist_app.artist",
+    "pk": 3,
+    "fields": {
+      "name": "Kendrick Lamar",
+      "genres": [3]
+    }
+  },
+  {
+    "model": "artist_app.artist",
+    "pk": 4,
+    "fields": {
+      "name": "Miles Davis",
+      "genres": [4]
+    }
+  },
+  {
+    "model": "artist_app.artist",
+    "pk": 5,
+    "fields": {
+      "name": "Ludovico Einaudi",
+      "genres": [5]
+    }
   }
 ]

@@ -10,3 +10,10 @@ class Playlist(models.Model):
   name = models.CharField(max_length=100, null=False, blank=False)
   user = models.ManyToManyField(User ,related_name="playlists") # creating association between Playlist-User
   songs =  models.ManyToManyField(Song, related_name="playlists") # creating association between Playlist-Song
+
+  def add_user(self, user_id):
+    from user_app.models import User
+    user_inst = User.objects.get(id=user_id)
+    print(user_inst)
+    self.user.add(user_inst)
+  

@@ -8,5 +8,45 @@
       "artist": [1],
       "genres": [1]
     }
+  },
+  {
+    "model": "album_app.album",
+    "pk": 2,
+    "fields": {
+      "name": "Lonerism",
+      "description": "Lonerism is Tame Impala's second studio album, released on October 5, 2012, blending psychedelic rock with electronic influences.",
+      "artist": [2],
+      "genres": [2]
+    }
+  },
+  {
+    "model": "album_app.album",
+    "pk": 3,
+    "fields": {
+      "name": "DAMN.",
+      "description": "DAMN. is Kendrick Lamar's fourth studio album, released on April 14, 2017. It's known for its complex storytelling and impactful lyrics.",
+      "artist": [3],
+      "genres": [3]
+    }
+  },
+  {
+    "model": "album_app.album",
+    "pk": 4,
+    "fields": {
+      "name": "Kind of Blue",
+      "description": "Kind of Blue is a landmark album by Miles Davis, released on August 17, 1959. It's regarded as one of the greatest jazz albums of all time.",
+      "artist": [4],
+      "genres": [4]
+    }
+  },
+  {
+    "model": "album_app.album",
+    "pk": 5,
+    "fields": {
+      "name": "In a Time Lapse",
+      "description": "In a Time Lapse is Ludovico Einaudi's album, released on January 21, 2013, blending classical and contemporary music.",
+      "artist": [5],
+      "genres": [5]
+    }
   }
 ]

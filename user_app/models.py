@@ -9,3 +9,5 @@ class User(AbstractUser):
   birthdate = models.DateField(default='2000-01-01') 
   REQUIRED_FIELDS = ['email'] # requiring email to have input
   # playlists attribute will be created by the Playlists model
+
+
