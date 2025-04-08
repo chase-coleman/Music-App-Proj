@@ -9,7 +9,6 @@ from .models import Playlist
 class Playlists(TokenReq):
   def get(self, request):
     all_playlists = PlaylistSerializer(Playlist.objects.all(), many=True)
-    print(all_playlists.data)
     return Response(all_playlists.data, status=s.HTTP_200_OK)
 
   def delete(self, request, name):
@@ -17,6 +16,9 @@ class Playlists(TokenReq):
     print(playlist_to_delete)
     playlist_to_delete.delete()
     return Response(f"{playlist_to_delete.name} has been deleted.", status=s.HTTP_204_NO_CONTENT)
+
+  def put(self, request, name):
+    pass
 
   def post(self, request):
     data = request.data.copy()
