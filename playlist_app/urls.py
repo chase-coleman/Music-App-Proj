@@ -1,6 +1,6 @@
 from django.urls import path
-from .views import All_playlists
+from .views import Playlists
 
 urlpatterns = [
-  path('all/', All_playlists.as_view(), name="all_playlists")
+  path('', Playlists.as_view(), name="playlists")
 ]
