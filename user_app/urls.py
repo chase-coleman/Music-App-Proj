@@ -1,8 +1,7 @@
 from django.urls import path
-from .views import All_users
+from .views import User_Info, Sign_Up
 
 urlpatterns = [
-  path('all/', All_users.as_view(), name="all_users"), # returns all users
-  path('<str:username>/', All_users.as_view(), name="user_delete"), # deletes a user
-  path('<str:username>/', All_users.as_view(), name="user_update"), # updates a user
+  path('info/', User_Info.as_view(), name="user_info"),
+  path('signup/', Sign_Up.as_view(), name="sign_up")
 ]
