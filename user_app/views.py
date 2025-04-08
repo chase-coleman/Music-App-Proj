@@ -33,3 +33,21 @@ class Sign_Up(APIView):
 
     return Response(f"New account created with the username of {new_user.username}!", 
                     status=s.HTTP_201_CREATED)
+  
+class Login(APIView):
+  def post(self, request):
+    data = request.data.copy()
+    # setting their username to the email if they haven't create a username
+    data['username'] = request.data.get("username", request.data.get("email"))
+    # authenticate their provided username/password with their registered username/password
+    current_user = authenticate(username=data.get("username"), password=data.get("password"))
+
+    if current_user:
+      login(request, current_user) # log them in 
+      # get their token credentials or create one for them 
+      token, create = Token.objects.get_or_create(user = current_user)
+      return Response(f"User {current_user.username} has been logged in", status=s.HTTP_200_OK)
+    
+    return Response(f"Username or password incorrect", status=s.HTTP_400_BAD_REQUEST)
+    # don't specify which is incorrect because that would help a malicious party
+    # a direction to go
