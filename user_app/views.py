@@ -18,7 +18,8 @@ class User_Info(TokenReq):
     return Response({"email": current_user.email, 
                      "username": current_user.username, 
                      "first_name": current_user.first_name, 
-                     "last_name": current_user.last_name
+                     "last_name": current_user.last_name,
+                     "playlists": current_user.playlists.all()
                      })
   
 class Sign_Up(APIView):
@@ -31,7 +32,7 @@ class Sign_Up(APIView):
     # creating an authentication token for the new user
     user_token = Token.objects.create(user=new_user)
 
-    return Response(f"New account created with the username of {new_user.username}!", 
+    return Response(f"New account created with the username of {new_user.username}!, token: {user_token.key}", 
                     status=s.HTTP_201_CREATED)
   
 class Login(APIView):
@@ -51,3 +52,9 @@ class Login(APIView):
     return Response(f"Username or password incorrect", status=s.HTTP_400_BAD_REQUEST)
     # don't specify which is incorrect because that would help a malicious party
     # a direction to go
+
+class Logout(TokenReq):
+  def post(self, request):
+    request.user.auth_token.delete()
+    logout(request)
+    return Response("user has been logged out", status=s.HTTP_204_NO_CONTENT)
