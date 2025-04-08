@@ -7,6 +7,17 @@ from .models import Playlist
 
 # Create your views here.
 class Playlists(TokenReq):
+  def get(self, request):
+    all_playlists = PlaylistSerializer(Playlist.objects.all(), many=True)
+    print(all_playlists.data)
+    return Response(all_playlists.data, status=s.HTTP_200_OK)
+
+  def delete(self, request, name):
+    playlist_to_delete = Playlist.objects.get(normalized_name=name)
+    print(playlist_to_delete)
+    playlist_to_delete.delete()
+    return Response(f"{playlist_to_delete.name} has been deleted.", status=s.HTTP_204_NO_CONTENT)
+
   def post(self, request):
     data = request.data.copy()
     data['user'] = request.user

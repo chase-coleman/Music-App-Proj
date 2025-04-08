@@ -12,10 +12,14 @@ class PlaylistSerializer(ModelSerializer):
 
   class Meta:
     model = Playlist 
-    fields = ['name', 'user']
+    fields = ['name', 'user', 'description']
 
   def get_user(self, obj):
     # goes into the current object (playlist) -> 
     # get's the user object (since it's related) -> 
     # returns the user instance's username
     return obj.user.username
+  
+# this playlist will display the name, description, and how many songs are in the playlist
+class PlaylistDisplaySerializer(ModelSerializer):
+  pass 
