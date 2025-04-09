@@ -1,6 +1,5 @@
 from playlist_app.serializers import Playlist, PlaylistSerializer # importing needed models/serializers
 from rest_framework.views import Response, APIView # importing needed Response and APIView classes
-from django.shortcuts import render
 from rest_framework import status as s
 from user_app.views import TokenReq
 from .models import Playlist
