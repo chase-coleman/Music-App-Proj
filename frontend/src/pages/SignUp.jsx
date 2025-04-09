@@ -5,6 +5,7 @@ https://axios-http.com/docs/post_example
 
 import React, { useState, useEffect } from "react";
 import axios from "axios";
+import Navbar from "../components/Navbar";
 
 
 // TO DO : create verification for account fields like email & password formatting
@@ -52,6 +53,7 @@ function Signup() {
     
   return (
     <>
+    <Navbar/>
       <h1>Signup Page</h1>
       <fieldset className="fieldset">
         <input
