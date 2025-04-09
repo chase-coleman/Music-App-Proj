@@ -20,6 +20,8 @@ function Login() {
       password: password
     })
     console.log(response.data)
+    const userToken = response.data.token
+    localStorage.setItem('token', userToken)
     } catch (error){
       console.error("Error:", error)
     }

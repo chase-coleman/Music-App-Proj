@@ -1,7 +1,28 @@
-
+import { Link } from "react-router-dom"
+import { Nav } from "react-bootstrap"
+import axios from "axios"
 
 const Navbar = () => {
   
+  const userLogout = async () => {
+    const userToken = localStorage.getItem('token')
+    console.log(userToken)
+    const logoutUrl = 'http://127.0.0.1:8000/api/v1/users/logout/'
+    try {
+      const response = await axios.post(logoutUrl, {},
+        {
+          headers: {
+            Authorization: `Token ${userToken}`
+          },
+        },
+      );
+      console.log(response.data)
+      localStorage.removeItem('token')
+    } catch (error){
+      console.error("Error:", error)
+    }
+  }
+
   return (
     <>
     <div className="navbar bg-base-100 shadow-sm">
@@ -28,7 +49,7 @@ const Navbar = () => {
           </a>
         </li>
         <li><a>Settings</a></li>
-        <li><a>Logout</a></li>
+        <li><button onClick={userLogout}>Logout</button></li>
       </ul>
     </div>
   </div>

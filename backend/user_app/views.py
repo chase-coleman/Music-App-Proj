@@ -49,7 +49,7 @@ class Login(APIView):
       login(request, current_user) # log them in 
       # get their token credentials or create one for them 
       token, create = Token.objects.get_or_create(user = current_user)
-      return Response(f"User {current_user.username} has been logged in", status=s.HTTP_200_OK)
+      return Response({"token":token.key}, status=s.HTTP_200_OK)
     
     return Response(f"Username or password incorrect", status=s.HTTP_400_BAD_REQUEST)
     # don't specify which is incorrect because that would help a malicious party
@@ -59,4 +59,4 @@ class Logout(TokenReq):
   def post(self, request):
     request.user.auth_token.delete()
     logout(request)
-    return Response("user has been logged out", status=s.HTTP_204_NO_CONTENT)
+    return Response("user has been logged out", status=s.HTTP_200_OK)
