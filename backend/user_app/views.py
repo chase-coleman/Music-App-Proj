@@ -39,6 +39,7 @@ class Sign_Up(APIView):
 class Login(APIView):
   def post(self, request):
     data = request.data.copy()
+    print(request.data)
     # setting their username to the email if they haven't create a username
     data['username'] = request.data.get("username", request.data.get("email"))
     # authenticate their provided username/password with their registered username/password
