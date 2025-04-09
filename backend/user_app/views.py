@@ -24,6 +24,7 @@ class User_Info(TokenReq):
   
 class Sign_Up(APIView):
   def post(self, request):
+    # TO DO : create error handling for user's that already exists so that a user can see that error on the frontend
     data = request.data.copy()
     # if user provided no username, their provided email is set as the username
     data['username'] = request.data.get("username", request.data.get("email"))
