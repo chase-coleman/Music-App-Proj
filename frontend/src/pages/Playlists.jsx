@@ -17,8 +17,8 @@ const Playlists = () => {
   const [playlistDescription, setPlaylistDescription] = useState("");
   const [userPlaylists, setUserPlaylists] = useState([]);
 
-  const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
-  const userToken = localStorage.getItem("token");
+  const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/"; // url to playlist view
+  const userToken = localStorage.getItem("token"); // grab user's token
 
   // grab all the user's playlists upon the page being rendered
   useEffect(() => {
@@ -33,7 +33,7 @@ const Playlists = () => {
         Authorization: `Token ${userToken}`,
       },
     });
-    setUserPlaylists(response.data);
+    setUserPlaylists(response.data); // set their created playlists to state
     console.log(response.data);
   };
 
@@ -44,6 +44,7 @@ const Playlists = () => {
       description: playlistDescription,
     };
     try {
+      // send a POST request to backend to create a playlist model in the db
       const response = await axios.post(playlistUrl, playlistInfo, {
         headers: {
           Authorization: `Token ${userToken}`,
@@ -85,9 +86,9 @@ const Playlists = () => {
           <li className="p-4 pb-2 text-xs opacity-60 tracking-wide" key="">
             Playlists
           </li>
-          {userPlaylists.map((playlist) => (
+          {userPlaylists.map((playlist) => ( // map through the user's playlists 
             <li className="list-row" key={playlist.id}>
-              <PlaylistList
+              <PlaylistList // display a component for each playlist
                 playlist={playlist}
               />
             </li>
