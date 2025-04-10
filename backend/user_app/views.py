@@ -11,7 +11,7 @@ from .models import User
 class TokenReq(APIView):
   authentication_classes = [TokenAuthentication]
   permission_classes = [IsAuthenticated] 
-  
+
 class User_Info(TokenReq):
   def get(self, request):
     current_user = request.user
@@ -21,7 +21,7 @@ class User_Info(TokenReq):
                      "last_name": current_user.last_name,
                      "playlists": current_user.playlists.all()
                      })
-  
+
 class Sign_Up(APIView):
   def post(self, request):
     # TO DO : create error handling for user's that already exists so that a user can see that error on the frontend
@@ -35,7 +35,7 @@ class Sign_Up(APIView):
 
     return Response(f"New account created with the username of {new_user.username}!, token: {user_token.key}", 
                     status=s.HTTP_201_CREATED)
-  
+
 class Login(APIView):
   def post(self, request):
     data = request.data.copy()

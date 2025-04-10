@@ -7,6 +7,7 @@ urlpatterns = [
     path('api/v1/users/', include('user_app.urls')), # direct's django to the User.urls file
     path('api/v1/genres/', include('genre_app.urls')), # direct's django to the Genre.urls file
     path('api/v1/playlists/', include('playlist_app.urls')), # direct's django to Playlist.urls file
+    path('api/v1/auth/spotify/callback/', include('spotify_auth.urls')), # app for spotify callback regarding user authorizations
 
     # TO BE ADDED
     # path('api/v1/artists/', include('artist_app.urls')), # direct's django to the Artist.urls file

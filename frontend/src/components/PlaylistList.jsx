@@ -20,9 +20,11 @@ const PlaylistList = ({ playlist }) => {
   }, [delBtn, setDelBtn])
 
   const deletePlaylist = async () => {
-    const playlistID = playlist.id;
+    // get the playlist ID from the current playlist being added to a component
+    const playlistID = playlist.id; 
     console.log("Deleting Playlist...");
     try {
+      // do a DELETE request to remove the playlist instance from the db 
       const response = await axios.delete(`${playlistUrl}${playlistID}/`, { 
           headers: {
           Authorization: `Token ${userToken}`,
