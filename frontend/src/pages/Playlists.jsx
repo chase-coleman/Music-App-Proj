@@ -2,10 +2,13 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import PlaylistList from "../components/PlaylistList";
+// import deletePlaylist from "../utilities/deleteplaylist";
 
+// TO DO : create way to track when a playlist is delete, so the page refreshes when
+//         one is delete and the user doesn't have to refresh the page
 // TO DO : Create outlet context for user token
 // TO DO : create loading state variable to display while the API makes it's call
-// TO DO : fix axios error that pops up on page render when a user is not logged in. 
+// TO DO : fix axios error that pops up on page render when a user is not logged in.
 // TO DO : create a button on the page so a user can create a new playlist, and when the button is clicked,
 //         a popup opens that asks for the basic playlists information
 
@@ -13,24 +16,26 @@ const Playlists = () => {
   const [playlistName, setPlaylistName] = useState("");
   const [playlistDescription, setPlaylistDescription] = useState("");
   const [userPlaylists, setUserPlaylists] = useState([]);
+
   const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
   const userToken = localStorage.getItem("token");
 
   // grab all the user's playlists upon the page being rendered
   useEffect(() => {
     // call the GET endpoint for user's playlists
-    const grabUserPlaylists = async () => {
-      // API Call to backend
-      const response = await axios.get(playlistUrl, {
-        headers: {
-          Authorization: `Token ${userToken}`,
-        },
-      });
-      setUserPlaylists(response.data);
-      // console.log(response.data);
-    };
     grabUserPlaylists();
   }, []);
+
+  const grabUserPlaylists = async () => {
+    // API Call to backend
+    const response = await axios.get(playlistUrl, {
+      headers: {
+        Authorization: `Token ${userToken}`,
+      },
+    });
+    setUserPlaylists(response.data);
+    console.log(response.data);
+  };
 
   const createPlaylist = async () => {
     // creating object to send to backend to create the playlist
@@ -54,9 +59,6 @@ const Playlists = () => {
     <>
       <Navbar />
       <h1>Playlists Page</h1>
-      <button className="btn btn-xs sm:btn-sm md:btn-md lg:btn-lg xl:btn-xl">
-        Create New Playlist
-      </button>
       <fieldset className="fieldset">
         <input
           className="input"
@@ -85,11 +87,13 @@ const Playlists = () => {
           </li>
           {userPlaylists.map((playlist) => (
             <li className="list-row" key={playlist.id}>
-              <PlaylistList playlist={playlist} />
+              <PlaylistList
+                playlist={playlist}
+              />
             </li>
           ))}
         </ul>
-      ) }
+      )}
     </>
   );
 };
