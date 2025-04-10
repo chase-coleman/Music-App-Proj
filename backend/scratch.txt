@@ -1,2 +1,21 @@
 "New account created with the username of chase-coleman!, 
 token: a7f613f9881699daa8517784a2034dd5b7afb969"
+
+!! Issues that I ran into !!
+- Managing hidden variables inside of the project.
+    I actually did quite a few commits with my .env file visible. So I had to go into the CLI and do a bunch
+    of 'rm' commands for the .env file.
+
+- Deleting all user's playlists when the 'delete' button was clicked
+    in my playlist Page I created a state of 'delBtn'
+    
+    In my playlists page/component, I had a page to display all a logged user's created playlists.
+    there was a delete button that attached to each playlist, and when the user clicked it, it kept
+    deleting all of their playlists, not just the one that was clicked.
+
+    this issue was caused because I created the 'delBtn' state inside of the playlist page,
+    and when I was mapping through the usersPlaylists and I passed down the 'delBtn' as a prop.
+    but by doing that, all playlists were attached to the same delBtn state. So when I deleted one,
+    it deleted all of them. To fix this, 
+    I created the delBtn state inside of the Playlist component so that each playlist belonged to it's own 
+    delBtn state. 
