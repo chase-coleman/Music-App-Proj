@@ -12,7 +12,7 @@ class PlaylistSerializer(ModelSerializer):
 
   class Meta:
     model = Playlist 
-    fields = ['name', 'user', 'description']
+    fields = ['id', 'name', 'user', 'description']
 
   def get_user(self, obj):
     # goes into the current object (playlist) -> 

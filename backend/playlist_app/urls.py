@@ -3,5 +3,5 @@ from .views import Playlists
 
 urlpatterns = [
   path('', Playlists.as_view(), name="playlists"),
-  path('<str:name>/', Playlists.as_view(), name="delete_playlist")
+  path('<int:id>/', Playlists.as_view(), name="delete_playlist")
 ]

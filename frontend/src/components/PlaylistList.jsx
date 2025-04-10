@@ -1,52 +1,76 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
+
 const PlaylistList = ({ playlist }) => {
+  const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
+  const userToken = localStorage.getItem("token");
+  const [delBtn, setDelBtn] = useState(false);
+
+  // by setting the state variable of delBtn inside each component that gets
+  // rendered by React (each playlist) has it's own state for the button
+  // I was running into issues declaring the state variable for button in
+  // the Playlists page and passing it down as a prop, because all playlists
+  // shared the same state. so clicking delete on one playlist, deleted them all
+
+  useEffect(() => {
+    if (delBtn){
+      deletePlaylist()
+      setDelBtn(false)
+    }
+  }, [delBtn, setDelBtn])
+
+  const deletePlaylist = async () => {
+    const playlistID = playlist.id;
+    console.log("Deleting Playlist...");
+    try {
+      const response = await axios.delete(`${playlistUrl}${playlistID}/`, { 
+          headers: {
+          Authorization: `Token ${userToken}`,
+        },
+      });
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <>
-        <div>
-          <img
-            className="size-10 rounded-box"
-            src="https://img.daisyui.com/images/profile/demo/1@94.webp"
-          /> {/*Playlist Img goes here */}
+      <div>
+        <img
+          className="size-10 rounded-box"
+          src="https://img.daisyui.com/images/profile/demo/1@94.webp"
+        />{" "}
+        {/*Playlist Img goes here */}
+      </div>
+      <div>
+        <div>{playlist.name}</div> {/* Playlist Name goes here*/}
+        <div className="text-xs uppercase font-semibold opacity-60">
+          {" "}
+          {/*Playlist Description goes here*/}
+          {playlist.description}
         </div>
-        <div>
-          <div>{playlist.name}</div>  {/* Playlist Name goes here*/}
-          <div className="text-xs uppercase font-semibold opacity-60"> {/*Playlist Description goes here*/}
-            {playlist.description}
-          </div>
-        </div>
-        <button className="btn btn-square btn-ghost">
-          <svg
-            className="size-[1.2em]"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
+      </div>
+      <button className="btn btn-square btn-ghost">
+        <svg
+          className="size-[1.2em]"
+          xmlns="http://www.w3.org/2000/svg"
+          viewBox="0 0 24 24"
+        >
+          <g
+            strokeLinejoin="round"
+            strokeLinecap="round"
+            strokeWidth="2"
+            fill="none"
+            stroke="currentColor"
           >
-            <g
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              strokeWidth="2"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path d="M6 3L20 12 6 21 6 3z"></path>
-            </g>
-          </svg>
-        </button>
-        <button className="btn btn-square btn-ghost">
-          <svg
-            className="size-[1.2em]"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 24 24"
-          >
-            <g
-              strokeLinejoin="round"
-              strokeLinecap="round"
-              strokeWidth="2"
-              fill="none"
-              stroke="currentColor"
-            >
-              <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path>
-            </g>
-          </svg>
-        </button>
+            <path d="M6 3L20 12 6 21 6 3z"></path>
+          </g>
+        </svg>
+      </button>
+      <button className="btn btn-square btn-ghost" onClick={() => setDelBtn(true)}>
+        X
+      </button>
+      {/*Put Trash icon here for users to delete a playlist*/}
     </>
   );
 };
