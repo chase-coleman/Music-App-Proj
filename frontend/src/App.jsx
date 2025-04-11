@@ -8,6 +8,7 @@ export default function App() {
   
   useEffect(() => {
     localStorage.setItem("token", userToken)
+    console.log("setting userToken:", userToken)
   }, [userToken])
 
   // const userToken = localStorage.getItem("token"); // grab user's token

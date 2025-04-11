@@ -20,8 +20,9 @@ function Login() {
       username: username,
       password: password
     })
-    console.log(response.data)
     const current_user_token = response.data.token
+    // localStorage.setItem("token", current_user_token)
+    // set userToken in App.jsx state variable
     setUserToken(current_user_token)
     } catch (error){
       console.error("Error:", error)

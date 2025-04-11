@@ -36,6 +36,7 @@ spotify_item_search_url = "https://api.spotify.com/v1/" # endpoint for Spotify's
 def get_spotify_token():
   auth_str = SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET
   auth_encoded = auth_str.encode("utf-8")
+  
   # returns a base64 object, converts to a string so we can pass it w/ our headers when we send a request to Spotify
   auth_base64 = str(base64.b64encode(auth_encoded), "utf-8")
 

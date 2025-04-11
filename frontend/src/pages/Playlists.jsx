@@ -27,15 +27,20 @@ const Playlists = () => {
     grabUserPlaylists();
   }, []);
 
+  // useEffect(() => {
+  //   console.log("New playlist has been added to the users playlist:", userPlaylists)
+  // }, [userPlaylists])
+
   const grabUserPlaylists = async () => {
     // API Call to backend
+    // console.log("userToken inside grabUserPlaylists func:", userToken)
     const response = await axios.get(playlistUrl, {
       headers: {
         Authorization: `Token ${userToken}`,
       },
     });
     setUserPlaylists(response.data); // set their created playlists to state
-    console.log(response.data);
+    console.log("Data after creating/deleting a playlist:", response.data);
   };
 
   const createPlaylist = async () => {
@@ -51,7 +56,9 @@ const Playlists = () => {
           Authorization: `Token ${userToken}`,
         },
       });
-      console.log(response.data);
+      // update usersPlaylist state variable to include newly created playlist
+      // also also add it to the page in the .map() function
+      grabUserPlaylists()
     } catch (error) {
       console.error("Error:", error);
     }
