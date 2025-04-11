@@ -6,14 +6,30 @@ import axios from "axios";
 const SearchResults = () => {
   const {userToken} = useOutletContext()
   const {queryItem} = useParams()
+  const [trackResults, setTrackResults] = useState([])
+  const [artistResults, setArtistResults] = useState([])
+  const [albumResults, setAlbumResults] = useState([])
+
+
 
   useEffect(() => {
-    if (queryItem === false){
-      return 
-    } else {
+    if (!queryItem){
       handleSearch()
+    } else {
+      return 
     }
   }, [queryItem])
+
+  useEffect(() => {
+    if (trackResults.length === 0, artistResults.length === 0, albumResults.length === 0){
+      return
+    } else {
+    console.log("tracks:", trackResults)
+    console.log("artists:", artistResults)
+    console.log("albums:", albumResults)
+}}, [trackResults, artistResults, albumResults])
+
+
 
    const handleSearch = async () => {
       // const userToken = localStorage.getItem("token");
@@ -24,11 +40,28 @@ const SearchResults = () => {
             Authorization: `Token ${userToken}`
           }
         })
-        console.log(response.data)
+        const tracks = response.data[0]['tracks']
+        // console.log("tracks:", tracks)
+        const artists = response.data[1]['artists']
+        // console.log("artists:", artists)
+        const albums = response.data[2]['albums']
+        // console.log("albums:", albums)
+        
+        set_search_results(tracks, artists, albums)
+
       } catch (error) {
         console.error("Error:", error)
       }
     }
+
+    const set_search_results = (tracks, artists, albums) => {
+      setTrackResults(tracks)
+      setArtistResults(artists)
+      setAlbumResults(albums)
+    }
+
+
+
   return (
     <>
     <Navbar />
