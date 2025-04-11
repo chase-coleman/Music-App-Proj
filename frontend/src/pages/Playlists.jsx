@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "axios";
 import PlaylistList from "../components/PlaylistList";
+import { useOutletContext } from "react-router-dom";
 // import deletePlaylist from "../utilities/deleteplaylist";
 
 // TO DO : create way to track when a playlist is delete, so the page refreshes when
@@ -16,9 +17,9 @@ const Playlists = () => {
   const [playlistName, setPlaylistName] = useState("");
   const [playlistDescription, setPlaylistDescription] = useState("");
   const [userPlaylists, setUserPlaylists] = useState([]);
+  const {userToken} = useOutletContext()
 
   const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/"; // url to playlist view
-  const userToken = localStorage.getItem("token"); // grab user's token
 
   // grab all the user's playlists upon the page being rendered
   useEffect(() => {

@@ -1,13 +1,14 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Outlet, Link, useOutletContext } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import Navbar from "../components/Navbar";
 
-const login = () => {
 
-}
 
 function HomePage() {
+
+  const {userToken} = useOutletContext()
+
   return (
     <>
     <Navbar />

@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { useOutletContext } from "react-router-dom";
 
 const PlaylistList = ({ playlist }) => {
   const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
-  const userToken = localStorage.getItem("token");
+  const {userToken} = useOutletContext()
+  // const userToken = localStorage.getItem("token");
   const [delBtn, setDelBtn] = useState(false);
 
   // by setting the state variable of delBtn inside each component that gets

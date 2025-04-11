@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import axios from "axios";
 import Navbar from "../components/Navbar";
@@ -10,7 +10,8 @@ function Login() {
   // creating state variables for user's username and password that they enter
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
-  
+  const {setUserToken} = useOutletContext()
+
   const handleLogin = async () => {
     const loginUrl = 'http://127.0.0.1:8000/api/v1/users/login/'
     try{
@@ -20,8 +21,8 @@ function Login() {
       password: password
     })
     console.log(response.data)
-    const userToken = response.data.token
-    localStorage.setItem('token', userToken)
+    const current_user_token = response.data.token
+    setUserToken(current_user_token)
     } catch (error){
       console.error("Error:", error)
     }
