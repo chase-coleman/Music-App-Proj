@@ -34,6 +34,9 @@ spotify_item_search_url = "https://api.spotify.com/v1/" # endpoint for Spotify's
 
 # this function will call Spotify's API and get an access-token for our app
 def get_spotify_token():
+  # print("CLIENT ID:", SPOTIFY_CLIENT_ID)
+  # print("ClIENT SECRET:", SPOTIFY_CLIENT_ID)
+  
   auth_str = SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET
   auth_encoded = auth_str.encode("utf-8")
   
