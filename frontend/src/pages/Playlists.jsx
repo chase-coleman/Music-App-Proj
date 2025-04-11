@@ -40,7 +40,7 @@ const Playlists = () => {
       },
     });
     setUserPlaylists(response.data); // set their created playlists to state
-    console.log("Data after creating/deleting a playlist:", response.data);
+    // console.log("Data after creating/deleting a playlist:", response.data);
   };
 
   const createPlaylist = async () => {
@@ -98,6 +98,7 @@ const Playlists = () => {
             <li className="list-row" key={playlist.id}>
               <PlaylistList // display a component for each playlist
                 playlist={playlist}
+                grabUserPlaylists={grabUserPlaylists}
               />
             </li>
           ))}

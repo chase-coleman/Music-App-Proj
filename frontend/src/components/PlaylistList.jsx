@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { useOutletContext } from "react-router-dom";
 
-const PlaylistList = ({ playlist }) => {
+const PlaylistList = ({ playlist, grabUserPlaylists }) => {
   const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
   const {userToken} = useOutletContext()
   // const userToken = localStorage.getItem("token");
@@ -32,6 +32,9 @@ const PlaylistList = ({ playlist }) => {
           Authorization: `Token ${userToken}`,
         },
       });
+      // update usersPlaylist state variable without the deleted playlist
+      // also also remove it to the page in the .map() function
+      grabUserPlaylists()
     } catch (error) {
       console.error("Error:", error);
     }
