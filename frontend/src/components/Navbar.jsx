@@ -1,3 +1,8 @@
+/*
+https://reactrouter.com/6.30.0/hooks/use-navigate#optionsreplace
+ - useNavigate doc
+*/ 
+
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import axios from "axios";
@@ -9,16 +14,13 @@ const Navbar = () => {
   const navigate = useNavigate()
 
   const handleSearch = async () => {
-    // const userToken = localStorage.getItem("token");
-    const queryItem = search
-    navigate(`/search-results/${queryItem}`, {replace: true})
+    const queryItem = search // get the search state variable 
+    // navigate to a different page to display the search results
+    navigate(`/search-results/${queryItem}`, {replace: true}) 
   }
 
   
   const userLogout = async () => {
-    // get the user's token from local storage
-    // const userToken = localStorage.getItem("token");
-    // console.log(userToken);
     const logoutUrl = "http://127.0.0.1:8000/api/v1/users/logout/";
     try {
       // send a POST request to the logout endpoint (which will delete the user' auth token from the db)
@@ -31,7 +33,6 @@ const Navbar = () => {
           },
         }
       );
-      // console.log(response.data);
       // remove the deleted token from the local storage
       localStorage.removeItem("token");
     } catch (error) {
@@ -59,7 +60,7 @@ const Navbar = () => {
             onChange={(e) => setSearch(e.target.value)} // update the state variable for the search bar as the user types in it
             className="input input-bordered w-24 md:w-auto"
           />
-          {/* call the function that will begin the search process for the app (on the backend)*/}
+          {/* call the function that will grab the search bar value & navigate to the search results page*/}
           <button className="btn btn-neutral w-[5vw]" onClick={handleSearch}> 
           Search
         </button>

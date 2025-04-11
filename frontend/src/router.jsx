@@ -5,6 +5,7 @@ import Login from "./pages/LoginPage";
 import Signup from "./pages/SignUp";
 import Playlists from "./pages/Playlists";
 import SearchResults from "./pages/SearchResultsPage";
+import ErrorPage from "./pages/ErrorPage";
 
 const router = createBrowserRouter([
   {
@@ -31,8 +32,9 @@ const router = createBrowserRouter([
         path: "search-results/:item",
         element: <SearchResults />
       },
-    ]
+    ],
+    errorElement: <ErrorPage />
   }
-])
+  ])
 
 export default router
