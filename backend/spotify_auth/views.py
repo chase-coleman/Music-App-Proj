@@ -25,11 +25,18 @@ import json
 # TO DO : create models + model.fields to store a user's liked artists, songs, etc
 # TO DO : using this views.py file, create model instances for when a user wants to like/follow that stuff
 
+
 load_dotenv() # we have to load the environment variables from .env
 
 SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID") # my personal client ID for Spotify
 SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET") # my Spotify API client secret number
 spotify_item_search_url = "https://api.spotify.com/v1/" # endpoint for Spotify's item search URL
+
+
+def convert_ms_into_minutes(ms):
+  seconds = (ms // 1000) % 60
+  minutes = (ms // 1000) // 60
+  return f"{minutes}:{seconds}"
 
 
 # this function will call Spotify's API and get an access-token for our app
@@ -58,8 +65,7 @@ def get_spotify_token():
 def get_auth_header(spotify_token):
   return {"Authorization": "Bearer " + spotify_token}
 
-# STEPS TO GET item:
-# search for item by name
+
 # type=... is a list of types that the API will return with a matching searched item (ie artists, albums, tracks(songs)
 # limit=... is limiting how many items are being returned by the API (1 = 1 item returned, 3 = 3 items returned, etc)
 def search_for_item(spotify_token, item, headers):
@@ -74,8 +80,39 @@ def search_for_item(spotify_token, item, headers):
    
    # converting the search results to a dictionary
   json_result = json.loads(search_result.content)
-  return json_result
+  # artist_id = json_result['artists']['items'][0]['id']
 
+  tracks = [{"id":track['id'], "track_name":track['name'], "artist": track['artists'][0]['name'], 
+             "track_img_lg": track['album']['images'][0]['url'] if len(track['album']['images']) > 0 else None,
+             "track_img_md": track['album']['images'][1]['url'] if len(track['album']['images']) > 1 else None,
+             "track_img_sm": track['album']['images'][2]['url'] if len(track['album']['images']) > 2 else None,
+             "artist_id": track['artists'][0]['id'], 
+             "album": track['album']['name'], "album_id": track['album']['id'],
+             "track_duration": convert_ms_into_minutes(track['duration_ms']),
+             "track_url": track['href']
+             } 
+            for track in json_result['tracks']['items'] ]
+  artists = [{"id": artist['id'], "artist_name": artist['name'], "followers": artist['followers']['total'],
+              "artist_img_lg": artist['images'][0]['url'] if len(artist['images']) > 0 else None,
+              "artist_img_md": artist['images'][1]['url'] if len(artist['images']) > 1 else None,
+              "artist_img_sm": artist['images'][2]['url'] if len(artist['images']) > 2 else None,
+              "popularity": artist['popularity'],
+              "artist_url": artist['href'],
+              } 
+             for artist in json_result['artists']['items']]
+  albums =  [{"id": album['id'], "album_name": album['name'], "artist": album['artists'][0]['name'],
+              "album_img_lg": album['images'][0]['url'] if len(album['images']) > 0 else None,
+              "album_img_lg": album['images'][1]['url'] if len(album['images']) > 1 else None,
+              "album_img_lg": album['images'][2]['url'] if len(album['images']) > 2 else None,
+              "release_date": album['release_date'], 
+              "album_url": album['href']
+              }
+            for album in json_result['albums']['items']]
+
+# json_result['tracks']['items']
+# json_result['artists']['items']
+# json_result['albums']['items']
+  return tracks
 
 # Create your views here.
 class Spotify_Callback_View(TokenReq):  
