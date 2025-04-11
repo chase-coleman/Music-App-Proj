@@ -109,10 +109,15 @@ def search_for_item(spotify_token, item, headers):
               }
             for album in json_result['albums']['items']]
 
+  search_results = [
+    {"tracks": tracks},
+    {"artists": artists},
+    {"albums": albums},
+  ]
 # json_result['tracks']['items']
 # json_result['artists']['items']
 # json_result['albums']['items']
-  return tracks
+  return search_results
 
 # Create your views here.
 class Spotify_Callback_View(TokenReq):  
