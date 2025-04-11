@@ -1,4 +1,4 @@
-import { Link, useOutletContext } from "react-router-dom";
+import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -6,20 +6,12 @@ import { useEffect, useState } from "react";
 const Navbar = () => {
   const [search, setSearch] = useState("");
   const {userToken} = useOutletContext()
+  const navigate = useNavigate()
 
   const handleSearch = async () => {
     // const userToken = localStorage.getItem("token");
-    const searchUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/"
-    try {
-      const response = await axios.get(searchUrl + search, {
-        headers: {
-          Authorization: `Token ${userToken}`
-        }
-      })
-      console.log(response.data)
-    } catch (error) {
-      console.error("Error:", error)
-    }
+    const queryItem = search
+    navigate(`/search-results/${queryItem}`, {replace: true})
   }
 
   
