@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { useOutletContext, useParams } from "react-router-dom";
 import axios from "axios";
+import TrackResults from "../components/SearchResults";
+
 
 const SearchResults = () => {
   const {userToken} = useOutletContext()
@@ -13,21 +15,19 @@ const SearchResults = () => {
 
 
   useEffect(() => {
-    if (!queryItem){
-      handleSearch()
-    } else {
-      return 
-    }
+  if (!queryItem){
+    console.log("queryItem was blank!")
+    return
+  }else{
+    handleSearch()
+  }
   }, [queryItem])
 
   useEffect(() => {
-    if (trackResults.length === 0, artistResults.length === 0, albumResults.length === 0){
-      return
-    } else {
     console.log("tracks:", trackResults)
     console.log("artists:", artistResults)
     console.log("albums:", albumResults)
-}}, [trackResults, artistResults, albumResults])
+}, [trackResults, artistResults, albumResults])
 
 
 
@@ -40,6 +40,7 @@ const SearchResults = () => {
             Authorization: `Token ${userToken}`
           }
         })
+        // console.log(response.data)
         const tracks = response.data[0]['tracks']
         // console.log("tracks:", tracks)
         const artists = response.data[1]['artists']
@@ -66,6 +67,20 @@ const SearchResults = () => {
     <>
     <Navbar />
     <h1>Search Results Page</h1>
+    {trackResults ? (
+  <ul className="list bg-base-100 rounded-box shadow-md">
+    <li className="p-4 pb-2 text-xs opacity-60 tracking-wide" key="">
+      Songs
+    </li>
+    {trackResults.map((track) => (
+      <li className="list-row" key={track.id}>
+        <TrackResults track={track} />
+      </li>
+    ))}
+  </ul>
+) : (
+  <h4>Not Loaded Yet!</h4>
+)}
     </>
   )
 }

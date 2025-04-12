@@ -29,7 +29,7 @@ const router = createBrowserRouter([
         element: <Playlists />
       },
       {
-        path: "search-results/:item",
+        path: "search-results/:queryItem",
         element: <SearchResults />
       },
     ],
