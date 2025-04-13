@@ -4,6 +4,7 @@ import { useOutletContext, useParams } from "react-router-dom";
 import axios from "axios";
 import TrackResults from "../components/TrackResults";
 import ArtistResults from "../components/ArtistResults";
+import AlbumResults from "../components/AlbumResults";
 
 
 const SearchResults = () => {
@@ -64,41 +65,56 @@ const SearchResults = () => {
 
 
 
-  return (
-    <>
-    <Navbar />
-    <h1>Search Results Page</h1>
-    {trackResults ? (
-  <ul className="list bg-base-100 rounded-box shadow-md">
-    <li className="p-4 pb-2 text-xs opacity-60 tracking-wide" key="">
-      Songs
-    </li>
-    {trackResults.map((track) => (
-      <li className="list-row" key={track.id}>
-        <TrackResults track={track} />
-      </li>
-    ))}
-  </ul>
-) : (
-  <h4>Not Loaded Yet!</h4>
-)}
-{artistResults ? (
-  <ul className="list bg-base-100 rounded-box shadow-md">
-    <li className="p-4 pb-2 text-xs opacity-60 tracking-wide" key="">
-      Artists
-    </li>
-    {artistResults.map((artist) => (
-      <li className="list-row" key={artist.id}>
-        <ArtistResults artist={artist}/>
-      </li>
-    ))}
-  </ul>
-) : (
-  <h4>Not Loaded Yet!</h4>
-)
-}
-    </>
-  )
-}
-
-export default SearchResults
+    return (
+      <>
+        <Navbar />
+        <h1>Search Results Page</h1>
+    
+        {trackResults ? (
+          <ul className="list bg-base-100 rounded-box shadow-md">
+            <li className="p-4 pb-2 text-xs opacity-60 tracking-wide" key="">
+              Songs
+            </li>
+            {trackResults.map((track) => (
+              <li className="list-row" key={track.id}>
+                <TrackResults track={track} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <h4>Not Loaded Yet!</h4>
+        )}
+    
+        {artistResults ? (
+          <ul className="list bg-base-100 rounded-box shadow-md">
+            <li className="p-4 pb-2 text-xs opacity-60 tracking-wide" key="">
+              Artists
+            </li>
+            {artistResults.map((artist) => (
+              <li className="list-row" key={artist.id}>
+                <ArtistResults artist={artist} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <h4>Not Loaded Yet!</h4>
+        )}
+    
+        {albumResults ? (
+          <ul className="list bg-base-100 rounded-box shadow-md">
+            <li className="p-4 pb-2 text-xs opacity-60 tracking-wide" key="">
+              Albums
+            </li>
+            {albumResults.map((album) => (
+              <li className="list-row" key={album.id}>
+                <AlbumResults album={album} />
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <h4>Not Loaded Yet!</h4>
+        )}
+      </>
+    )};
+    
+export default SearchResults;
