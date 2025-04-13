@@ -3,7 +3,7 @@ import axios from "axios";
 import { useOutletContext } from "react-router-dom";
 
 const TrackResults = ({ track }) => {
-  const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
+  const trackUrl = "http://127.0.0.1:8000/api/v1/tracks/";
   const {userToken} = useOutletContext()
   // const userToken = localStorage.getItem("token");
   const [likeBtn, setLikeBtn] = useState(false);
@@ -15,10 +15,27 @@ const TrackResults = ({ track }) => {
   // shared the same state. so clicking delete on one playlist, deleted them all
 
 
-  const likeSong = () => {
+  const likeSong = async () => {
     console.log("Like button has been pressed!")
-    
+    // console.log(track)
+    const track_to_add = {
+      "spotify_id": track.id,
+      "name": track.track_name,
+      "track_url": track.track_url,
+      "duration": track.track_duration
+    }
+    try {
+      const response = await axios.post(trackUrl, track_to_add,{
+        headers: {
+          Authorization: `Token ${userToken}`
+        }
+      })
+      alert(response.data['Message'])
+  } catch (error){
+    console.error("Error:", error)
   }
+}
+
 
   return (
     <>
