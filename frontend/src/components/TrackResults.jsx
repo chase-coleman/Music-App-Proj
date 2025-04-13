@@ -3,7 +3,7 @@ import axios from "axios";
 import { useOutletContext } from "react-router-dom";
 
 const TrackResults = ({ track }) => {
-  const trackUrl = "http://127.0.0.1:8000/api/v1/tracks/";
+  const trackUrl = "http://127.0.0.1:8000/api/v1/tracks/"; // API endopint for working with tracks
   const {userToken} = useOutletContext()
   // const userToken = localStorage.getItem("token");
   const [likeBtn, setLikeBtn] = useState(false);
@@ -16,21 +16,20 @@ const TrackResults = ({ track }) => {
 
 
   const likeSong = async () => {
-    console.log("Like button has been pressed!")
-    // console.log(track)
+    // create an object to send to the backend in proper format
     const track_to_add = {
       "spotify_id": track.id,
       "name": track.track_name,
       "track_url": track.track_url,
       "duration": track.track_duration
     }
-    try {
+    try { 
       const response = await axios.post(trackUrl, track_to_add,{
         headers: {
           Authorization: `Token ${userToken}`
         }
       })
-      alert(response.data['Message'])
+      alert(response.data['Message']) // alert the user that the song has been added to their liked songs 
   } catch (error){
     console.error("Error:", error)
   }
