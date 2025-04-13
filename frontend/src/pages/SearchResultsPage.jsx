@@ -84,7 +84,7 @@ const SearchResults = () => {
         ) : (
           <h4>Not Loaded Yet!</h4>
         )}
-    
+{/*     
         {artistResults ? (
           <ul className="list bg-base-100 rounded-box shadow-md">
             <li className="p-4 pb-2 text-xs opacity-60 tracking-wide" key="">
@@ -113,7 +113,7 @@ const SearchResults = () => {
           </ul>
         ) : (
           <h4>Not Loaded Yet!</h4>
-        )}
+        )} */}
       </>
     )};
     
