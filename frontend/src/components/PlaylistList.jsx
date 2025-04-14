@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../axios";
 import { Link, useOutletContext } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 
@@ -29,11 +29,8 @@ const PlaylistList = ({ playlist, grabUserPlaylists }) => {
     console.log("Deleting Playlist...");
     try {
       // do a DELETE request to remove the playlist instance from the db 
-      const response = await axios.delete(`${playlistUrl}${playlistID}/`, { 
-          headers: {
-          Authorization: `Token ${userToken}`,
-        },
-      });
+      const response = await axios.delete(`${playlistUrl}${playlistID}/`);
+      
       // update usersPlaylist state variable without the deleted playlist
       // also also remove it to the page in the .map() function
       grabUserPlaylists()

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import axios from "axios";
+import axios from "../axios";
 import PlaylistList from "../components/PlaylistList";
 import { useOutletContext } from "react-router-dom";
 // import deletePlaylist from "../utilities/deleteplaylist";
@@ -31,14 +31,11 @@ const Playlists = () => {
   //   console.log("New playlist has been added to the users playlist:", userPlaylists)
   // }, [userPlaylists])
 
+  // API Call to backend
   const grabUserPlaylists = async () => {
-    // API Call to backend
     // console.log("userToken inside grabUserPlaylists func:", userToken)
-    const response = await axios.get(playlistUrl, {
-      headers: {
-        Authorization: `Token ${userToken}`,
-      },
-    });
+    const response = await axios.get(playlistUrl);
+
     setUserPlaylists(response.data); // set their created playlists to state
     // console.log("Data after creating/deleting a playlist:", response.data);
   };
