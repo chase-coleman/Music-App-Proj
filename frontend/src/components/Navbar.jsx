@@ -5,7 +5,7 @@ https://reactrouter.com/6.30.0/hooks/use-navigate#optionsreplace
 
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { Nav } from "react-bootstrap";
-import axios from "axios";
+import axios from "../axios";
 import { useEffect, useState } from "react";
 
 const Navbar = () => {
@@ -24,17 +24,10 @@ const Navbar = () => {
     const logoutUrl = "http://127.0.0.1:8000/api/v1/users/logout/";
     try {
       // send a POST request to the logout endpoint (which will delete the user' auth token from the db)
-      const response = await axios.post(
-        logoutUrl,
-        {},
-        {
-          headers: {
-            Authorization: `Token ${userToken}`,
-          },
-        }
-      );
-      // remove the deleted token from the local storage
-      localStorage.removeItem("token");
+      const response = await axios.post(logoutUrl);
+
+      localStorage.removeItem("token"); // remove the deleted token from the local storage
+      console.log("User signed out")
     } catch (error) {
       console.error("Error:", error);
     }

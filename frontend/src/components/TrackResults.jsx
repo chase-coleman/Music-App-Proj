@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../axios";
 import { useOutletContext } from "react-router-dom";
 
 const TrackResults = ({ track }) => {
@@ -30,13 +30,8 @@ const TrackResults = ({ track }) => {
       "track_img_md": track.track_img_md,
       "track_img_sm": track.track_img_sm
     }
-    console.log(track_to_add)
     try { 
-      const response = await axios.post(trackUrl, track_to_add,{
-        headers: {
-          Authorization: `Token ${userToken}`
-        }
-      })
+      const response = await axios.post(trackUrl, track_to_add)
       alert(response.data['Message']) // alert the user that the song has been added to their liked songs 
   } catch (error){
     console.error("Error:", error)

@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from "react";
 import Navbar from "../components/Navbar";
-import axios from "axios";
+import axios from "../axios";
 import { useOutletContext, useParams } from "react-router-dom";
 import PlaylistTracks from "../components/PlaylistTracks";
 
@@ -21,13 +21,9 @@ const PlaylistView = () => {
     console.log("Songs have been updated!", playlistTracks)
   }, [playlistTracks])
 
+  // API Call to get all songs within the viewed playlist
   const getTracks = async () => {
-    // console.log(encodedName)
-    const response = await axios.get(`${singlePlaylistUrl}${encodedName}`, {
-      headers: {
-        Authorization: `Token ${userToken}`
-      }
-    })
+    const response = await axios.get(`${singlePlaylistUrl}${encodedName}`)
     setPlaylistTracks(response.data['tracks'])
   }
   

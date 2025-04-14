@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
+import axios from "../axios";
 import { useOutletContext } from "react-router-dom";
 
 const PlaylistTracks = ({ track, playlist_name, getTracks }) => {
@@ -17,15 +17,11 @@ const PlaylistTracks = ({ track, playlist_name, getTracks }) => {
 
 
   const removeTrack = async () => {
-   console.log("Removing song!")
-   const response = await axios.delete(`${playlistUrl}${playlist_name}/${track.id}/`, {
-    headers: {
-      Authorization: `Token ${userToken}`
-    }
-  })
-  if (response.status === 204){
-    alert('Song removed from the playlist!')
-    getTracks()
+   const response = await axios.delete(`${playlistUrl}${playlist_name}/${track.id}/`)
+
+    if (response.status === 204){
+      alert('Song removed from the playlist!')
+      getTracks()
   }
 }
 

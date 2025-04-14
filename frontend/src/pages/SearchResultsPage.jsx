@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import { useOutletContext, useParams } from "react-router-dom";
-import axios from "axios";
+import axios from "../axios";
 import TrackResults from "../components/TrackResults";
 import ArtistResults from "../components/ArtistResults";
 import AlbumResults from "../components/AlbumResults";
@@ -37,11 +37,7 @@ const SearchResults = () => {
       // const userToken = localStorage.getItem("token");
       const searchUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/"
       try {
-        const response = await axios.get(searchUrl + queryItem, {
-          headers: {
-            Authorization: `Token ${userToken}`
-          }
-        })
+        const response = await axios.get(searchUrl + queryItem)
         // console.log(response.data)
         const tracks = response.data[0]['tracks']
         // console.log("tracks:", tracks)
