@@ -21,8 +21,16 @@ const TrackResults = ({ track }) => {
       "spotify_id": track.id,
       "name": track.track_name,
       "track_url": track.track_url,
-      "duration": track.track_duration
+      "duration": track.track_duration,
+      "album_name": track.album,
+      "album_id": track.album_id,
+      "artist_name": track.artist,
+      "artist_id": track.artist_id,
+      "track_img_lg": track.track_img_lg,
+      "track_img_md": track.track_img_md,
+      "track_img_sm": track.track_img_sm
     }
+    console.log(track_to_add)
     try { 
       const response = await axios.post(trackUrl, track_to_add,{
         headers: {

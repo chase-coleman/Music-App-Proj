@@ -34,7 +34,7 @@ const router = createBrowserRouter([
         element: <SearchResults />
       },
       {
-        path: "playlists/:playlistid",
+        path: "playlists/:playlistname",
         element: <PlaylistView />
       }
     ],

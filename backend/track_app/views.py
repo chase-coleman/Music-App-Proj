@@ -29,7 +29,14 @@ class Tracks(TokenReq):
       defaults={
         "name": track_data["name"],
         "track_url": track_data["track_url"],
-        "duration": track_data["duration"]
+        "duration": track_data["duration"],
+        "album_name": track_data["album_name"],
+        "album_id": track_data["album_id"],
+        "artist_name": track_data["artist_name"],
+        "artist_id": track_data["artist_id"],
+        "track_img_lg": track_data["track_img_lg"],
+        "track_img_md": track_data["track_img_md"],
+        "track_img_sm": track_data["track_img_sm"]
       }
     )
 

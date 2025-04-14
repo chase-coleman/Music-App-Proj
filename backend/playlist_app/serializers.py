@@ -6,6 +6,7 @@ https://www.django-rest-framework.org/api-guide/relations/#writable-nested-seria
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from rest_framework import serializers
 from .models import Playlist
+from track_app.serializers import TrackSerializer
 
 class PlaylistSerializer(ModelSerializer):
   user = SerializerMethodField() # calls the get_user method before serialization to display the return value
@@ -22,4 +23,12 @@ class PlaylistSerializer(ModelSerializer):
   
 # this playlist will display the name, description, and how many songs are in the playlist
 class PlaylistDisplaySerializer(ModelSerializer):
-  pass 
+  tracks = SerializerMethodField()
+
+  class Meta:
+    model = Playlist
+    fields = ['tracks']
+  
+  def get_tracks(self, obj):
+    tracks = obj.tracks.all()
+    return TrackSerializer(tracks, many=True).data
