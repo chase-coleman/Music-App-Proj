@@ -1,7 +1,7 @@
 /*
 https://reactrouter.com/6.30.0/hooks/use-navigate#optionsreplace
  - useNavigate doc
-*/ 
+*/
 
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { Nav } from "react-bootstrap";
@@ -10,16 +10,21 @@ import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
-  const {userToken} = useOutletContext()
-  const navigate = useNavigate()
+  const { userToken } = useOutletContext();
+  const navigate = useNavigate();
 
   const handleSearch = async () => {
-    const queryItem = search // get the search state variable 
-    // navigate to a different page to display the search results
-    navigate(`/search-results/${queryItem}`, {replace: true}) 
-  }
+    const queryItem = search; // get the search state variable
+    
+    // check if the search input (queryItem) is empty or only contained spaces
+    if (!queryItem || queryItem.trim().length === 0) { 
+      alert("You must enter information before searching!");
+    } else {
+      // navigate to a different page to display the search results
+      navigate(`/search-results/${queryItem}`, { replace: true });
+    }
+  };
 
-  
   const userLogout = async () => {
     const logoutUrl = "http://127.0.0.1:8000/api/v1/users/logout/";
     try {
@@ -27,7 +32,7 @@ const Navbar = () => {
       const response = await axios.post(logoutUrl);
 
       localStorage.removeItem("token"); // remove the deleted token from the local storage
-      console.log("User signed out")
+      console.log("User signed out");
     } catch (error) {
       console.error("Error:", error);
     }
@@ -54,9 +59,9 @@ const Navbar = () => {
             className="input input-bordered w-24 md:w-auto"
           />
           {/* call the function that will grab the search bar value & navigate to the search results page*/}
-          <button className="btn btn-neutral w-[5vw]" onClick={handleSearch}> 
-          Search
-        </button>
+          <button className="btn btn-neutral w-[5vw]" onClick={handleSearch}>
+            Search
+          </button>
           <div className="dropdown dropdown-end">
             <div
               tabIndex={0}
@@ -73,7 +78,7 @@ const Navbar = () => {
             <ul
               tabIndex={0}
               className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
-              >
+            >
               <li>
                 <a className="justify-between">
                   Profile
@@ -96,8 +101,8 @@ const Navbar = () => {
 
 export default Navbar;
 
-              // useEffect(() => {
-              //   if (search){
-              //     console.log(search);
-              //   } 
-              // }, [search]);
+// useEffect(() => {
+//   if (search){
+//     console.log(search);
+//   }
+// }, [search]);
