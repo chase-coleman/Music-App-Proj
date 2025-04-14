@@ -34,3 +34,13 @@ class Single_Playlist(TokenReq):
     viewed_playlist = get_object_or_404(Playlist, name=playlist_name)
     ser_playlist = PlaylistDisplaySerializer(viewed_playlist)
     return Response(ser_playlist.data, status=s.HTTP_200_OK)
+  
+  def delete(self, request, playlist_name, id):
+    viewed_playlist = get_object_or_404(Playlist, name=playlist_name)
+    track_to_delete = viewed_playlist.tracks.filter(id=id)
+
+    if track_to_delete:
+      # using .remove() removes the association. .delete() would remove the song from the entire database
+      viewed_playlist.tracks.remove(id)
+      return Response({"Message": "Song removed from playlist!"}, status=s.HTTP_204_NO_CONTENT)
+    
