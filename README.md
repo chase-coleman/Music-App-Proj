@@ -32,3 +32,7 @@ Scalability Notes :
     that access token would be good for one hour. So I would have to get a new token before that hour is up.
     I would use a task scheduler like Celery or Django-q to run every 55-58 minutes while the user is logged in,
     and that would run a function that gets a new access token for a logged in user every 55-58 minutes.
+
+- Ran into the issue of having different user's be able to like the same song. 
+  - In my "Track" model, it has a field of "spotify_id" which is the track's unique ID in Spotify's database. So a user tried to like a song that was already in the database, 
+  it was running into an issue. For this, I use the get_or_create() method in the "Track" view's POST method. 

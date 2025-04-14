@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'playlist_app',
     'genre_app',
+    'track_app',
     'user_app',
     'corsheaders',
     'spotify_auth',

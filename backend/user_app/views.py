@@ -4,6 +4,7 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.authtoken.models import Token
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from playlist_app.models import Playlist
 from rest_framework import status as s
 from .models import User
 
@@ -32,6 +33,7 @@ class Sign_Up(APIView):
     new_user = User.objects.create_user(**data)
     # creating an authentication token for the new user
     user_token = Token.objects.create(user=new_user)
+    new_playlist = Playlist.objects.create(name="Liked Songs", user=new_user)
 
     return Response(f"New account created with the username of {new_user.username}!, token: {user_token.key}", 
                     status=s.HTTP_201_CREATED)

@@ -6,6 +6,7 @@ import Signup from "./pages/SignUp";
 import Playlists from "./pages/Playlists";
 import SearchResults from "./pages/SearchResultsPage";
 import ErrorPage from "./pages/ErrorPage";
+import PlaylistView from "./pages/PlaylistView";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,10 @@ const router = createBrowserRouter([
         path: "search-results/:queryItem",
         element: <SearchResults />
       },
+      {
+        path: "playlists/:playlistid",
+        element: <PlaylistView />
+      }
     ],
     errorElement: <ErrorPage />
   }

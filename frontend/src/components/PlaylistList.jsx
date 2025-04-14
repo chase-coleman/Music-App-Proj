@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import { useOutletContext } from "react-router-dom";
+import { Link, useOutletContext } from "react-router-dom";
+import { Nav } from "react-bootstrap";
+
 
 const PlaylistList = ({ playlist, grabUserPlaylists }) => {
   const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
@@ -50,7 +52,9 @@ const PlaylistList = ({ playlist, grabUserPlaylists }) => {
         {/*Playlist Img goes here */}
       </div>
       <div>
+        <Nav.Link as={Link} to={`/playlists/${playlist.name}`}>
         <div>{playlist.name}</div> {/* Playlist Name goes here*/}
+        </Nav.Link>
         <div className="text-xs uppercase font-semibold opacity-60">
           {" "}
           {/*Playlist Description goes here*/}

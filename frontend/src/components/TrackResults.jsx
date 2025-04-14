@@ -3,7 +3,7 @@ import axios from "axios";
 import { useOutletContext } from "react-router-dom";
 
 const TrackResults = ({ track }) => {
-  const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
+  const trackUrl = "http://127.0.0.1:8000/api/v1/tracks/"; // API endopint for working with tracks
   const {userToken} = useOutletContext()
   // const userToken = localStorage.getItem("token");
   const [likeBtn, setLikeBtn] = useState(false);
@@ -14,14 +14,27 @@ const TrackResults = ({ track }) => {
   // the Playlists page and passing it down as a prop, because all playlists
   // shared the same state. so clicking delete on one playlist, deleted them all
 
-  useEffect(() => {
-    console.log("Song will be added to your liked songs!")
-    likeSong()
-  }, [likeBtn, setLikeBtn])
 
-  const likeSong = () => {
-    console.log("Like button has been pressed!")
+  const likeSong = async () => {
+    // create an object to send to the backend in proper format
+    const track_to_add = {
+      "spotify_id": track.id,
+      "name": track.track_name,
+      "track_url": track.track_url,
+      "duration": track.track_duration
+    }
+    try { 
+      const response = await axios.post(trackUrl, track_to_add,{
+        headers: {
+          Authorization: `Token ${userToken}`
+        }
+      })
+      alert(response.data['Message']) // alert the user that the song has been added to their liked songs 
+  } catch (error){
+    console.error("Error:", error)
   }
+}
+
 
   return (
     <>
@@ -57,8 +70,11 @@ const TrackResults = ({ track }) => {
           </g>
         </svg>
       </button>
-      <button className="btn btn-square btn-ghost">
-        <svg className="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"></path></g></svg>
+      <button className="btn btn-square btn-ghost" onClick={likeSong}>
+        <svg className="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+        <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor">
+          <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
+          </path></g></svg>
       </button>
       {/*Put Trash icon here for users to delete a playlist*/}
     </>
