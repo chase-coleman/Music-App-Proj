@@ -5,11 +5,7 @@ import PlaylistList from "../components/PlaylistList";
 import { useOutletContext } from "react-router-dom";
 // import deletePlaylist from "../utilities/deleteplaylist";
 
-// TO DO : create way to track when a playlist is delete, so the page refreshes when
-//         one is delete and the user doesn't have to refresh the page
-// TO DO : Create outlet context for user token
 // TO DO : create loading state variable to display while the API makes it's call
-// TO DO : fix axios error that pops up on page render when a user is not logged in.
 // TO DO : create a button on the page so a user can create a new playlist, and when the button is clicked,
 //         a popup opens that asks for the basic playlists information
 
@@ -27,26 +23,25 @@ const Playlists = () => {
     grabUserPlaylists();
   }, []);
 
-  // useEffect(() => {
-  //   console.log("New playlist has been added to the users playlist:", userPlaylists)
-  // }, [userPlaylists])
 
   // API Call to backend
   const grabUserPlaylists = async () => {
-    // console.log("userToken inside grabUserPlaylists func:", userToken)
+    // API Call to the playlists endpoint to get all the user's playlists
     const response = await axios.get(playlistUrl);
 
-    setUserPlaylists(response.data); // set their created playlists to state
-    // console.log("Data after creating/deleting a playlist:", response.data);
+    setUserPlaylists(response.data); // set their created playlists to state so we can display it
   };
 
   const createPlaylist = async () => {
+
     // creating object to send to backend to create the playlist
     const playlistInfo = {
       name: playlistName,
       description: playlistDescription,
     };
+    
     try {
+      
       // send a POST request to backend to create a playlist model in the db
       const response = await axios.post(playlistUrl, playlistInfo, {
         headers: {

@@ -8,14 +8,9 @@ const TrackResults = ({ track }) => {
   // const userToken = localStorage.getItem("token");
   const [likeBtn, setLikeBtn] = useState(false);
 
-  // by setting the state variable of delBtn inside each component that gets
-  // rendered by React (each playlist) has it's own state for the button
-  // I was running into issues declaring the state variable for button in
-  // the Playlists page and passing it down as a prop, because all playlists
-  // shared the same state. so clicking delete on one playlist, deleted them all
-
 
   const likeSong = async () => {
+
     // create an object to send to the backend in proper format
     const track_to_add = {
       "spotify_id": track.id,
@@ -30,6 +25,7 @@ const TrackResults = ({ track }) => {
       "track_img_md": track.track_img_md,
       "track_img_sm": track.track_img_sm
     }
+
     try { 
       const response = await axios.post(trackUrl, track_to_add)
       alert(response.data['Message']) // alert the user that the song has been added to their liked songs 

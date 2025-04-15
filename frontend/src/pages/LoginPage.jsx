@@ -5,6 +5,7 @@ import axios from "axios";
 import Navbar from "../components/Navbar";
 
 // TO DO : error handling for incorrect user login info 
+// TO DO : once user is logged in, redirect to a "home" page 
 
 function Login() {
   // creating state variables for user's username and password that they enter
@@ -14,14 +15,16 @@ function Login() {
 
   const handleLogin = async () => {
     const loginUrl = 'http://127.0.0.1:8000/api/v1/users/login/'
+   
     try{
       // call backend login view and send user-input data to authenticate
     const response = await axios.post(loginUrl, {
       username: username,
       password: password
     })
+    // grab the returned token from the db
     const current_user_token = response.data.token
-    // localStorage.setItem("token", current_user_token)
+
     // set userToken in App.jsx state variable
     setUserToken(current_user_token)
     } catch (error){

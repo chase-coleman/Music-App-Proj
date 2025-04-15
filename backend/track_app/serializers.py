@@ -1,6 +1,9 @@
 from rest_framework.serializers import ModelSerializer, SerializerMethodField
 from rest_framework import serializers
 from .models import Track
+ 
+#  https://www.w3schools.com/PYTHON/ref_func_divmod.asp
+#  - divmod resource
 
 class TrackSerializer(ModelSerializer):
   duration = SerializerMethodField()

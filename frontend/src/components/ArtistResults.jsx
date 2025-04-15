@@ -8,14 +8,8 @@ const ArtistResults = ({ artist }) => {
   // const userToken = localStorage.getItem("token");
   const [likeBtn, setLikeBtn] = useState(false);
 
-  // by setting the state variable of delBtn inside each component that gets
-  // rendered by React (each playlist) has it's own state for the button
-  // I was running into issues declaring the state variable for button in
-  // the Playlists page and passing it down as a prop, because all playlists
-  // shared the same state. so clicking delete on one playlist, deleted them all
-
   useEffect(() => {
-    console.log("Song will be added to your followed artists!")
+    console.log("artist will be added to your followed artists!")
     followArtist()
   }, [likeBtn, setLikeBtn])
 

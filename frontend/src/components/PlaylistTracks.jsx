@@ -3,25 +3,18 @@ import axios from "../axios";
 import { useOutletContext } from "react-router-dom";
 
 const PlaylistTracks = ({ track, playlist_name, getTracks }) => {
-  // const trackUrl = "http://127.0.0.1:8000/api/v1/tracks/"; // API endopint for working with tracks
   const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/"
   const {userToken} = useOutletContext()
-  // const userToken = localStorage.getItem("token");
   const [likeBtn, setLikeBtn] = useState(false);
 
-  // by setting the state variable of delBtn inside each component that gets
-  // rendered by React (each playlist) has it's own state for the button
-  // I was running into issues declaring the state variable for button in
-  // the Playlists page and passing it down as a prop, because all playlists
-  // shared the same state. so clicking delete on one playlist, deleted them all
-
-
   const removeTrack = async () => {
+
+    // do a DELETE request to the Playlist endpoint for the viewed playlist and seleted song
    const response = await axios.delete(`${playlistUrl}${playlist_name}/${track.id}/`)
 
-    if (response.status === 204){
-      alert('Song removed from the playlist!')
-      getTracks()
+    if (response.status === 204){ // if song has been removed from the playlist successfully,
+      alert('Song removed from the playlist!') // alert the user
+      getTracks() // call the function to load the playlist's tracks which will update the page with the song now removed
   }
 }
 

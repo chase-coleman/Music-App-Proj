@@ -17,16 +17,16 @@ const PlaylistList = ({ playlist, grabUserPlaylists }) => {
   // shared the same state. so clicking delete on one playlist, deleted them all
 
   useEffect(() => {
-    if (delBtn){
-      deletePlaylist()
-      setDelBtn(false)
+    if (delBtn){ // if delBtn is true
+      deletePlaylist() // delete the playlist
+      setDelBtn(false) // set delBtn back to false
     }
   }, [delBtn, setDelBtn])
 
   const deletePlaylist = async () => {
     // get the playlist ID from the current playlist being added to a component
     const playlistID = playlist.id; 
-    console.log("Deleting Playlist...");
+
     try {
       // do a DELETE request to remove the playlist instance from the db 
       const response = await axios.delete(`${playlistUrl}${playlistID}/`);
@@ -34,6 +34,7 @@ const PlaylistList = ({ playlist, grabUserPlaylists }) => {
       // update usersPlaylist state variable without the deleted playlist
       // also also remove it to the page in the .map() function
       grabUserPlaylists()
+
     } catch (error) {
       console.error("Error:", error);
     }

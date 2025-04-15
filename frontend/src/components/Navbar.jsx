@@ -32,7 +32,7 @@ const Navbar = () => {
       const response = await axios.post(logoutUrl);
 
       localStorage.removeItem("token"); // remove the deleted token from the local storage
-      console.log("User signed out");
+
     } catch (error) {
       console.error("Error:", error);
     }
