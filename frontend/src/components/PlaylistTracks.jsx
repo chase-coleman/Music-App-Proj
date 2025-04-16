@@ -4,7 +4,7 @@ import { useOutletContext } from "react-router-dom";
 
 const PlaylistTracks = ({ track, playlist_name, getTracks }) => {
   const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/"
-  const {userToken} = useOutletContext()
+  const {userToken, musicActive, setMusicActive, setCurrentTrack} = useOutletContext()
   const [likeBtn, setLikeBtn] = useState(false);
 
   const removeTrack = async () => {
@@ -17,6 +17,16 @@ const PlaylistTracks = ({ track, playlist_name, getTracks }) => {
       getTracks() // call the function to load the playlist's tracks which will update the page with the song now removed
   }
 }
+
+  const handlePlay = () => {
+    if (!musicActive){
+    console.log("Play btn pressed!")
+    setCurrentTrack(track)
+    setMusicActive(true)
+    } else if (musicActive){
+      setMusicActive(track)
+    }
+  }
 
 
   return (
@@ -38,7 +48,7 @@ const PlaylistTracks = ({ track, playlist_name, getTracks }) => {
         <div>{track.album}</div>
         <div>{track.duration}</div>
       </div>
-      <button className="btn btn-square btn-ghost">
+      <button className="btn btn-square btn-ghost" onClick={handlePlay}>
         <svg
           className="size-[1.2em]"
           xmlns="http://www.w3.org/2000/svg"

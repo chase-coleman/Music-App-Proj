@@ -40,7 +40,7 @@ const PlaylistView = () => {
             Playlists
           </li>
           {playlistTracks.map((track) => ( // map through the user's playlists 
-            <li className="list-row" key={track.pk}>
+            <li className="list-row" key={track.id}>
               <PlaylistTracks // display a component for each playlist
                 track={track}
                 playlist_name={playlist_name}

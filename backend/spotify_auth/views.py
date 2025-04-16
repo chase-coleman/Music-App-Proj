@@ -2,8 +2,7 @@
 https://www.youtube.com/watch?v=WAmEZBEeNmg
 tutorial help for the Spotify Web API
 """
-
-from rest_framework.authtoken.models import Token
+from rest_framework import status as s
 from rest_framework.response import Response
 from user_app.views import TokenReq, APIView
 from django.conf import settings
@@ -35,7 +34,7 @@ SPOTIFY_REFRESH_TOKEN = os.getenv("SPOTIFY_REFRESH_TOKEN") # my spotify account'
 SPOTIFY_REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI")
 
 
-class Spotify_Callback_View(APIView):
+class Spotify_Callback_View(TokenReq):
 
     def get(self, request, item=None):
         # grab my refresh token
@@ -44,7 +43,7 @@ class Spotify_Callback_View(APIView):
             return Response({"error": "This application's refresh token is invalid/corrupted. Please contact the site manager."})
         
         # call necessary functions to generate an access token
-        access_token = self.get_spotify_token()
+        access_token = self.get_spotify_token(refresh_token)
         headers = self.get_auth_header(access_token)
 
         # if the user is searching for a song/album/artist, go this route
@@ -52,14 +51,14 @@ class Spotify_Callback_View(APIView):
             answer = self.search_for_item(access_token, item=item, headers=headers)
             # ['artists']['items'][0]['id']
             return Response(answer)
-        return Response(True)
+        return Response({"access_token": access_token})
 
 
     def get_spotify_token(self, refresh_token=None):
 
         # get a new access token using the refresh token
         if refresh_token:
-            access_token = self.get_access_refresh(refresh_token)
+            access_token= self.get_access_refresh(refresh_token)
             return access_token
 
         # put my spotify client ID & secret into one string & encode it
@@ -77,6 +76,8 @@ class Spotify_Callback_View(APIView):
         }
         data = {"grant_type": "client_credentials"} # this is the body of the request we'll be sending
 
+
+
         result = post(spotify_token_url, headers=headers, data=data)
         json_result = json.loads(result.content)
         token = json_result['access_token']
@@ -88,18 +89,21 @@ class Spotify_Callback_View(APIView):
         auth_encoded = auth_str.encode("utf-8")
         auth_base64 = str(base64.b64encode(auth_encoded), "utf-8")
         spotify_token_url = "https://accounts.spotify.com/api/token"
+        scopes = "user-read-private user-read-email playlist-read-private streaming user-read-playback-state user-modify-playback-state"
         headers = {"Authorization": "Basic " + auth_base64, "Content-Type": "application/x-www-form-urlencoded"}
-        data = {"grant_type": "refresh_token", "refresh_token": refresh_token}
+        data = {"grant_type": "refresh_token", 
+                "refresh_token": refresh_token,
+                }
 
         result = post(spotify_token_url, headers=headers, data=data)
         json_result = json.loads(result.content)
 
         if "access_token" in json_result:
             return json_result['access_token']
+
+
+
         return Response({"error": "Failed to use refresh token. Please contact site admin"})
-
-
-
 
     @classmethod
     def get_auth_header(cls, access_token):
