@@ -19,13 +19,10 @@ const PlaylistTracks = ({ track, playlist_name, getTracks }) => {
 }
 
   const handlePlay = () => {
-    if (!musicActive){
-    console.log("Play btn pressed!")
     setCurrentTrack(track)
+    if (!musicActive){
     setMusicActive(true)
-    } else if (musicActive){
-      setMusicActive(track)
-    }
+  } 
   }
 
 
