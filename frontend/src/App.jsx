@@ -8,7 +8,7 @@ import MusicPlayer from './components/MusicPlayer';
 export default function App() {
   const [userToken, setUserToken] = useState(null);
   const [accessToken, setAccessToken] = useState(null)
-  const [musicActive, setMusicActive] = useState(null)
+  const [musicActive, setMusicActive] = useState(false)
   const [currentTrack, setCurrentTrack] = useState(null)
   const spotifyAccessUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/"
   
@@ -27,6 +27,18 @@ export default function App() {
     const spotifyToken = response.data.access_token
     setAccessToken(spotifyToken)
   }
+
+  useEffect(() => {
+    if (!currentTrack) return;
+    console.log(currentTrack)
+  }, [currentTrack])
+
+
+  useEffect(() => {
+    if (musicActive){
+      console.log("musicActive triggered")
+    }
+  }, [musicActive])
 
 
 

@@ -7,6 +7,7 @@ import Playlists from "./pages/Playlists";
 import SearchResults from "./pages/SearchResultsPage";
 import ErrorPage from "./pages/ErrorPage";
 import PlaylistView from "./pages/PlaylistView";
+import LandingPage from "./pages/LandingPage"
 
 const router = createBrowserRouter([
   {
@@ -15,11 +16,11 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
-        element: <HomePage />
+        element: <LandingPage />
       },
       {
-        path: "login",
-        element: <Login />
+        path: "/home",
+        element: <HomePage />
       },
       {
         path: "signup",

@@ -11,7 +11,7 @@ const PlaylistView = () => {
   const [delBtn, setDelBtn] = useState(false)
   const { playlist_name } = useParams()
   const encodedName = encodeURIComponent(playlist_name)
-  const [playlistTracks, setPlaylistTracks] = useState([])
+  const [playlistTracks, setPlaylistTracks] = useState(null)
 
   useEffect(() => {
     getTracks()

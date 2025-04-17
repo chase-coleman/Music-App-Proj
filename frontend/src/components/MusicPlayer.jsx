@@ -119,7 +119,7 @@ const MusicPlayer = ({ accessToken, currentTrack }) => {
         },
         data: {
           device_ids: [deviceID],
-          play: false
+          play: true
         }
       });
       

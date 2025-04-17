@@ -48,5 +48,4 @@ function Login() {
   )
 }
 
-export default Login
-// a17946f2225e496c88fa7ea8419d965d5a4f4bf3
+export default Login;

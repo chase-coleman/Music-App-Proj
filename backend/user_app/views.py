@@ -7,6 +7,7 @@ from rest_framework.views import APIView
 from playlist_app.models import Playlist
 from rest_framework import status as s
 from .models import User
+from .serializers import UserInfoSerializer
 
 # TokenReq class enforces a user be logged in to access certain pages/app functions
 class TokenReq(APIView):
@@ -16,12 +17,14 @@ class TokenReq(APIView):
 class User_Info(TokenReq):
   def get(self, request):
     current_user = request.user
-    return Response({"email": current_user.email, 
+    user_info = {"email": current_user.email, 
                      "username": current_user.username, 
                      "first_name": current_user.first_name, 
                      "last_name": current_user.last_name,
                      "playlists": current_user.playlists.all()
-                     })
+                     }
+    user_ser = UserInfoSerializer(user_info)
+    return Response(user_ser.data)
 
 class Sign_Up(APIView):
   def post(self, request):
