@@ -10,8 +10,7 @@ import PlaylistSongs from "../components/PlaylistSongs";
 function HomePage() {
   const [currentUserInfo, setCurrentUserInfo] = useState(null)
   const [playlistView, setPlaylistView] = useState([])
-  // const [userPlaylists, setUserPlaylists] = useState([])
-
+  
   const {userToken, userPlaylists, setUserPlaylists} = useOutletContext()
   
 

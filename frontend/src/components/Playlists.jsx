@@ -24,7 +24,10 @@ const Playlists = ( {grabUserPlaylists} ) => {
     <button className="playlist-btn" onClick={handlePlaylistCreation}>
       Create New Playlist
     </button>
-    {createBtn ? <CreatePlaylist setCreateBtn={setCreateBtn} grabUserPlaylists={grabUserPlaylists}/>
+    {createBtn ? 
+    <div className='search-results z-50 fixed inset-0 flex items-center justify-center'>
+    <CreatePlaylist setCreateBtn={setCreateBtn} grabUserPlaylists={grabUserPlaylists}/>
+    </div>
     : null
     }
 

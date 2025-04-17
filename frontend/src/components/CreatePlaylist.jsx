@@ -34,7 +34,7 @@ const CreatePlaylist = ( { grabUserPlaylists, setCreateBtn } ) => {
 
   return (
     <>
-    <div className="container flex flex-col justify-center items-center">
+    <div className="createplaylist-container flex flex-col justify-center items-center bg-black">
       <fieldset className="fieldset">
         <input
           className="input"

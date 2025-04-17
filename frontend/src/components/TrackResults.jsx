@@ -4,7 +4,7 @@ import { useOutletContext } from "react-router-dom";
 
 const TrackResults = ({ track }) => {
   const trackUrl = "http://127.0.0.1:8000/api/v1/tracks/"; // API endopint for working with tracks
-  const {userToken} = useOutletContext()
+  // const {} = useOutletContext()
   // const userToken = localStorage.getItem("token");
   const [likeBtn, setLikeBtn] = useState(false);
 

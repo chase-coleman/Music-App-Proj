@@ -10,20 +10,36 @@ import { useEffect, useState } from "react";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
-  const { userToken } = useOutletContext();
+  const { userToken, setTrackResults, setArtistResults, setAlbumResults } = useOutletContext();
   const navigate = useNavigate();
+  const searchUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/"
 
   const handleSearch = async () => {
-    const queryItem = search; // get the search state variable
-    
-    // check if the search input (queryItem) is empty or only contained spaces
-    if (!queryItem || queryItem.trim().length === 0) { 
-      alert("You must enter information before searching!");
-    } else {
-      // navigate to a different page to display the search results
-      navigate(`/search-results/${queryItem}`, { replace: true });
+    inputSearch()
+    };
+
+
+
+  const inputSearch = async () => {
+    try {
+      const response = await axios.get(searchUrl + search)
+      console.log(response.data)
+      const tracks = response.data[0]['tracks']
+      // console.log("tracks:", tracks)
+      const artists = response.data[1]['artists']
+      // console.log("artists:", artists)
+      const albums = response.data[2]['albums']
+      // console.log("albums:", albums)
+      setTrackResults(tracks)
+      setArtistResults(artists)
+      setAlbumResults(albums)
+    } catch (error) {
+      console.error("Error:", error)
     }
-  };
+  }
+
+
+
 
   const userLogout = async () => {
     const logoutUrl = "http://127.0.0.1:8000/api/v1/users/logout/";
