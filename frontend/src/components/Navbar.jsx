@@ -44,10 +44,6 @@ const Navbar = () => {
         <>
           {/* Left side nav items */}
           <div className="flex-1 flex items-center justify-center">
-            <Nav.Link as={Link} to="/playlists">
-              Playlists
-            </Nav.Link>
-            <br />
             <Nav.Link as={Link} to="/">
               <House />
             </Nav.Link>

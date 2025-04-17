@@ -1,7 +1,6 @@
 import { useEffect, useState } from "react";
 import axios from "../axios";
 import { useOutletContext } from "react-router-dom";
-import PlaylistView from "../pages/PlaylistView";
 
 const PlaylistTracks = ({ track, playlistView, getTracks }) => {
   const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/"

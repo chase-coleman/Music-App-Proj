@@ -28,9 +28,9 @@ const PlaylistSongs = ({ playlistView }) => {
     <>
       {playlistView ? (
         <ul className="list bg-base-100 rounded-box shadow-md">
-          <li className="p-4 pb-2 text-xs opacity-60 tracking-wide">
+            <h6>
             {playlistView[0].name}
-          </li>
+            </h6>
           {playlistTracks.map((track) => (
             <li className="list-row" key={track.id}>
               <PlaylistTracks

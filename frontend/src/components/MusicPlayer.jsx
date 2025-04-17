@@ -70,7 +70,7 @@ const MusicPlayer = ({ accessToken, currentTrack }) => {
       // when the song gets paused, run the code within the function
       player.addListener("player_state_changed", (state) => {
         if (!state) return;
-        console.log("Player state changed:", state);
+        // console.log("Player state changed:", state);
         setIsPaused(state.paused);
       });
   
@@ -107,7 +107,7 @@ const MusicPlayer = ({ accessToken, currentTrack }) => {
   // tell Spotify that we want the Playback control set to this device
   const transferPlayback = async () => {
     try {
-      console.log("Transferring playback to device:", deviceID);
+      // console.log("Transferring playback to device:", deviceID);
       
       // Use the correct endpoint for transferring playback
       const response = await axios({
@@ -180,7 +180,7 @@ const MusicPlayer = ({ accessToken, currentTrack }) => {
     
     try {
       const songURI = `spotify:track:${currentTrack.spotify_id}`;
-      console.log("Playing song:", songURI);
+      // console.log("Playing song:", songURI);
       
       const response = await axios({
         method: 'put',

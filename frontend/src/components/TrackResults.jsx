@@ -27,6 +27,7 @@ const TrackResults = ({ track }) => {
     }
 
     try { 
+      console.log("song being liked!")
       const response = await axios.post(trackUrl, track_to_add)
       alert(response.data['Message']) // alert the user that the song has been added to their liked songs 
   } catch (error){

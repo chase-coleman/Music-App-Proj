@@ -10,6 +10,7 @@ export default function App() {
   const [accessToken, setAccessToken] = useState(null)
   const [musicActive, setMusicActive] = useState(false)
   const [currentTrack, setCurrentTrack] = useState(null)
+  const [userPlaylists, setUserPlaylists] = useState(null)
   const spotifyAccessUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/"
   
   // when a user logs in, set their token to localstorage and call the func to get an access token
@@ -44,7 +45,13 @@ export default function App() {
 
   return (
       <>
-      <Outlet context={{userToken, setUserToken, accessToken, musicActive, setMusicActive, currentTrack, setCurrentTrack}}/>
+      <Outlet context={
+        {userToken, setUserToken, 
+        accessToken, musicActive, 
+        setMusicActive, currentTrack, 
+        setCurrentTrack,
+        userPlaylists, setUserPlaylists
+        }}/>
       {userToken && accessToken && musicActive ? (<MusicPlayer currentTrack={currentTrack} accessToken={accessToken}/>) : (null)}
       </>
 )
