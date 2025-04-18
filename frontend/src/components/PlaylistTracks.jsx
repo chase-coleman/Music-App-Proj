@@ -26,22 +26,31 @@ const PlaylistTracks = ({ track, playlistView, getTracks }) => {
 
   return (
     <>
-      <div>
+      <div className="img-container w-[100%] h-[100%]">
         <img
-          className="size-10 rounded-box"
+          className="size-12 rounded-box"
           src={track.track_img_md}
-        />{" "}
+        />
         {/*Playlist Img goes here */}
       </div>
-      <div>
-        <div>{track.name}</div> {/* Playlist Name goes here*/}
-        <div className="text-xs uppercase font-semibold opacity-60">
-          {" "}
+      <div className="h-[100%] w-[100%] overflow-hidden whitespace-nowrap text-ellipsis">
+      <div className="name-container h-[100%] w-[100%] overflow-hidden whitespace-nowrap text-ellipsis">
+        <div className="text-[clamp(0.5em,2.5vw,1em)] font-semibold">
+          {track.name}
+          </div> {/* Playlist Name goes here*/}
+        <div className="artist-container w-[100%]">
           {/*Playlist Description goes here*/}
+          <div className="text-[clamp(0.5em,2.5vw,.75em)]">
           {track.artist_name}
         </div>
+        </div>
+        </div>
         <div>{track.album}</div>
-        <div>{track.duration}</div>
+        <div className="duration-container w-[100%]">
+        <div className="text-[clamp(0.5em,2.5vw,.75em)]">
+          {track.duration}
+        </div>
+      </div>
       </div>
       <button className="btn btn-square btn-ghost" onClick={handlePlay}>
         <svg

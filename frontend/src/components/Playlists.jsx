@@ -34,10 +34,10 @@ const Playlists = ( {grabUserPlaylists} ) => {
       {!userPlaylists ? (
         <h4>You don't have any playlists!</h4>
       ) : (
-        <div className="playlist-container flex flex-col justify-center items-center">
-        <ul className="list bg-base-100 rounded-box shadow-md w-full">
+        <div className="playlist-container w-[100%] h-[100%] flex flex-col justify-center items-center">
+        <ul className="list bg-base-100 rounded-box shadow-md w-[100%] p-0">
           {userPlaylists.map((playlist) => ( // map through the user's playlists 
-            <li className="list-row" key={playlist.id}>
+            <li className="list-row p-1 gap-1" key={playlist.id}>
               <PlaylistList // display a component for each playlist
                 playlist={playlist}
                 grabUserPlaylists={grabUserPlaylists}

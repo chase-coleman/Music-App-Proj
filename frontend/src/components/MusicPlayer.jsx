@@ -9,6 +9,8 @@ const MusicPlayer = ({ accessToken, currentTrack }) => {
   const [isPaused, setIsPaused] = useState(true);
   const [isActive, setIsActive] = useState(false);
   const [deviceID, setDeviceID] = useState(null);
+  const [duration, setDuration] = useState(0)
+  const [position, setPosition] = useState(0)
 
   // Initialize Spotify Web Playback SDK
   useEffect(() => {
@@ -71,9 +73,14 @@ const MusicPlayer = ({ accessToken, currentTrack }) => {
       player.addListener("player_state_changed", (state) => {
         if (!state) return;
         // console.log("Player state changed:", state);
+        const durationMS = state.duration;
+        // const positionMS = state.position
+        setDuration(state.duration)
+        setPosition(state.position)
         setIsPaused(state.paused);
       });
   
+      
       // notify that the player has connected w/ spotify successfully
       player.connect().then(success => {
         if (success) {
@@ -89,14 +96,38 @@ const MusicPlayer = ({ accessToken, currentTrack }) => {
       window.onSpotifyWebPlaybackSDKReady = null;
     };
   }, [accessToken]);
-
+  
+  const formatDuration = (ms) => {
+    const seconds = Math.floor(ms / 1000);
+    const min = Math.floor (seconds / 60);
+    const sec = seconds % 60
+    return `${min}:${sec < 10 ? '0' : ''}${sec}`;
+  }
+  
+  
+  useEffect(() => { 
+    let interval = null
+    
+    if (player && !isPaused){
+      interval = setInterval(async () => {
+        const state = await player.getCurrentState()
+        if (state){
+          setPosition(state.position)
+        }
+      }, 1000)
+    }
+    return () => clearInterval(interval)
+  }, [player, isPaused])
+  
+  
+  
   // Handle device transfer when deviceID is available
   useEffect(() => {
     if (deviceID && accessToken) {
       transferPlayback();
     }
   }, [deviceID, accessToken]);
-
+  
   // Handle song playing when both deviceID and currentTrack are available
   useEffect(() => {
     if (deviceID && currentTrack && accessToken) {
@@ -212,7 +243,9 @@ const MusicPlayer = ({ accessToken, currentTrack }) => {
                 <span>{currentTrack.name}</span>
                 <span>{currentTrack.artist_name}</span>
               </div>
-
+              <progress className="progress w-56" value={position} max={duration}>
+                {formatDuration(position)} / {formatDuration(duration)}
+              </progress>
             <button>
                 <SkipBack size={12} />
             </button>

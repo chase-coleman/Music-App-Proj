@@ -42,19 +42,19 @@ const PlaylistList = ({ playlist, grabUserPlaylists }) => {
 
   return (
     <>
-      <div>
+      <div className="img-container border-2 w-[100%] h-[100%]">
         <img
           className="size-10 rounded-box"
           src="https://img.daisyui.com/images/profile/demo/1@94.webp"
         />{" "}
         {/*Playlist Img goes here */}
       </div>
-      <div>
+
+      <div className="text-container border-2">
         <Nav.Link as={Link} to={`/playlists/${playlist.name}`}>
         <div>{playlist.name}</div> {/* Playlist Name goes here*/}
         </Nav.Link>
-        <div className="text-xs uppercase font-semibold opacity-60">
-          {" "}
+        <div className="text- uppercase font-semibold opacity-60">
           {/*Playlist Description goes here*/}
           {playlist.description}
         </div>

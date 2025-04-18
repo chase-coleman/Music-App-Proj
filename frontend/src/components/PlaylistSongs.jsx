@@ -27,20 +27,22 @@ const PlaylistSongs = ({ playlistView }) => {
   return (
     <>
       {playlistView ? (
-        <ul className="list bg-base-100 rounded-box shadow-md">
+        <div className="song-container w-[100%] h-[100%] flex flex-col items-center">
+        <ul className="list bg-base-100 rounded-box shadow-md w-[100%] p-0">
             <h6>
             {playlistView[0].name}
             </h6>
           {playlistTracks.map((track) => (
-            <li className="list-row" key={track.id}>
+            <li className="list-row p-1 gap-1" key={track.id}>
               <PlaylistTracks
                 track={track}
                 playlistView={playlistView}
                 getTracks={getTracks}
-              />
+                />
             </li>
           ))}
         </ul>
+        </div>
       ) : null}
     </>
   );

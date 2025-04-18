@@ -37,17 +37,18 @@ const TrackResults = ({ track }) => {
 
   return (
     <>
-      <div>
+      <div className="img-container w-[100%] h-[100%]">
         <img
           className="size-10 rounded-box"
           src={track.track_img_md}
         />{" "}
         {/*Playlist Img goes here */}
       </div>
-      <div>
-        <div>{track.track_name}</div> {/* Playlist Name goes here*/}
-        <div className="text-xs uppercase font-semibold opacity-60">
-          {" "}
+      <div className="h-[100%] w-[100%] overflow-hidden whitespace-nowrap text-ellipsis">
+      <div className="name-container max-w-[100%] overflow-hidden whitespace-nowrap text-ellipsis text-[clamp(0.5em,2.5vw,1em)] font-semibold">
+          {track.track_name}
+          </div> {/* Playlist Name goes here*/}
+        <div className="artist-container w-[100%] text-[clamp(0.5em,2.5vw,.75em)]">
           {/*Playlist Description goes here*/}
           {track.artist}
         </div>

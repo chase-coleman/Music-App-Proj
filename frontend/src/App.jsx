@@ -12,9 +12,6 @@ export default function App() {
   const [accessToken, setAccessToken] = useState(null)
   const [currentTrack, setCurrentTrack] = useState(null)
   const [userPlaylists, setUserPlaylists] = useState(null)
-  const [trackResults, setTrackResults] = useState(null)
-  const [artistResults, setArtistResults] = useState(null)
-  const [albumResults, setAlbumResults] = useState(null)
 
   const spotifyAccessUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/"
 
@@ -53,21 +50,11 @@ export default function App() {
       <Outlet context={
         {userToken, setUserToken, 
         accessToken, 
-        trackResults, setTrackResults,
-        artistResults, setArtistResults,
-        albumResults, setAlbumResults,
         musicActive, setMusicActive, 
         currentTrack, setCurrentTrack,
         userPlaylists, setUserPlaylists
         }}/>
       {userToken && accessToken && musicActive ? (<MusicPlayer currentTrack={currentTrack} accessToken={accessToken}/>) : (null)}
-      {trackResults ? 
-      <div className='search-results fixed inset-0 flex items-center justify-center'>
-        <div className='container h-10'>
-      <SearchResults tracks={trackResults}/> 
-      </div>
-      </div>
-      : null}
       </>
 )
 };

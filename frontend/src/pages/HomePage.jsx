@@ -5,12 +5,15 @@ import Navbar from "../components/Navbar";
 import Playlists from "../components/Playlists";
 import axios from "../axios";
 import PlaylistSongs from "../components/PlaylistSongs";
-
+import SearchResults from "../components/SearchResults";
 
 function HomePage() {
   const [currentUserInfo, setCurrentUserInfo] = useState(null)
   const [playlistView, setPlaylistView] = useState([])
-  
+  const [trackResults, setTrackResults] = useState(null)
+  const [artistResults, setArtistResults] = useState(null)
+  const [albumResults, setAlbumResults] = useState(null)
+
   const {userToken, userPlaylists, setUserPlaylists} = useOutletContext()
   
 
@@ -50,17 +53,24 @@ function HomePage() {
 
   return (
     <>
-    <Navbar />
+    <Navbar setTrackResults={setTrackResults} 
+    setArtistResults={setArtistResults} 
+    setAlbumResults={setAlbumResults}/>
     {currentUserInfo ?
     <h3>Hi, {currentUserInfo.first_name}!</h3> : null
     }
-    <div className="page-container relative border-2 flex flex-row">
-      <div className="playlists w-50">
+    <div className="page-container relative border-2 flex flex-row justify-center gap-5">
+      <div className="playlists w-[20rem] border-2">
     <Playlists userPlaylists={userPlaylists} grabUserPlaylists={grabUserPlaylists} setUserPlaylists={setUserPlaylists}/>
       </div>
-    <div className="songs border-2 w-50">
+    <div className="songs border-2 w-[40%]">
       {playlistView.length > 0 ? <PlaylistSongs playlistView={playlistView} /> : null
       }  
+    </div>
+    <div className="container-3 border-2 w-[30%]">
+    {trackResults ? 
+      <SearchResults tracks={trackResults} setTrackResults={setTrackResults}/> 
+      : null}
     </div>    
     </div>
     </>
