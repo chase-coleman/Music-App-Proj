@@ -2,14 +2,12 @@ import { useEffect, useState } from "react";
 import axios from "../axios";
 import { useOutletContext } from "react-router-dom";
 
-const TrackResults = ({ track }) => {
+const TrackResults = ({ track, removeTrack, getTracks, userPlaylists }) => {
   const trackUrl = "http://127.0.0.1:8000/api/v1/tracks/"; // API endopint for working with tracks
   // const userToken = localStorage.getItem("token");
   const [likeBtn, setLikeBtn] = useState(false);
 
-
   const likeSong = async () => {
-
     // create an object to send to the backend in proper format
     const track_to_add = {
       "spotify_id": track.id,
@@ -28,7 +26,7 @@ const TrackResults = ({ track }) => {
     try { 
       console.log("song being liked!")
       const response = await axios.post(trackUrl, track_to_add)
-      alert(response.data['Message']) // alert the user that the song has been added to their liked songs 
+      // alert(response.data['Message']) // alert the user that the song has been added to their liked songs 
   } catch (error){
     console.error("Error:", error)
   }
@@ -70,9 +68,12 @@ const TrackResults = ({ track }) => {
           </g>
         </svg>
       </button>
-      <button className="btn btn-square btn-ghost" onClick={likeSong}>
-        <svg className="size-[1.2em]" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
-        <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2" fill="none" stroke="currentColor">
+      <button className="btn btn-square btn-ghost" onClick={handleLike}>
+        <svg className={`size-[1em] ${likeBtn ? 'text-red-500' : 'text-current'} `} 
+        xmlns="http://www.w3.org/2000/svg" 
+        fill="currentColor"
+        viewBox="0 0 24 24">
+        <g strokeLinejoin="round" strokeLinecap="round" strokeWidth="2">
           <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z">
           </path></g></svg>
       </button>

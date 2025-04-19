@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "../axios";
 import { useOutletContext } from "react-router-dom";
+import { CircleX } from "lucide-react";
 
 
 const CreatePlaylist = ( { grabUserPlaylists, setCreateBtn } ) => {
@@ -34,7 +35,12 @@ const CreatePlaylist = ( { grabUserPlaylists, setCreateBtn } ) => {
 
   return (
     <>
-    <div className="createplaylist-container flex flex-col justify-center items-center bg-black">
+    <div className="createplaylist-container border-2 h-[30%] flex flex-col justify-center items-center ">
+      <div className="w-full flex items-center justify-end">
+      <button>
+      <CircleX color="black"/>
+      </button>
+      </div>
       <fieldset className="fieldset">
         <input
           className="input"
@@ -50,10 +56,11 @@ const CreatePlaylist = ( { grabUserPlaylists, setCreateBtn } ) => {
           type="text"
           placeholder="Playlist Description"
         />
-        <button className="btn btn-neutral w-[25vw]" onClick={createPlaylist}>
+      </fieldset>
+        <button className="createplaylist-btn btn-neutral text-[1em] text-white w-full h-full" 
+        onClick={createPlaylist}>
           Create Playlist
         </button>
-      </fieldset>
       </div>
     </>
   );

@@ -1,10 +1,85 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  text-align: center;
+
+@font-face {
+  font-family: forta, sans-serif;
+  src: url(fortafont);
 }
 
+#root {
+  height: 100% !important;
+  padding: 1px !important;
+  margin: 0;
+  /* background-color: red; */
+  background-image: url("/shubham-dhage--2eXWZkliWo-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
 
+.body {
+  height: 100vh;
+  
+}
 
+.landingpage-container {
+  background-color: rgba(179,179,179,.01);
+  backdrop-filter: blur(5px);
+  color: rgb(250, 245, 230);
+  font-family: forta;
+}
 
+.login-container {
+  background-color: rgba(179,179,179,.01);
+  backdrop-filter: blur(5px);
+  color: rgb(250, 245, 230);
+  font-family: forta;
+}
+
+.brand {
+  font-size: clamp(1em, 6vw, 10em);
+}
+
+.login-btn:hover {
+  border-radius: 75px;
+  color:rgb(250, 245, 230);
+  transform: scale(1.2);
+  box-sizing: border-box;
+}
+
+.field-container {
+  background-color: rgba(179,179,179,.01);
+  backdrop-filter: blur(5px);
+  color: rgb(250, 245, 230);
+  font-family: forta;
+}
+
+.signup-btn:hover {
+  border-radius: 75px;
+  color:rgb(250, 245, 230);
+  transform: scale(1.2);
+  box-sizing: border-box;
+}
+
+.welcome-text {
+  font-family: forta;
+  color:rgb(250, 245, 230);
+}
+
+.home-btn:hover {
+  border-radius: 75px;
+  color:rgb(250, 245, 230);
+  transform: scale(1.2);
+  box-sizing: border-box;
+}
+.createplaylist-container {
+  background-color: rgba(179,179,179,.01);
+  backdrop-filter: blur(5px);
+  /* color: rgb(250, 245, 230); */
+  font-family: forta;
+}
+.createplaylist-btn:hover {
+  border-radius: 75px;
+  color:rgb(250, 245, 230);
+  transform: scale(1.2);
+  box-sizing: border-box;
+}

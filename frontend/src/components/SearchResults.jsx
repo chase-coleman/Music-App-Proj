@@ -6,7 +6,10 @@ import TrackResults from "../components/TrackResults";
 import ArtistResults from "../components/ArtistResults";
 import AlbumResults from "../components/AlbumResults";
 
-const SearchResults = ( { tracks, setTrackResults } ) => {
+const SearchResults = ( { tracks, setTrackResults, userPlaylists, removeTrack, getTracks } ) => {
+
+
+
 
 const removePopup = () => {
   setTrackResults(null)
@@ -28,7 +31,11 @@ const removePopup = () => {
             </div>
             {tracks.map((track) => (
               <li className="list-row p-1 gap-1" key={track.id}>
-                <TrackResults track={track} />
+                <TrackResults 
+                removeTrack={removeTrack}
+                userPlaylists={userPlaylists} 
+                getTracks={getTracks}
+                track={track} />
               </li>
             ))}
           </ul>

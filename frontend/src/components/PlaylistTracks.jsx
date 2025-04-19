@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
 import axios from "../axios";
 import { useOutletContext } from "react-router-dom";
+import { CircleX } from "lucide-react";
 
-const PlaylistTracks = ({ track, playlistView, getTracks }) => {
-  const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/"
+const PlaylistTracks = ({ track, playlistView, removeTrack, getTracks }) => {
+  // const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/"
   const {userToken, musicActive, setMusicActive, setCurrentTrack} = useOutletContext()
   const [likeBtn, setLikeBtn] = useState(false);
 
-  const removeTrack = async () => {
+  // const removeTrack = async () => {
 
-    // do a DELETE request to the Playlist endpoint for the viewed playlist and seleted song
-   const response = await axios.delete(`${playlistUrl}${playlistView[0].name}/${track.id}/`)
+  //   // do a DELETE request to the Playlist endpoint for the viewed playlist and seleted song
+  //  const response = await axios.delete(`${playlistUrl}${playlistView[0].name}/${track.id}/`)
 
-    if (response.status === 204){ // if song has been removed from the playlist successfully,
-      alert('Song removed from the playlist!') // alert the user
-      getTracks() // call the function to load the playlist's tracks which will update the page with the song now removed
-    }
-  }
+  //   if (response.status === 204){ // if song has been removed from the playlist successfully,
+  //     alert('Song removed from the playlist!') // alert the user
+  //     getTracks() // call the function to load the playlist's tracks which will update the page with the song now removed
+  //   }
+  // }
 
   const handlePlay = () => {
     setCurrentTrack(track);
@@ -69,8 +70,8 @@ const PlaylistTracks = ({ track, playlistView, getTracks }) => {
           </g>
         </svg>
       </button>
-      <button className="btn btn-square btn-ghost" onClick={removeTrack}>
-        X
+      <button className="btn btn-square btn-ghost" onClick={() => removeTrack(track.id)}>
+        <CircleX color="black" />
       </button>
       {/*Put Trash icon here for users to delete a playlist*/}
     </>

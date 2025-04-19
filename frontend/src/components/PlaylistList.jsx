@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "../axios";
 import { Link, useOutletContext } from "react-router-dom";
 import { Nav } from "react-bootstrap";
-
+import { CircleX } from 'lucide-react';
 
 const PlaylistList = ({ playlist, grabUserPlaylists }) => {
   const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
@@ -42,7 +42,7 @@ const PlaylistList = ({ playlist, grabUserPlaylists }) => {
 
   return (
     <>
-      <div className="img-container border-2 w-[100%] h-[100%]">
+      <div className="img-container w-[100%] h-[100%]">
         <img
           className="size-10 rounded-box"
           src="https://img.daisyui.com/images/profile/demo/1@94.webp"
@@ -50,7 +50,7 @@ const PlaylistList = ({ playlist, grabUserPlaylists }) => {
         {/*Playlist Img goes here */}
       </div>
 
-      <div className="text-container border-2">
+      <div className="text-container">
         <Nav.Link as={Link} to={`/playlists/${playlist.name}`}>
         <div>{playlist.name}</div> {/* Playlist Name goes here*/}
         </Nav.Link>
@@ -77,7 +77,7 @@ const PlaylistList = ({ playlist, grabUserPlaylists }) => {
         </svg>
       </button>
       <button className="btn btn-square btn-ghost" onClick={() => setDelBtn(true)}>
-        X
+        <CircleX color="black"/>
       </button>
       {/*Put Trash icon here for users to delete a playlist*/}
     </>

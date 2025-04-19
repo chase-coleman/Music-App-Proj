@@ -56,13 +56,13 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults} ) => {
   };
 
   return  (
-    <div className="navbar bg-base-100 shadow-sm">
+    <div className="navbar p-0 shadow-sm">
       {userToken ? (
         <>
           {/* Left side nav items */}
           <div className="flex-1 flex items-center justify-center">
-            <Nav.Link as={Link} to="/">
-              <House />
+            <Nav.Link as={Link} to="/home">
+            <House className="home-btn" color="rgb(250, 245, 230)"/>
             </Nav.Link>
           </div>
 
@@ -116,7 +116,7 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults} ) => {
           {/* If user is not logged in */}
           <div className="flex-1 flex items-center justify-center">
             <Nav.Link as={Link} to="/">
-              <House />
+            <House className="home-btn" color="rgb(250, 245, 230)"/>
             </Nav.Link>
           </div>
           <div className="flex gap-2">

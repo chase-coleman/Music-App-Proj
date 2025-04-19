@@ -21,9 +21,11 @@ const Playlists = ( {grabUserPlaylists} ) => {
   return (
     <>
     <div>
-    <button className="playlist-btn" onClick={handlePlaylistCreation}>
+      <div className="createplaylist-btn flex justify-center mb-[1em]">
+    <button className="playlist-btn bg-white" onClick={handlePlaylistCreation}>
       Create New Playlist
     </button>
+    </div>
     {createBtn ? 
     <div className='search-results z-50 fixed inset-0 flex items-center justify-center'>
     <CreatePlaylist setCreateBtn={setCreateBtn} grabUserPlaylists={grabUserPlaylists}/>
