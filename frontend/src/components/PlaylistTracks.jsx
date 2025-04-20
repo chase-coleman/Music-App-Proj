@@ -4,11 +4,9 @@ import { useOutletContext } from "react-router-dom";
 import { SkipBack, CircleX, Play, Pause, SkipForward } from "lucide-react";
 
 const PlaylistTracks = ({ track, playlistView, removeTrack, getTracks }) => {
-  // const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/"
-  const {userToken, musicActive, isPaused, setIsPaused, 
-    currentTrackID, setMusicActive, currentTrack, player, setCurrentTrack} = useOutletContext()
-  const [likeBtn, setLikeBtn] = useState(false);
-
+  const {isPaused, setIsPaused, 
+        setMusicActive, currentTrack, 
+        player, setCurrentTrack} = useOutletContext()
 
   const handlePlay = async () => {
     if (!isPaused){

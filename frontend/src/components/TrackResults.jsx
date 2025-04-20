@@ -2,15 +2,34 @@ import { useEffect, useState } from "react";
 import axios from "../axios";
 import { useOutletContext } from "react-router-dom";
 import { Prev } from "react-bootstrap/esm/PageItem";
+import AddToPlaylist from "./AddToPlaylist";
+import { CircleX } from "lucide-react";
 
-const TrackResults = ({ track, removeTrack, removeLike, getTracks, setLikedSongs, userPlaylists }) => {
+const TrackResults = ({ track, removeTrack, removeLike, getTracks,grabUserPlaylists, setLikedSongs }) => {
   const [likeBtn, setLikeBtn] = useState(false);
-  const { setMusicActive, setCurrentTrack } = useOutletContext()
+  const [showPlaylists, setShowPlaylists] = useState(false)
+  const [selectedPlaylists, setSelectedPlaylists] = useState([])
+
+  const { setMusicActive, setCurrentTrack, userPlaylists } = useOutletContext()
+
+  const addToPlaylist = () => {
+    setShowPlaylists(true)
+  }
+  useEffect(() => {
+    if (selectedPlaylists){
+    console.log(selectedPlaylists)
+    }
+  }, [selectedPlaylists])
+
+  const handleAdding = () => {
+    
+  }
 
   const handleLike = () => {
     if (!likeBtn){    
       setLikedSongs(prevLikes => [...prevLikes, track ])
       setLikeBtn(true)
+      addToPlaylist()
     } else {
       setLikeBtn(false)
       removeLike(track)
@@ -41,6 +60,29 @@ const TrackResults = ({ track, removeTrack, removeLike, getTracks, setLikedSongs
 
   return (
     <>
+    {showPlaylists ? 
+  <div className="fixed inset-0 z-50 flex items-center justify-center">
+  <ul className="list bg-red-100 rounded-box shadow-md w-[40vw] p-0 gap-2">
+    <div className="text-center">
+      Select the playlists you'd like to add the song to!
+    </div>
+    {userPlaylists.map((playlist) => (
+      <li className="list-row p-1 gap-1" key={playlist.id}>
+        <AddToPlaylist
+          playlist={playlist}
+          setSelectedPlaylists={setSelectedPlaylists}
+          grabUserPlaylists={grabUserPlaylists}
+          setShowPlaylists={setShowPlaylists}
+        />
+      </li>
+    ))}
+    <button className="closeplaylists" onClick={handleAdding}>
+      Done!
+    </button>
+  </ul>
+</div>
+    : null
+    }
       <div className="img-container w-[100%] h-[100%]">
         <img
           className="size-10 rounded-box"

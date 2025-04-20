@@ -26,7 +26,7 @@ export default function App() {
       get_access_token()
     }
   }, [userToken]);
-
+  
   // get a spotify access token via the backend & set it to state 
   const get_access_token = async () => {
     const response = await axios.get(spotifyAccessUrl)

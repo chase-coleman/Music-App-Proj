@@ -76,7 +76,7 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults} ) => {
               onChange={(e) => setSearch(e.target.value)}
               className="input input-bordered w-24 md:w-auto"
             />
-            <button className="btn btn-neutral w-[5vw]" onClick={handleSearch}>
+            <button className="btn btn-neutral w-[5vw] text-white" onClick={handleSearch}>
               Search
             </button>
             <div className="dropdown dropdown-end">

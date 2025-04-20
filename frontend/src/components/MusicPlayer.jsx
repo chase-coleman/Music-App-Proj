@@ -251,7 +251,7 @@ const MusicPlayer = ({ accessToken, player, setPlayer, currentTrack, isPaused, s
             </button>
 
             <button className="btn btn-square btn-ghost" onClick={pauseSong}>
-                {isPaused ? <Play /> : <Pause />}
+                {isPaused ? <Play color="rgb(250, 245, 230)" /> : <Pause color="rgb(250, 245, 230)" />}
             </button>
 
             <button>

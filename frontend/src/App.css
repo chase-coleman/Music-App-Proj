@@ -83,3 +83,19 @@
   transform: scale(1.2);
   box-sizing: border-box;
 }
+
+.dock {
+  background-color: rgba(179,179,179, 0.1);
+  backdrop-filter: blur(2px);
+  color: rgb(250, 245, 230);
+  font-family: forta;
+}
+
+progress::-webkit-progress-bar {
+  background-color: rgb(250, 245, 230);
+}
+
+/* Style for Firefox */
+progress::-moz-progress-bar {
+  background-color: rgb(250, 245, 230);
+}
