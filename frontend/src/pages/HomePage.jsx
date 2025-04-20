@@ -36,7 +36,7 @@ function HomePage() {
     setPlaylistView(initPlaylist)
   }
 
-
+  // get the current logged in user's info to use
   const getUserInfo = async () => {
     const response = await axios.get("http://127.0.0.1:8000/api/v1/users/info/")
     setCurrentUserInfo(response.data)
@@ -49,9 +49,11 @@ function HomePage() {
     // API Call to the playlists endpoint to get all the user's playlists
     const response = await axios.get(playlistUrl);
 
-    setUserPlaylists(response.data); // set their created playlists to state so we can display it
+     // set their created playlists to state so we can display it
+    setUserPlaylists(response.data);
   };
 
+  // API call to backend to grab tracks from a specific playlist
   const getTracks = async () => {
     const response = await axios.get(
       `${singlePlaylistUrl}${playlistView[0].name}`
@@ -59,9 +61,10 @@ function HomePage() {
     setPlaylistTracks(response.data["tracks"]);
   };
 
+  // API call to a specific playlist's endpoint to remove a song from the playlist
   const removeTrack = async (trackID) => {
     const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/"
-    console.log(`Removing ${trackID}`)
+
     // do a DELETE request to the Playlist endpoint for the viewed playlist and seleted song
    const response = await axios.delete(`${playlistUrl}${playlistView[0].name}/${trackID}/`)
 

@@ -33,7 +33,7 @@ export default function App() {
 
   useEffect(() => {
     if (!currentTrack) return;
-    console.log(currentTrack)
+    // console.log(currentTrack)
   }, [currentTrack])
 
 

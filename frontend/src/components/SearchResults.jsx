@@ -7,19 +7,24 @@ import ArtistResults from "../components/ArtistResults";
 import AlbumResults from "../components/AlbumResults";
 
 const SearchResults = ( { tracks, setTrackResults, userPlaylists, removeTrack, getTracks } ) => {
+  // likedSongs is a list of objects containing any liked songs that the user has 
+  // liked from their search results
   const [likedSongs, setLikedSongs] = useState([])
   const trackUrl = "http://127.0.0.1:8000/api/v1/tracks/"; // API endopint for working with tracks
 
+
   useEffect(() => {
     if (likedSongs.length === 0) return;
-    console.log(likedSongs)
-    likeSong(likedSongs[likedSongs.length - 1]) // add the latest liked song to the playlist songs
+      // add the latest liked song to the playlist songs
+      likeSong(likedSongs[likedSongs.length - 1]) 
   }, [likedSongs])
 
+  // removes the search results from the page
   const removePopup = () => {
     setTrackResults(null)
   }
 
+  // a use can unlike a song and it'll be removed from the playlist's track
   const removeLike = (track) => {
     setLikedSongs(likedSongs.filter(song => song.id != track.id))
     removeTrack(track.id)

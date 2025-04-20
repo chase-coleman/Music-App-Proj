@@ -35,18 +35,21 @@ class Single_Playlist(TokenReq):
     ser_playlist = PlaylistDisplaySerializer(viewed_playlist)
     return Response(ser_playlist.data, status=s.HTTP_200_OK)
   
+
+  # in the delete request, we are passing either an int id (the song's database ID)
+  # or we are passing a string id (spotify's id for the song)
   def delete(self, request, playlist_name, id):
     viewed_playlist = get_object_or_404(Playlist, name=playlist_name)
-    # print(id)
+
     if type(id) == int:
       track_to_delete = viewed_playlist.tracks.filter(id=id)
       if track_to_delete:
         # using .remove() removes the association. .delete() would remove the song from the entire database
         viewed_playlist.tracks.remove(id)
         return Response({"Message": "Song removed from playlist!"}, status=s.HTTP_204_NO_CONTENT)
+    # if the id argument is a string (meaning we passed in Spotify's song ID as the arg)
     elif type(id) == str:
       track_to_delete = get_object_or_404(Track, spotify_id=id)
-      # print(track_to_delete.id)
       viewed_playlist.tracks.remove(track_to_delete.id)
 
       return Response({"Message": "Song removed from playlist!"}, status=s.HTTP_204_NO_CONTENT)

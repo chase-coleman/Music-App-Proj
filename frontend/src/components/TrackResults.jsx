@@ -4,9 +4,8 @@ import { useOutletContext } from "react-router-dom";
 import { Prev } from "react-bootstrap/esm/PageItem";
 
 const TrackResults = ({ track, removeTrack, removeLike, getTracks, setLikedSongs, userPlaylists }) => {
-  // const trackUrl = "http://127.0.0.1:8000/api/v1/tracks/"; // API endopint for working with tracks
-  // const userToken = localStorage.getItem("token");
   const [likeBtn, setLikeBtn] = useState(false);
+  const { setMusicActive, setCurrentTrack } = useOutletContext()
 
   const handleLike = () => {
     if (!likeBtn){    
@@ -18,6 +17,27 @@ const TrackResults = ({ track, removeTrack, removeLike, getTracks, setLikedSongs
     }
   }
 
+  // if the user wants to play the song before adding it to a playlist,
+  // we have to create a dictionary from it becuase the MusicPlayer 
+  // component takes in a dictionary
+  const playSong = () => {
+    const track_to_play = {
+      "spotify_id": track.id,
+      "name": track.track_name,
+      "track_url": track.track_url,
+      "duration": track.track_duration,
+      "album_name": track.album,
+      "album_id": track.album_id,
+      "artist_name": track.artist,
+      "artist_id": track.artist_id,
+      "track_img_lg": track.track_img_lg,
+      "track_img_md": track.track_img_md,
+      "track_img_sm": track.track_img_sm
+    }
+    // console.log(`Playing ${track_to_play}`)
+    setCurrentTrack(track_to_play)
+    setMusicActive(true)
+  }
 
   return (
     <>
@@ -37,7 +57,7 @@ const TrackResults = ({ track, removeTrack, removeLike, getTracks, setLikedSongs
           {track.artist}
         </div>
       </div>
-      <button className="btn btn-square btn-ghost">
+      <button className="play-btn btn-square btn-ghost" onClick={playSong}>
         <svg
           className="size-[1.2em]"
           xmlns="http://www.w3.org/2000/svg"
