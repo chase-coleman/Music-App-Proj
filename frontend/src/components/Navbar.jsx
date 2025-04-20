@@ -23,7 +23,7 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults} ) => {
   const inputSearch = async () => {
     try {
       const response = await axios.get(searchUrl + search)
-      console.log(response.data)
+      // console.log(response.data)
       const tracks = response.data[0]['tracks']
       // console.log("tracks:", tracks)
       const artists = response.data[1]['artists']
@@ -49,7 +49,8 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults} ) => {
       const response = await axios.post(logoutUrl);
 
       localStorage.removeItem("token"); // remove the deleted token from the local storage
-
+      console.log("user logged out!", userToken)
+      navigate('/')
     } catch (error) {
       console.error("Error:", error);
     }

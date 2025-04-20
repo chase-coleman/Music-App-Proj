@@ -27,7 +27,7 @@ const PlaylistSongs = ({ getTracks, removeTrack, playlistTracks, playlistView })
   return (
     <>
       {playlistView ? (
-        <div className="song-container w-[100%] h-[100%] flex flex-col justify-center items-center">
+        <div className="song-container w-[100%] h-[100%] flex flex-col items-center">
         <ul className="list bg-base-100 rounded-box shadow-md w-[100%] p-0">
             <h6 className="text-center">
             {playlistView[0].name}

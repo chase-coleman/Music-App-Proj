@@ -4,7 +4,7 @@ from rest_framework import status as s
 from user_app.views import TokenReq
 from .models import Playlist
 from django.shortcuts import get_object_or_404
-
+from track_app.models import Track
 
 # Create your views here.
 class Playlists(TokenReq):
@@ -37,10 +37,17 @@ class Single_Playlist(TokenReq):
   
   def delete(self, request, playlist_name, id):
     viewed_playlist = get_object_or_404(Playlist, name=playlist_name)
-    track_to_delete = viewed_playlist.tracks.filter(id=id)
+    # print(id)
+    if type(id) == int:
+      track_to_delete = viewed_playlist.tracks.filter(id=id)
+      if track_to_delete:
+        # using .remove() removes the association. .delete() would remove the song from the entire database
+        viewed_playlist.tracks.remove(id)
+        return Response({"Message": "Song removed from playlist!"}, status=s.HTTP_204_NO_CONTENT)
+    elif type(id) == str:
+      track_to_delete = get_object_or_404(Track, spotify_id=id)
+      # print(track_to_delete.id)
+      viewed_playlist.tracks.remove(track_to_delete.id)
 
-    if track_to_delete:
-      # using .remove() removes the association. .delete() would remove the song from the entire database
-      viewed_playlist.tracks.remove(id)
       return Response({"Message": "Song removed from playlist!"}, status=s.HTTP_204_NO_CONTENT)
     

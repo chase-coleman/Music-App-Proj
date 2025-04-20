@@ -61,7 +61,7 @@ function HomePage() {
 
   const removeTrack = async (trackID) => {
     const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/"
-
+    console.log(`Removing ${trackID}`)
     // do a DELETE request to the Playlist endpoint for the viewed playlist and seleted song
    const response = await axios.delete(`${playlistUrl}${playlistView[0].name}/${trackID}/`)
 
@@ -103,7 +103,7 @@ function HomePage() {
     </div>
 
     {/* search results */}
-    <div className="container-3 w-[30%]">
+    <div className="container-3 h-screen overflow-y-auto w-[30%]">
     {trackResults ? 
       <SearchResults 
       tracks={trackResults} 

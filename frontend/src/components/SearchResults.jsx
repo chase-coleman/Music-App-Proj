@@ -7,13 +7,51 @@ import ArtistResults from "../components/ArtistResults";
 import AlbumResults from "../components/AlbumResults";
 
 const SearchResults = ( { tracks, setTrackResults, userPlaylists, removeTrack, getTracks } ) => {
+  const [likedSongs, setLikedSongs] = useState([])
+  const trackUrl = "http://127.0.0.1:8000/api/v1/tracks/"; // API endopint for working with tracks
+
+  useEffect(() => {
+    if (likedSongs.length === 0) return;
+    console.log(likedSongs)
+    likeSong(likedSongs[likedSongs.length - 1]) // add the latest liked song to the playlist songs
+  }, [likedSongs])
+
+  const removePopup = () => {
+    setTrackResults(null)
+  }
+
+  const removeLike = (track) => {
+    setLikedSongs(likedSongs.filter(song => song.id != track.id))
+    removeTrack(track.id)
+  }
 
 
-
-
-const removePopup = () => {
-  setTrackResults(null)
+  const likeSong = async (track) => {
+    // create an object to send to the backend in proper format
+    const track_to_add = {
+      "spotify_id": track.id,
+      "name": track.track_name,
+      "track_url": track.track_url,
+      "duration": track.track_duration,
+      "album_name": track.album,
+      "album_id": track.album_id,
+      "artist_name": track.artist,
+      "artist_id": track.artist_id,
+      "track_img_lg": track.track_img_lg,
+      "track_img_md": track.track_img_md,
+      "track_img_sm": track.track_img_sm
+    }
+    try { 
+      console.log("song being liked!")
+      const response = await axios.post(trackUrl, track_to_add)
+      getTracks()
+      // alert(response.data['Message']) // alert the user that the song has been added to their liked songs 
+  } catch (error){
+    console.error("Error:", error)
+  }
 }
+
+
 
 
 
@@ -32,9 +70,11 @@ const removePopup = () => {
             {tracks.map((track) => (
               <li className="list-row p-1 gap-1" key={track.id}>
                 <TrackResults 
+                setLikedSongs={setLikedSongs}
                 removeTrack={removeTrack}
                 userPlaylists={userPlaylists} 
                 getTracks={getTracks}
+                removeLike={removeLike}
                 track={track} />
               </li>
             ))}

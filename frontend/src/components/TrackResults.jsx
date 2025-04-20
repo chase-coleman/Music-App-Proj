@@ -1,36 +1,22 @@
 import { useEffect, useState } from "react";
 import axios from "../axios";
 import { useOutletContext } from "react-router-dom";
+import { Prev } from "react-bootstrap/esm/PageItem";
 
-const TrackResults = ({ track, removeTrack, getTracks, userPlaylists }) => {
-  const trackUrl = "http://127.0.0.1:8000/api/v1/tracks/"; // API endopint for working with tracks
+const TrackResults = ({ track, removeTrack, removeLike, getTracks, setLikedSongs, userPlaylists }) => {
+  // const trackUrl = "http://127.0.0.1:8000/api/v1/tracks/"; // API endopint for working with tracks
   // const userToken = localStorage.getItem("token");
   const [likeBtn, setLikeBtn] = useState(false);
 
-  const likeSong = async () => {
-    // create an object to send to the backend in proper format
-    const track_to_add = {
-      "spotify_id": track.id,
-      "name": track.track_name,
-      "track_url": track.track_url,
-      "duration": track.track_duration,
-      "album_name": track.album,
-      "album_id": track.album_id,
-      "artist_name": track.artist,
-      "artist_id": track.artist_id,
-      "track_img_lg": track.track_img_lg,
-      "track_img_md": track.track_img_md,
-      "track_img_sm": track.track_img_sm
+  const handleLike = () => {
+    if (!likeBtn){    
+      setLikedSongs(prevLikes => [...prevLikes, track ])
+      setLikeBtn(true)
+    } else {
+      setLikeBtn(false)
+      removeLike(track)
     }
-
-    try { 
-      console.log("song being liked!")
-      const response = await axios.post(trackUrl, track_to_add)
-      // alert(response.data['Message']) // alert the user that the song has been added to their liked songs 
-  } catch (error){
-    console.error("Error:", error)
   }
-}
 
 
   return (

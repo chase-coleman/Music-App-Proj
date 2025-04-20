@@ -6,4 +6,5 @@ urlpatterns = [
   path('<int:id>/', Playlists.as_view(), name="delete_playlist"),
   path('<str:playlist_name>/', Single_Playlist.as_view(), name="single_playlist"),
   path('<str:playlist_name>/<int:id>/', Single_Playlist.as_view(), name="del_song"),
+  path('<str:playlist_name>/<str:id>/', Single_Playlist.as_view(), name="del_song"),
 ]
