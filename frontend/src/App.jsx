@@ -12,6 +12,9 @@ export default function App() {
   const [accessToken, setAccessToken] = useState(null)
   const [currentTrack, setCurrentTrack] = useState(null)
   const [userPlaylists, setUserPlaylists] = useState(null)
+  const [isPaused, setIsPaused] = useState(true)
+  const [currentTrackID, setCurrentTrackID] = useState(null)
+  const [player, setPlayer] = useState(null);
 
   const spotifyAccessUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/"
 
@@ -31,9 +34,11 @@ export default function App() {
     setAccessToken(spotifyToken)
   }
 
+
   useEffect(() => {
     if (!currentTrack) return;
     // console.log(currentTrack)
+    setCurrentTrackID(currentTrack.id)
   }, [currentTrack])
 
 
@@ -50,11 +55,21 @@ export default function App() {
       <Outlet context={
         {userToken, setUserToken, 
         accessToken, 
+        isPaused, setIsPaused,
+        currentTrackID,
+        player,
         musicActive, setMusicActive, 
         currentTrack, setCurrentTrack,
         userPlaylists, setUserPlaylists
         }}/>
-      {userToken && accessToken && musicActive ? (<MusicPlayer currentTrack={currentTrack} accessToken={accessToken}/>) : (null)}
+      {userToken && accessToken && musicActive ? 
+      (<MusicPlayer 
+      isPaused={isPaused}
+      player={player}
+      setPlayer={setPlayer}
+      setIsPaused={setIsPaused}
+      currentTrack={currentTrack} 
+      accessToken={accessToken}/>) : (null)}
       </>
 )
 };

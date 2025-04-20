@@ -15,7 +15,7 @@ function HomePage() {
   const [artistResults, setArtistResults] = useState(null)
   const [albumResults, setAlbumResults] = useState(null)
 
-  const {userToken, userPlaylists, setUserPlaylists} = useOutletContext()
+  const {userToken, currentTrack, userPlaylists, isPaused, setIsPaused, setUserPlaylists} = useOutletContext()
   const singlePlaylistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 
   // when page is mounted, run the user info function to get the current user's info
@@ -99,6 +99,8 @@ function HomePage() {
       {playlistView.length > 0 ? <PlaylistSongs 
       removeTrack={removeTrack}
       getTracks={getTracks} 
+      isPaused={isPaused}
+      setIsPaused={setIsPaused}
       playlistView={playlistView} 
       playlistTracks={playlistTracks} />
       : null

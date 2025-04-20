@@ -4,9 +4,9 @@ import { useOutletContext } from "react-router-dom";
 import axios from "axios";
 import { SkipBack, Play, Pause, SkipForward } from "lucide-react";
 
-const MusicPlayer = ({ accessToken, currentTrack }) => {
-  const [player, setPlayer] = useState(null);
-  const [isPaused, setIsPaused] = useState(true);
+const MusicPlayer = ({ accessToken, player, setPlayer, currentTrack, isPaused, setIsPaused }) => {
+  // const [player, setPlayer] = useState(null);
+  // const [isPaused, setIsPaused] = useState(true);
   const [isActive, setIsActive] = useState(false);
   const [deviceID, setDeviceID] = useState(null);
   const [duration, setDuration] = useState(0)
