@@ -9,6 +9,7 @@ const TrackResults = ({ track, removeTrack, removeLike, getTracks,grabUserPlayli
   const [likeBtn, setLikeBtn] = useState(false);
   const [showPlaylists, setShowPlaylists] = useState(false)
   const [selectedPlaylists, setSelectedPlaylists] = useState([])
+  const trackUrl = "http://127.0.0.1:8000/api/v1/tracks/"; // API endopint for working with tracks
 
   const { setMusicActive, setCurrentTrack, userPlaylists } = useOutletContext()
 
@@ -21,9 +22,36 @@ const TrackResults = ({ track, removeTrack, removeLike, getTracks,grabUserPlayli
     }
   }, [selectedPlaylists])
 
-  const handleAdding = () => {
-    
+  const handleAdding = async () => {
+    const track_to_add = {
+      "spotify_id": track.id,
+      "name": track.track_name,
+      "track_url": track.track_url,
+      "duration": track.track_duration,
+      "album_name": track.album,
+      "album_id": track.album_id,
+      "artist_name": track.artist,
+      "artist_id": track.artist_id,
+      "track_img_lg": track.track_img_lg,
+      "track_img_md": track.track_img_md,
+      "track_img_sm": track.track_img_sm
+    }
+    if (!selectedPlaylists){
+      alert("You haven't selected any playlist!")
+    } else {
+      try {
+      for (const playlist of selectedPlaylists){
+        console.log(playlist.id)
+          const response = await axios.post(`${trackUrl}${playlist.id}/`, track_to_add)
+          console.log(response.data)
+        }
+      } catch (error) {
+        console.error(error)
+      }
+    }
+    setShowPlaylists(false)
   }
+    
 
   const handleLike = () => {
     if (!likeBtn){    

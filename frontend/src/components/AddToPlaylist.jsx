@@ -5,7 +5,6 @@ import { Nav } from "react-bootstrap";
 import { CirclePlus } from 'lucide-react';
 
 const AddToPlaylist = ({ playlist, grabUserPlaylists, setSelectedPlaylists }) => {
-  const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 
   const handleAdd = () => {
     setSelectedPlaylists(prevPlaylists => [...prevPlaylists, playlist])
