@@ -104,39 +104,46 @@ function HomePage() {
     </div>
     : null
     }
-    <div className="page-container relative h-100vh border-2 flex flex-row justify-center gap-2">
-      {/* users playlists */}
-      <div className="playlists w-[20rem] h-[100%] border-1">
-    <Playlists userPlaylists={userPlaylists} 
-    grabUserPlaylists={grabUserPlaylists} 
-    setPlaylistView={setPlaylistView}
-    setUserPlaylists={setUserPlaylists}/>
-      </div>
+<div className="page-container relative flex flex-row justify-center gap-2 h-screen overflow-hidden">
+  
+  {/* users playlists */}
+  <div className="playlists w-[20rem] border-1 h-[100%] overflow-y-auto">
+    <Playlists 
+      userPlaylists={userPlaylists} 
+      grabUserPlaylists={grabUserPlaylists} 
+      setPlaylistView={setPlaylistView}
+      setUserPlaylists={setUserPlaylists}
+    />
+  </div>
 
-      {/* Songs within the selected playlist */}
-    <div className="songs border-2 w-[40%] h-[100%]">
-      {playlistView && <PlaylistSongs 
-      removeTrack={removeTrack}
-      getTracks={getTracks} 
-      isPaused={isPaused}
-      setIsPaused={setIsPaused}
-      playlistView={playlistView} 
-      playlistTracks={playlistTracks} />
-      }  
-    </div>
+  {/* Songs within the selected playlist */}
+  <div className="songs border-2 w-[40%] h-[100%] overflow-y-auto">
+    {playlistView && (
+      <PlaylistSongs 
+        removeTrack={removeTrack}
+        getTracks={getTracks} 
+        isPaused={isPaused}
+        setIsPaused={setIsPaused}
+        playlistView={playlistView} 
+        playlistTracks={playlistTracks}
+      />
+    )}
+  </div>
 
-    {/* search results */}
-    <div className="container-3 h-[100%] overflow-y-auto w-[30%]">
-    {trackResults ? 
+  {/* search results */}
+  <div className="container-3 w-[30%] h-[100%] overflow-y-auto">
+    {trackResults && (
       <SearchResults 
-      tracks={trackResults} 
-      removeTrack={removeTrack}
-      setTrackResults={setTrackResults} 
-      getTracks={getTracks}
-      userPlaylists={userPlaylists}/>
-      : null}
-    </div>    
-    </div>
+        tracks={trackResults} 
+        removeTrack={removeTrack}
+        setTrackResults={setTrackResults} 
+        getTracks={getTracks}
+        userPlaylists={userPlaylists}
+      />
+    )}
+  </div>
+
+</div>
     </>
   )
 }

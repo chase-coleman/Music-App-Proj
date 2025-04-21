@@ -119,7 +119,7 @@ class Spotify_Callback_View(TokenReq):
     # call spotify's general search api endpoint to get the meta data about the searched item
     @classmethod
     def search_for_item(cls, access_token, item, headers):
-        query = f"?q={item}&type=artist,album,track&limit=10"
+        query = f"?q={item}&type=artist,album,track&limit=15"
         query_url = spotify_item_search_url + "search" + query
         search_result = get(query_url, headers=headers)
         json_result = search_result.json()

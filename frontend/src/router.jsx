@@ -6,6 +6,7 @@ import SearchResults from "./pages/SearchResultsPage";
 import ErrorPage from "./pages/ErrorPage";
 import LandingPage from "./pages/LandingPage";
 import Login from "./pages/LoginPage";
+import Events from "./pages/Events";
 
 const router = createBrowserRouter([
   {
@@ -31,6 +32,10 @@ const router = createBrowserRouter([
       {
         path: "search-results/:queryItem",
         element: <SearchResults />
+      },
+      {
+        path: "/events",
+        element: <Events />
       },
     ],
     errorElement: <ErrorPage />

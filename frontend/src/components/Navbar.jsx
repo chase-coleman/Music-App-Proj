@@ -65,6 +65,9 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults} ) => {
             <Nav.Link as={Link} to="/home">
             <House className="home-btn" color="rgb(250, 245, 230)"/>
             </Nav.Link>
+            <Nav.Link as={Link} to="/events" className='text-white'>
+              Events
+            </Nav.Link>
           </div>
 
           {/* Right side nav items */}
@@ -76,7 +79,7 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults} ) => {
               onChange={(e) => setSearch(e.target.value)}
               className="input input-bordered w-24 md:w-auto"
             />
-            <button className="btn btn-neutral w-[5vw] text-white" onClick={handleSearch}>
+            <button className="btn btn-neutral w-[5vw] " onClick={handleSearch}>
               Search
             </button>
             <div className="dropdown dropdown-end">

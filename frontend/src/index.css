@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @plugin "daisyui";
-/* 
+
 @font-face {
   font-family: forta;
   src: url(fortafont);
@@ -11,7 +11,7 @@
   height: 100%;
   padding: 1px !important;
   margin: 0;
-  /* background-color: red; */
+  background-color: red;
   background-image: url("/shubham-dhage--2eXWZkliWo-unsplash.jpg");
   background-size: cover;
   background-position: center;
