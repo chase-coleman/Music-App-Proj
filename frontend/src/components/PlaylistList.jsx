@@ -4,7 +4,7 @@ import { Link, useOutletContext } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import { CircleX } from 'lucide-react';
 
-const PlaylistList = ({ playlist, grabUserPlaylists }) => {
+const PlaylistList = ({ playlist, grabUserPlaylists,setPlaylistView }) => {
   const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
   const {userToken} = useOutletContext()
   // const userToken = localStorage.getItem("token");
@@ -40,6 +40,10 @@ const PlaylistList = ({ playlist, grabUserPlaylists }) => {
     }
   };
 
+  const changePlaylistView = () => {
+    setPlaylistView(playlist)
+  }
+
   return (
     <>
       <div className="img-container w-[100%] h-[100%]">
@@ -51,9 +55,7 @@ const PlaylistList = ({ playlist, grabUserPlaylists }) => {
       </div>
 
       <div className="text-container">
-        <Nav.Link as={Link} to={`/playlists/${playlist.name}`}>
-        <div>{playlist.name}</div> {/* Playlist Name goes here*/}
-        </Nav.Link>
+        <button onClick={changePlaylistView}>{playlist.name}</button> {/* Playlist Name goes here*/}
         <div className="text- uppercase font-semibold opacity-60">
           {/*Playlist Description goes here*/}
           {playlist.description}

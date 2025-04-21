@@ -9,15 +9,23 @@ import SearchResults from "../components/SearchResults";
 
 function HomePage() {
   const [currentUserInfo, setCurrentUserInfo] = useState(null)
-  const [playlistView, setPlaylistView] = useState([])
+  const [playlistView, setPlaylistView] = useState(null)
   const [playlistTracks, setPlaylistTracks] = useState([]);
   const [trackResults, setTrackResults] = useState(null)
   const [artistResults, setArtistResults] = useState(null)
   const [albumResults, setAlbumResults] = useState(null)
-
   const {userToken, currentTrack, userPlaylists, isPaused, setIsPaused, setUserPlaylists} = useOutletContext()
   const singlePlaylistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
+  
+  
+  // const date = new Date();
+  // const month = date.getMonth()+1;
+  // const day = date.getDate();
+  // const year = date.getFullYear();
 
+
+
+  
   // when page is mounted, run the user info function to get the current user's info
   useEffect(() => {
     getUserInfo()
@@ -32,7 +40,7 @@ function HomePage() {
 
   // get the user's Liked Songs playlist to display in the playlistView component
   const getInitPlaylist = () => {
-    const initPlaylist = userPlaylists.filter(playlist => playlist.name === "Liked Songs")
+    const initPlaylist = userPlaylists.find(playlist => playlist.name === "Liked Songs")
     setPlaylistView(initPlaylist)
   }
 
@@ -53,20 +61,29 @@ function HomePage() {
     setUserPlaylists(response.data);
   };
 
+  useEffect(() => {
+    if (playlistView){
+      getTracks()
+    }
+  }, [playlistView])
+
   // API call to backend to grab tracks from a specific playlist
   const getTracks = async () => {
+    console.log(playlistView)
+    if (playlistView){
     const response = await axios.get(
-      `${singlePlaylistUrl}${playlistView[0].name}`
+      `${singlePlaylistUrl}${playlistView.name}`
     );
-    setPlaylistTracks(response.data["tracks"]);
+    setPlaylistTracks(response.data.tracks);
   };
+}
 
   // API call to a specific playlist's endpoint to remove a song from the playlist
   const removeTrack = async (trackID) => {
     const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/"
 
     // do a DELETE request to the Playlist endpoint for the viewed playlist and seleted song
-   const response = await axios.delete(`${playlistUrl}${playlistView[0].name}/${trackID}/`)
+   const response = await axios.delete(`${playlistUrl}${playlistView.name}/${trackID}/`)
 
     if (response.status === 204){ // if song has been removed from the playlist successfully,
       alert('Song removed from the playlist!') // alert the user
@@ -83,32 +100,33 @@ function HomePage() {
     {currentUserInfo ?
     <div className="flex items-center justify-center">
     <h3 className="welcome-text">Welcome, {currentUserInfo.first_name}!</h3> 
+    {/* <h6>{(`${day} ${month}, ${year}`).toString()}</h6> */}
     </div>
     : null
     }
-    <div className="page-container relative border-2 flex flex-row justify-center gap-2">
+    <div className="page-container relative h-100vh border-2 flex flex-row justify-center gap-2">
       {/* users playlists */}
-      <div className="playlists w-[20rem] border-1">
+      <div className="playlists w-[20rem] h-[100%] border-1">
     <Playlists userPlaylists={userPlaylists} 
     grabUserPlaylists={grabUserPlaylists} 
+    setPlaylistView={setPlaylistView}
     setUserPlaylists={setUserPlaylists}/>
       </div>
 
       {/* Songs within the selected playlist */}
-    <div className="songs border-2 w-[40%]">
-      {playlistView.length > 0 ? <PlaylistSongs 
+    <div className="songs border-2 w-[40%] h-[100%]">
+      {playlistView && <PlaylistSongs 
       removeTrack={removeTrack}
       getTracks={getTracks} 
       isPaused={isPaused}
       setIsPaused={setIsPaused}
       playlistView={playlistView} 
       playlistTracks={playlistTracks} />
-      : null
       }  
     </div>
 
     {/* search results */}
-    <div className="container-3 h-screen overflow-y-auto w-[30%]">
+    <div className="container-3 h-[100%] overflow-y-auto w-[30%]">
     {trackResults ? 
       <SearchResults 
       tracks={trackResults} 

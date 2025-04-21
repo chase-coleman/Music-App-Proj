@@ -10,7 +10,7 @@ import CreatePlaylist from "./CreatePlaylist";
 // TO DO : create a button on the page so a user can create a new playlist, and when the button is clicked,
 //         a popup opens that asks for the basic playlists information
 
-const Playlists = ( {grabUserPlaylists} ) => {
+const Playlists = ( {grabUserPlaylists, setPlaylistView} ) => {
   const [createBtn, setCreateBtn] = useState(false);
   const { userPlaylists, setUserPlaylists } = useOutletContext() 
 
@@ -42,6 +42,7 @@ const Playlists = ( {grabUserPlaylists} ) => {
             <li className="list-row p-1 gap-1" key={playlist.id}>
               <PlaylistList // display a component for each playlist
                 playlist={playlist}
+                setPlaylistView={setPlaylistView}
                 grabUserPlaylists={grabUserPlaylists}
               />
             </li>
