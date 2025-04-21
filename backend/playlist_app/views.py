@@ -9,7 +9,8 @@ from track_app.models import Track
 # Create your views here.
 class Playlists(TokenReq):
   def get(self, request):
-    all_playlists = PlaylistSerializer(Playlist.objects.all(), many=True)
+    users_playlists = Playlist.objects.filter(user=request.user)
+    all_playlists = PlaylistSerializer(users_playlists, many=True)
     return Response(all_playlists.data, status=s.HTTP_200_OK)
 
   def delete(self, request, id):

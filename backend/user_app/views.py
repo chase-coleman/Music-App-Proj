@@ -38,7 +38,7 @@ class Sign_Up(APIView):
     user_token = Token.objects.create(user=new_user)
     new_playlist = Playlist.objects.create(name="Liked Songs", user=new_user)
 
-    return Response(f"New account created with the username of {new_user.username}!, token: {user_token.key}", 
+    return Response({"Message": "Account successfully created!", "token": user_token.key}, 
                     status=s.HTTP_201_CREATED)
 
 class Login(APIView):

@@ -6,6 +6,7 @@ https://axios-http.com/docs/post_example
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
+import { useNavigate } from "react-router-dom";
 
 // TO DO : create verification for account fields like email & password formatting
 
@@ -18,6 +19,23 @@ function Signup() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordconfirm, setPasswordConfirm] = useState("");
+  const [showMsg, setShowMsg] = useState(false)
+  const navigate = useNavigate()
+
+  const handleMsg = () => {
+    setShowMsg(true)
+  }
+
+  useEffect(() => {
+    if (showMsg) {
+      const timer = setTimeout(() => {
+        setShowMsg(false)
+        navigate('/home')
+      },3000)
+    }
+  }, [showMsg])
+
+
 
   /* When user hits 'Create Account' button, the 2 passwords 
   that they entered are checked to make sure they match*/
@@ -43,7 +61,9 @@ function Signup() {
     try {
       // call backend signup view and send it the new user's entered info
       const response = await axios.post(signUpUrl, accountInfo);
-      console.log(response.data);
+      localStorage.setItem("token", response.data.token)
+      setShowMsg(true)
+      // navigate("/home")
     } catch (error) {
       console.error("Error:", error);
     }
@@ -53,19 +73,19 @@ function Signup() {
     <>
       <div className="container flex flex-col justify-center items-center">
         <Navbar />
-        <br />
-        <h3>Please the required information:</h3>
-        <br />
-        <fieldset className="fieldset">
+        <div className="signupinfocontainer flex flex-col justify-center items-center 
+        h-[60vh] w-[40vw]">
+          <h5 className="text-center">Please enter the required information:</h5>
+        <fieldset className="fieldset gap-2">
           <input
-            className="input"
+            className="input placeholder-gray text-black"
             onChange={(e) => setFname(e.target.value)}
             value={fname}
             type="text"
             placeholder="First Name"
           />
           <input
-            className="input"
+            className="input placeholder-gray text-black"
             onChange={(e) => setLname(e.target.value)}
             value={lname}
             type="text"
@@ -73,41 +93,49 @@ function Signup() {
           />
           {/* lookup email and password entry form from a library */}
           <input
-            className="input"
+            className="input placeholder-gray text-black"
             onChange={(e) => setEmail(e.target.value)}
             value={email}
             type="text"
             placeholder="Email"
           />
           <input
-            className="input"
+            className="input placeholder-gray text-black"
             onChange={(e) => setUsername(e.target.value)}
             value={username}
             type="text"
             placeholder="Username"
           />
           <input
-            className="input"
+            className="input placeholder-gray text-black"
             onChange={(e) => setPassword(e.target.value)}
             value={password}
             type="text"
             placeholder="Password"
           />
           <input
-            className="input"
+            className="input placeholder-gray text-black"
             onChange={(e) => setPasswordConfirm(e.target.value)}
             value={passwordconfirm}
             type="text"
             placeholder="Confirm Password"
           />
           <button
-            className="btn btn-neutral w-[25vw]"
+            className="createaccount-btn btn-neutral w-[25vw]"
             onClick={handlePasswordMatching}
           >
             Create Account
           </button>
         </fieldset>
+        </div>
       </div>
+      {showMsg ?
+        <div className='account-created z-50 w-[50vw] h-[50vh] 
+        fixed bg-white inset-0 flex items-center justify-center'>
+          <h4>Account Created! Redirecting...</h4>
+        </div>
+      : null
+      }
     </>
   );
 }

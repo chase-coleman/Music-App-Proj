@@ -99,4 +99,21 @@ progress::-webkit-progress-bar {
 progress::-moz-progress-bar {
   background-color: rgb(250, 245, 230);
 }
-  
+
+.signupinfocontainer {
+  background-color: rgba(179,179,179, 0.1);
+  backdrop-filter: blur(2px);
+  color: rgb(250, 245, 230);
+  font-family: forta;
+}
+.createaccount-btn {
+  color: rgb(250, 245, 230);
+  font-family: forta;
+}
+
+.createaccount-btn:hover {
+  border-radius: 75px;
+  color:rgb(250, 245, 230);
+  transform: scale(1.2);
+  box-sizing: border-box;
+}
