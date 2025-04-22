@@ -21,7 +21,7 @@ const AddToPlaylist = ({ playlist, grabUserPlaylists, setSelectedPlaylists }) =>
         {/*Playlist Img goes here */}
       </div>
 
-      <div className="text-container">
+      <div className="flex items-center justify-center text-[.75em] text-container text-center ">
         <Nav.Link as={Link} to={`/playlists/${playlist.name}`}>
         <div>{playlist.name}</div> {/* Playlist Name goes here*/}
         </Nav.Link>
@@ -30,25 +30,8 @@ const AddToPlaylist = ({ playlist, grabUserPlaylists, setSelectedPlaylists }) =>
           {playlist.description}
         </div>
       </div>
-      <button className="btn btn-square btn-ghost">
-        <svg
-          className="size-[1.2em]"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-        >
-          <g
-            strokeLinejoin="round"
-            strokeLinecap="round"
-            strokeWidth="2"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path d="M6 3L20 12 6 21 6 3z"></path>
-          </g>
-        </svg>
-      </button>
       <button className="btn btn-square btn-ghost" onClick={handleAdd}>
-        <CirclePlus color="black"/>
+        <CirclePlus color="black" size={20}/>
       </button>
       {/*Put Trash icon here for users to delete a playlist*/}
     </>

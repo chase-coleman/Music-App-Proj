@@ -16,11 +16,6 @@ const TrackResults = ({ track, removeTrack, removeLike, getTracks,grabUserPlayli
   const addToPlaylist = () => {
     setShowPlaylists(true)
   }
-  useEffect(() => {
-    if (selectedPlaylists){
-    console.log(selectedPlaylists)
-    }
-  }, [selectedPlaylists])
 
   const handleAdding = async () => {
     const track_to_add = {
@@ -86,13 +81,23 @@ const TrackResults = ({ track, removeTrack, removeLike, getTracks,grabUserPlayli
     setMusicActive(true)
   }
 
+  const cancelLike = () => {
+    setShowPlaylists(false)
+    setLikeBtn(false)
+  }
+
   return (
     <>
     {showPlaylists ? 
   <div className="fixed inset-0 z-50 flex items-center justify-center">
-  <ul className="list bg-red-100 rounded-box shadow-md w-[40vw] p-0 gap-2">
+  <ul className="listofplaylists flex flex-col rounded-box shadow-md w-[40vw] p-0 gap-2">
+    <div className="flex relative">
     <div className="text-center">
       Select the playlists you'd like to add the song to!
+    </div>
+    <button onClick={cancelLike} className="absolute right-0 top-0">
+    <CircleX size={12}/>
+    </button>
     </div>
     {userPlaylists.map((playlist) => (
       <li className="list-row p-1 gap-1" key={playlist.id}>
@@ -104,9 +109,11 @@ const TrackResults = ({ track, removeTrack, removeLike, getTracks,grabUserPlayli
         />
       </li>
     ))}
-    <button className="closeplaylists" onClick={handleAdding}>
-      Done!
+    <div className="flex justify-center text-center">
+    <button className="closeplaylists flex items-center justify-center mb-2 !text-[0.65em] w-[20%]" onClick={handleAdding}>
+      Add
     </button>
+    </div>
   </ul>
 </div>
     : null

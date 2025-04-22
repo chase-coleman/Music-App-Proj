@@ -166,3 +166,16 @@ progress::-moz-progress-bar {
   transform: scale(1.2);
   box-sizing: border-box;
 }
+
+.listofplaylists {
+  background-color: rgba(179,179,179, 0.1);
+  backdrop-filter: blur(10px);
+  color: black;
+  font-family: forta;
+}
+.closeplaylists:hover {
+  border-radius: 75px;
+  color: black;
+  transform: scale(1.2);
+  box-sizing: border-box;
+}
