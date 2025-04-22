@@ -160,3 +160,9 @@ progress::-moz-progress-bar {
   color: black;
   font-family: forta;
 }
+.editaccount-btn:hover {
+  border-radius: 75px;
+  color:rgb(250, 245, 230);
+  transform: scale(1.2);
+  box-sizing: border-box;
+}

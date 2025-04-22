@@ -109,14 +109,14 @@ const Settings = () => {
         {showInfo ? (
           <div className="absolute top-[0px] left-0 w-full h-[calc(100vh-64px)] flex items-center justify-center">
             <div className="signupinfocontainer flex flex-col justify-center items-center h-[60vh] w-[40vw] relative">
-              <div className="flex gap-1">
-                <h6 className="text-center text-black">
+              <div className="flex mb-1 gap-1 bg-white w-[62%] rounded">
+                <span className="text-center text-[1em] text-black">
                   What info would you like to edit?
-                </h6>
+                </span>
                 <button onClick={cancelEdit}>
                   <CircleX
                     className="absolute top-1 right-1"
-                    color="black"
+                    color="white"
                     size={15}
                   />
                 </button>
@@ -165,7 +165,7 @@ const Settings = () => {
                   placeholder="Confirm Password"
                 />
                 <button
-                  className="editaccount-btn btn-neutral text-black w-[25vw]"
+                  className="editaccount-btn btn-neutral text-white w-[25vw]"
                   onClick={handleInfoSubmit}
                 >
                   Submit Edits
