@@ -36,7 +36,7 @@ const Settings = () => {
       Object.entries(accountData).filter(([key, value]) => value.length > 0)
     );
     console.log(filteredData)
-    
+    const response = await axios.put("http://127.0.0.1:8000/api/v1/users/", filteredData)
   }
 
   // handles deleting a user's account

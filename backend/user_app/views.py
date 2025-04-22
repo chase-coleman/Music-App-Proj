@@ -28,6 +28,15 @@ class User_Info(TokenReq):
     user_ser = UserInfoSerializer(user_info)
     return Response(user_ser.data)
 
+  def put(self, request):
+    data = request.data.copy()
+    # pass the request's data into the serializer
+    serialized = UserInfoSerializer(request.user, data=data, partial=True)
+    if serialized.is_valid():
+      serialized.save() # if the data is valid, save it to the db
+      return Response({"message": "Info was successfully updated!"}, status=s.HTTP_200_OK)
+    return Response(serialized.errors, status=s.HTTP_400_BAD_REQUEST)
+
 class Sign_Up(APIView):
   def post(self, request):
     # TO DO : create error handling for user's that already exists so that a user can see that error on the frontend
