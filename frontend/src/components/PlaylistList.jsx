@@ -4,7 +4,7 @@ import { Link, useOutletContext } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import { CircleX, Play, Pencil } from 'lucide-react';
 
-const PlaylistList = ({ playlist, grabUserPlaylists,setPlaylistView }) => {
+const PlaylistList = ({ playlist, editPlaylist, grabUserPlaylists,setPlaylistView }) => {
   const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
   const {userToken} = useOutletContext()
   // const userToken = localStorage.getItem("token");
@@ -23,6 +23,10 @@ const PlaylistList = ({ playlist, grabUserPlaylists,setPlaylistView }) => {
       setDelBtn(false) // set delBtn back to false
     }
   }, [delBtn, setDelBtn])
+
+  const handleEdit = () => {
+    editPlaylist(playlist)
+  }
 
   const deletePlaylist = async () => {
     // get the playlist ID from the current playlist being added to a component
@@ -63,13 +67,16 @@ const PlaylistList = ({ playlist, grabUserPlaylists,setPlaylistView }) => {
         </div>
       </div>
       <button className="btn w-[10%] btn-square btn-ghost p-0">
-        <Play size={15}/>
+        <Play size={12}/>
+      </button>
+      <button className="btn w-[10%] btn-square btn-ghost p-0" onClick={handleEdit}>
+        <Pencil size={12} />
       </button>
       {playlist.name === "Liked Songs" ? 
       null
       :
       <button className="btn w-[10%] btn-square btn-ghost p-0" onClick={() => setDelBtn(true)}>
-        <CircleX size={15} color="black"/>
+        <CircleX size={12} color="black"/>
       </button>
       }
     </>

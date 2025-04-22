@@ -17,7 +17,7 @@ const Settings = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [accountDeleted, setAccountDeleted] = useState(false);
   const navigate = useNavigate();
-  const { currentUserInfo } = useOutletContext();
+  const { currentUserInfo, getUserInfo, setUserToken } = useOutletContext();
 
   // if a user clicks on edit into, render the component
   const editUserInfo = () => {
@@ -49,6 +49,7 @@ const Settings = () => {
       }, 2000);
     }
     setShowInfo(false);
+    getUserInfo()
   };
 
   // handles deleting a user's account
@@ -62,7 +63,8 @@ const Settings = () => {
       if (response.status === 204) {
         localStorage.removeItem("token");
         alert("Your account has been deleted. We hope you comeback soon!");
-        setAccountDeleted(true)
+        setAccountDeleted(true);
+        setUserToken(null);
         navigate("/");
       }
     }
@@ -92,8 +94,8 @@ const Settings = () => {
         {showConfirmation ? (
           <div className="absolute top-[-30px] left-0 w-full h-[calc(100vh-64px)] flex items-center justify-center">
             <div className="account-created z-50 w-[30vw] h-[50vh] rounded-lg shadow-lg flex flex-col items-center justify-center">
-              <h6 className="text-center">Account Info Updated!</h6>
-              <BouncyArc size="70" speed="1.65" color="black" />
+              <h6 className="text-center text-white">Account Info Updated!</h6>
+              <BouncyArc size="70" speed="1.65" color="white" />
             </div>
           </div>
         ) : null}

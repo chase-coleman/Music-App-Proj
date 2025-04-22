@@ -62,7 +62,7 @@ export default function App() {
         accessToken, currentUserInfo,
         isPaused, setIsPaused,
         currentTrackID,
-        player,
+        player, getUserInfo,
         musicActive, setMusicActive, 
         currentTrack, setCurrentTrack,
         userPlaylists, setUserPlaylists

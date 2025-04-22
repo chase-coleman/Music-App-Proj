@@ -20,9 +20,14 @@ class Playlists(TokenReq):
     return Response(f"{playlist_to_delete.name} has been deleted.", status=s.HTTP_204_NO_CONTENT)
 
   def put(self, request, id):
-    data = request.data.copy()
-    print(data)
-    return Response(True)
+    data = request.data.copy() # copy the request data
+    # grab the playlist instance of the playlist being edited
+    playlist_to_edit = get_object_or_404(Playlist, id=id, user=request.user)
+    serialized = PlaylistSerializer(playlist_to_edit, data=data, partial=True)
+    if serialized.is_valid():
+      serialized.save() # if serialization has worked and is valid, save it
+      return Response(status=s.HTTP_200_OK)
+    return Response(serialized.errors, status=s.HTTP_400_BAD_REQUEST)
 
   def post(self, request):
     data = request.data.copy()

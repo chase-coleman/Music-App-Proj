@@ -29,11 +29,11 @@ const AddToPlaylist = ({ playlist, selectedPlaylists, setSelectedPlaylists, setL
         {/*Playlist Img goes here */}
       </div>
 
-      <div className="flex items-center justify-center text-[.75em] text-container text-center ">
+      <div className="flex flex-col items-center justify-center text-[.75em] text-container text-center ">
         <Nav.Link as={Link} to={`/playlists/${playlist.name}`}>
           <div>{playlist.name}</div> {/* Playlist Name goes here*/}
         </Nav.Link>
-        <div className="text- uppercase font-semibold opacity-60">
+        <div className="text-[.75em] uppercase font-semibold opacity-60">
           {/*Playlist Description goes here*/}
           {playlist.description}
         </div>

@@ -13,7 +13,7 @@ import "ldrs/react/BouncyArc.css";
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 // TO DO : create verification for account fields like email & password formatting
 
 function Signup() {
@@ -25,6 +25,7 @@ function Signup() {
   const [passwordconfirm, setPasswordConfirm] = useState("");
   const [showMsg, setShowMsg] = useState(false);
   const navigate = useNavigate();
+  const { setUserToken } = useOutletContext()
 
   const handleMsg = () => {
     setShowMsg(true);
@@ -34,6 +35,8 @@ function Signup() {
     if (showMsg) {
       const timer = setTimeout(() => {
         setShowMsg(false);
+        const token = localStorage.getItem("token")
+        setUserToken(token)
         navigate("/home");
       }, 3000);
     }

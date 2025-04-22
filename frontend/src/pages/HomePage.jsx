@@ -13,6 +13,7 @@ const HomePage = () => {
   const [artistResults, setArtistResults] = useState(null);
   const [albumResults, setAlbumResults] = useState(null);
   const [notifyRemoved, setNotifyRemoved] = useState(false);
+
   const {
     userToken,
     currentTrack,
@@ -48,13 +49,6 @@ const HomePage = () => {
     );
     setPlaylistView(initPlaylist);
   };
-
-  const editPlaylist = async (playlist) => {
-    console.log("Editing this playlist:", playlist)
-    const response = await axios.put(`${playlistUrl}/${playlist.id}`)
-  }
-
-
 
   // API Call to backend
   const grabUserPlaylists = async () => {
