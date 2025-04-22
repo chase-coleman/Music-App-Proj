@@ -15,6 +15,7 @@
     "bootstrap": "^5.3.5",
     "daisyui": "^5.0.17",
     "js-cookie": "^3.0.5",
+    "ldrs": "^1.1.6",
     "lucide-react": "^0.488.0",
     "react": "^19.0.0",
     "react-bootstrap": "^2.10.9",

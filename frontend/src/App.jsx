@@ -15,7 +15,7 @@ export default function App() {
   const [isPaused, setIsPaused] = useState(true)
   const [currentTrackID, setCurrentTrackID] = useState(null)
   const [player, setPlayer] = useState(null);
-
+  const [currentUserInfo, setCurrentUserInfo] = useState(null)
   const spotifyAccessUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/"
 
   // when a user logs in, set their token to localstorage and call the func to get an access token
@@ -24,6 +24,7 @@ export default function App() {
       localStorage.setItem("token", userToken)
       console.log("setting userToken:", userToken)
       get_access_token()
+      getUserInfo()
     }
   }, [userToken]);
   
@@ -34,6 +35,10 @@ export default function App() {
     setAccessToken(spotifyToken)
   }
 
+  const getUserInfo = async () => {
+    const response = await axios.get("http://127.0.0.1:8000/api/v1/users/info/")
+    setCurrentUserInfo(response.data)
+  }
 
   useEffect(() => {
     if (!currentTrack) return;
@@ -54,7 +59,7 @@ export default function App() {
       <>
       <Outlet context={
         {userToken, setUserToken, 
-        accessToken, 
+        accessToken, currentUserInfo,
         isPaused, setIsPaused,
         currentTrackID,
         player,

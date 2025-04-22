@@ -8,6 +8,8 @@ from playlist_app.models import Playlist
 from rest_framework import status as s
 from .models import User
 from .serializers import UserInfoSerializer
+from django.shortcuts import get_object_or_404
+
 
 # TokenReq class enforces a user be logged in to access certain pages/app functions
 class TokenReq(APIView):
@@ -65,3 +67,8 @@ class Logout(TokenReq):
     request.user.auth_token.delete()
     logout(request)
     return Response("user has been logged out", status=s.HTTP_200_OK)
+  
+class DeleteAccount(TokenReq):
+  def delete(self, request):
+      request.user.delete()
+      return Response(status=s.HTTP_204_NO_CONTENT)

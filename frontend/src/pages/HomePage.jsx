@@ -7,14 +7,14 @@ import axios from "../axios";
 import PlaylistSongs from "../components/PlaylistSongs";
 import SearchResults from "../components/SearchResults";
 
-function HomePage() {
-  const [currentUserInfo, setCurrentUserInfo] = useState(null)
+const HomePage = () => {
   const [playlistView, setPlaylistView] = useState(null)
   const [playlistTracks, setPlaylistTracks] = useState([]);
   const [trackResults, setTrackResults] = useState(null)
   const [artistResults, setArtistResults] = useState(null)
   const [albumResults, setAlbumResults] = useState(null)
-  const {userToken, currentTrack, userPlaylists, isPaused, setIsPaused, setUserPlaylists} = useOutletContext()
+  const {userToken, currentTrack, userPlaylists, isPaused, 
+    setIsPaused, setUserPlaylists, currentUserInfo} = useOutletContext()
   const singlePlaylistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
   
   
@@ -28,7 +28,6 @@ function HomePage() {
   
   // when page is mounted, run the user info function to get the current user's info
   useEffect(() => {
-    getUserInfo()
     grabUserPlaylists()
   }, []);
   
@@ -42,12 +41,6 @@ function HomePage() {
   const getInitPlaylist = () => {
     const initPlaylist = userPlaylists.find(playlist => playlist.name === "Liked Songs")
     setPlaylistView(initPlaylist)
-  }
-
-  // get the current logged in user's info to use
-  const getUserInfo = async () => {
-    const response = await axios.get("http://127.0.0.1:8000/api/v1/users/info/")
-    setCurrentUserInfo(response.data)
   }
 
   // API Call to backend
