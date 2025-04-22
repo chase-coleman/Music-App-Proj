@@ -1,33 +1,31 @@
 import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
-import { useOutletContext, useParams } from "react-router-dom";
+import { useOutletContext } from "react-router-dom";
 import axios from "../axios";
 import TrackResults from "../components/TrackResults";
-import ArtistResults from "../components/ArtistResults";
-import AlbumResults from "../components/AlbumResults";
+import { CircleX } from "lucide-react";
 
 const SearchResults = ( { tracks, setTrackResults, userPlaylists, removeTrack, getTracks } ) => {
   // likedSongs is a list of objects containing any liked songs that the user has 
   // liked from their search results
-  const [likedSongs, setLikedSongs] = useState([])
+  const [likedSongs, setLikedSongs] = useState([]);
   const trackUrl = "http://127.0.0.1:8000/api/v1/tracks/"; // API endopint for working with tracks
 
 
   useEffect(() => {
     if (likedSongs.length === 0) return;
       // add the latest liked song to the playlist songs
-      likeSong(likedSongs[likedSongs.length - 1]) 
-  }, [likedSongs])
+      likeSong(likedSongs[likedSongs.length - 1]) ;
+  }, [likedSongs]);
 
   // removes the search results from the page
   const removePopup = () => {
-    setTrackResults(null)
+    setTrackResults(null);
   }
 
   // a use can unlike a song and it'll be removed from the playlist's track
   const removeLike = (track) => {
-    setLikedSongs(likedSongs.filter(song => song.id != track.id))
-    removeTrack(track.id)
+    setLikedSongs(likedSongs.filter(song => song.id != track.id));
+    removeTrack(track.id);
   }
 
 
@@ -45,20 +43,16 @@ const SearchResults = ( { tracks, setTrackResults, userPlaylists, removeTrack, g
       "track_img_lg": track.track_img_lg,
       "track_img_md": track.track_img_md,
       "track_img_sm": track.track_img_sm
-    }
+    };
     try { 
-      console.log("song being liked!")
-      const response = await axios.post(trackUrl, track_to_add)
-      getTracks()
+      console.log("song being liked!");
+      const response = await axios.post(trackUrl, track_to_add);
+      getTracks();
       // alert(response.data['Message']) // alert the user that the song has been added to their liked songs 
   } catch (error){
     console.error("Error:", error)
-  }
-}
-
-
-
-
+  };
+};
 
   return (
     <>
@@ -69,7 +63,9 @@ const SearchResults = ( { tracks, setTrackResults, userPlaylists, removeTrack, g
             <div className="flex flex-row justify-center items-center relative p-0">
             <h6>Songs</h6>
             <div className="btn-container absolute top-0 right-2">
-            <button onClick={removePopup}>X</button>
+            <button onClick={removePopup}>
+              <CircleX size={20}/>
+            </button>
             </div>
             </div>
             {tracks.map((track) => (

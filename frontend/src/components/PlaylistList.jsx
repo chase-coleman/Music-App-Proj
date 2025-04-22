@@ -1,8 +1,8 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import axios from "../axios";
 import { Link, useOutletContext } from "react-router-dom";
 import { Nav } from "react-bootstrap";
-import { CircleX } from 'lucide-react';
+import { CircleX, Play, Pencil } from 'lucide-react';
 
 const PlaylistList = ({ playlist, grabUserPlaylists,setPlaylistView }) => {
   const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
@@ -15,6 +15,7 @@ const PlaylistList = ({ playlist, grabUserPlaylists,setPlaylistView }) => {
   // I was running into issues declaring the state variable for button in
   // the Playlists page and passing it down as a prop, because all playlists
   // shared the same state. so clicking delete on one playlist, deleted them all
+
 
   useEffect(() => {
     if (delBtn){ // if delBtn is true
@@ -44,6 +45,7 @@ const PlaylistList = ({ playlist, grabUserPlaylists,setPlaylistView }) => {
     setPlaylistView(playlist)
   }
 
+
   return (
     <>
       <div className="img-container w-[100%] h-[100%]">
@@ -54,34 +56,22 @@ const PlaylistList = ({ playlist, grabUserPlaylists,setPlaylistView }) => {
         {/*Playlist Img goes here */}
       </div>
 
-      <div className="text-container">
+      <div className="text-container text-center text-[.75em] flex flex-col justify-center">
         <button onClick={changePlaylistView}>{playlist.name}</button> {/* Playlist Name goes here*/}
-        <div className="text- uppercase font-semibold opacity-60">
-          {/*Playlist Description goes here*/}
+        <div className="uppercase font-semibold opacity-60 text-[0.5em] overflow-hidden text-ellipsis">          {/*Playlist Description goes here*/}
           {playlist.description}
         </div>
       </div>
-      <button className="btn btn-square btn-ghost">
-        <svg
-          className="size-[1.2em]"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-        >
-          <g
-            strokeLinejoin="round"
-            strokeLinecap="round"
-            strokeWidth="2"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path d="M6 3L20 12 6 21 6 3z"></path>
-          </g>
-        </svg>
+      <button className="btn w-[10%] btn-square btn-ghost p-0">
+        <Play size={15}/>
       </button>
-      <button className="btn btn-square btn-ghost" onClick={() => setDelBtn(true)}>
-        <CircleX color="black"/>
+      {playlist.name === "Liked Songs" ? 
+      null
+      :
+      <button className="btn w-[10%] btn-square btn-ghost p-0" onClick={() => setDelBtn(true)}>
+        <CircleX size={15} color="black"/>
       </button>
-      {/*Put Trash icon here for users to delete a playlist*/}
+      }
     </>
   );
 };

@@ -2,14 +2,22 @@ import { useEffect, useState } from "react";
 import axios from "../axios";
 import { Link, useOutletContext } from "react-router-dom";
 import { Nav } from "react-bootstrap";
-import { CirclePlus } from 'lucide-react';
+import { CirclePlus, CircleCheck } from "lucide-react";
 
-const AddToPlaylist = ({ playlist, grabUserPlaylists, setSelectedPlaylists }) => {
+const AddToPlaylist = ({ playlist, selectedPlaylists, setSelectedPlaylists, setLikeBtn }) => {
+  const [updateAddBtn, setUpdateAddBtn] = useState(false);
 
   const handleAdd = () => {
-    setSelectedPlaylists(prevPlaylists => [...prevPlaylists, playlist])
-  }
-
+    if (!updateAddBtn){
+    setSelectedPlaylists((prevPlaylists) => [...prevPlaylists, playlist]);
+    setUpdateAddBtn(true)
+    setLikeBtn(true)
+    } else {
+      setSelectedPlaylists(selectedPlaylists.filter(prevPlaylist => prevPlaylist.id !== playlist.id))
+      setUpdateAddBtn(false)
+      setLikeBtn(false)
+    }
+  };
 
   return (
     <>
@@ -23,16 +31,22 @@ const AddToPlaylist = ({ playlist, grabUserPlaylists, setSelectedPlaylists }) =>
 
       <div className="flex items-center justify-center text-[.75em] text-container text-center ">
         <Nav.Link as={Link} to={`/playlists/${playlist.name}`}>
-        <div>{playlist.name}</div> {/* Playlist Name goes here*/}
+          <div>{playlist.name}</div> {/* Playlist Name goes here*/}
         </Nav.Link>
         <div className="text- uppercase font-semibold opacity-60">
           {/*Playlist Description goes here*/}
           {playlist.description}
         </div>
       </div>
-      <button className="btn btn-square btn-ghost" onClick={handleAdd}>
-        <CirclePlus color="black" size={20}/>
-      </button>
+      {updateAddBtn ? (
+        <button className="btn btn-square btn-ghost" onClick={handleAdd}>
+          <CircleCheck size={20}/>
+        </button>
+      ) : (
+        <button className="btn btn-square btn-ghost" onClick={handleAdd}>
+          <CirclePlus color="black" size={20} />
+        </button>
+      )}
       {/*Put Trash icon here for users to delete a playlist*/}
     </>
   );

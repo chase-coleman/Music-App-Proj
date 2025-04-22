@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
-import axios from "../axios";
 import { useOutletContext } from "react-router-dom";
-import { Prev } from "react-bootstrap/esm/PageItem";
 import AddToPlaylist from "./AddToPlaylist";
+import { useState } from "react";
 import { CircleX } from "lucide-react";
+import axios from "../axios";
+
+
+// TO DO : add functionality for user to select specfic playlists to remove track from when unliking them 
 
 const TrackResults = ({ track, removeTrack, removeLike, getTracks,grabUserPlaylists, setLikedSongs }) => {
   const [likeBtn, setLikeBtn] = useState(false);
@@ -36,9 +38,8 @@ const TrackResults = ({ track, removeTrack, removeLike, getTracks,grabUserPlayli
     } else {
       try {
       for (const playlist of selectedPlaylists){
-        console.log(playlist.id)
           const response = await axios.post(`${trackUrl}${playlist.id}/`, track_to_add)
-          console.log(response.data)
+          getTracks()
         }
       } catch (error) {
         console.error(error)
@@ -76,7 +77,6 @@ const TrackResults = ({ track, removeTrack, removeLike, getTracks,grabUserPlayli
       "track_img_md": track.track_img_md,
       "track_img_sm": track.track_img_sm
     }
-    // console.log(`Playing ${track_to_play}`)
     setCurrentTrack(track_to_play)
     setMusicActive(true)
   }
@@ -103,6 +103,8 @@ const TrackResults = ({ track, removeTrack, removeLike, getTracks,grabUserPlayli
       <li className="list-row p-1 gap-1" key={playlist.id}>
         <AddToPlaylist
           playlist={playlist}
+          selectedPlaylists={selectedPlaylists}
+          setLikeBtn={setLikeBtn}
           setSelectedPlaylists={setSelectedPlaylists}
           grabUserPlaylists={grabUserPlaylists}
           setShowPlaylists={setShowPlaylists}

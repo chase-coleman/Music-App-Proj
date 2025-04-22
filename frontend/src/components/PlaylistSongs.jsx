@@ -19,9 +19,14 @@ const PlaylistSongs = ({ getTracks, removeTrack, playlistTracks, playlistView })
       {playlistView ? (
         <div className="song-container w-[100%] h-[100%] flex flex-col items-center">
         <ul className="list bg-base-100 rounded-box shadow-md w-[100%] p-0">
-            <h6 className="text-center">
+            <div className="flex flex-col">
+            <span className="text-center">
             {playlistView.name}
-            </h6>
+            </span>
+            <span className="text-center text-[0.5em] text-black-500 font-light">
+              {playlistView.description}
+            </span>
+            </div>
           {playlistTracks.map((track) => (
             <li className="list-row p-1 gap-1" key={track.id}>
               <PlaylistTracks

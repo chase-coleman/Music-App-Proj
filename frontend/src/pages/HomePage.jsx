@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Outlet,
-  Link,
-  useOutletContext,
-  useSearchParams,
-} from "react-router-dom";
-import { Nav } from "react-bootstrap";
+import { Outlet, Link, useOutletContext } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Playlists from "../components/Playlists";
 import axios from "../axios";
@@ -29,6 +23,7 @@ const HomePage = () => {
     currentUserInfo,
   } = useOutletContext();
   const singlePlaylistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
+  const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 
   // const date = new Date();
   // const month = date.getMonth()+1;
@@ -54,10 +49,15 @@ const HomePage = () => {
     setPlaylistView(initPlaylist);
   };
 
+  const editPlaylist = async (playlist) => {
+    console.log("Editing this playlist:", playlist)
+    const response = await axios.put(`${playlistUrl}/${playlist.id}`)
+  }
+
+
+
   // API Call to backend
   const grabUserPlaylists = async () => {
-    const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/"; // url to playlist view
-
     // API Call to the playlists endpoint to get all the user's playlists
     const response = await axios.get(playlistUrl);
 
@@ -71,6 +71,7 @@ const HomePage = () => {
     }
   }, [playlistView]);
 
+
   // API call to backend to grab tracks from a specific playlist
   const getTracks = async () => {
     if (playlistView) {
@@ -83,8 +84,6 @@ const HomePage = () => {
 
   // API call to a specific playlist's endpoint to remove a song from the playlist
   const removeTrack = async (trackID) => {
-    const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
-
     // do a DELETE request to the Playlist endpoint for the viewed playlist and seleted song
     const response = await axios.delete(
       `${playlistUrl}${playlistView.name}/${trackID}/`
@@ -110,7 +109,7 @@ const HomePage = () => {
       />
       {currentUserInfo ? (
         <div className="flex items-center justify-center">
-          <h3 className="welcome-text">
+          <h3 className="welcome-text !text-[1em]">
             Welcome, {currentUserInfo.first_name}!
           </h3>
           {/* <h6>{(`${day} ${month}, ${year}`).toString()}</h6> */}

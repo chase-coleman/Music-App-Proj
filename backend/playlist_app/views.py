@@ -19,8 +19,10 @@ class Playlists(TokenReq):
     playlist_to_delete.delete()
     return Response(f"{playlist_to_delete.name} has been deleted.", status=s.HTTP_204_NO_CONTENT)
 
-  def put(self, request, name):
-    pass
+  def put(self, request, id):
+    data = request.data.copy()
+    print(data)
+    return Response(True)
 
   def post(self, request):
     data = request.data.copy()

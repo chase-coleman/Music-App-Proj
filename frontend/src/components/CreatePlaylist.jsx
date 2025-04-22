@@ -35,10 +35,10 @@ const CreatePlaylist = ( { grabUserPlaylists, setCreateBtn } ) => {
 
   return (
     <>
-    <div className="createplaylist-container border-2 h-[30%] flex flex-col justify-center items-center ">
+    <div className="createplaylist-container rounded h-[30%] flex flex-col justify-center items-center ">
       <div className="w-full flex items-center justify-end">
       <button>
-      <CircleX color="black"/>
+      <CircleX color="white"/>
       </button>
       </div>
       <fieldset className="fieldset">
