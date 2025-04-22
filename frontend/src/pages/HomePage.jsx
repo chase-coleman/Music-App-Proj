@@ -18,6 +18,7 @@ const HomePage = () => {
   const [trackResults, setTrackResults] = useState(null);
   const [artistResults, setArtistResults] = useState(null);
   const [albumResults, setAlbumResults] = useState(null);
+  const [notifyRemoved, setNotifyRemoved] = useState(false);
   const {
     userToken,
     currentTrack,
@@ -92,7 +93,10 @@ const HomePage = () => {
 
     if (response.status === 204) {
       // if song has been removed from the playlist successfully,
-      alert("Song removed from the playlist!"); // alert the user
+      setNotifyRemoved(true)
+      const timer = setTimeout(() => {
+        setNotifyRemoved(false)
+      }, 3000)
       getTracks(); // call the function to load the playlist's tracks which will update the page with the song now removed
     }
   };
@@ -150,6 +154,13 @@ const HomePage = () => {
           )}
         </div>
       </div>
+      {notifyRemoved ? (
+        <div className="absolute left-5 bottom-5 z-50">
+          <div className="removed-alert z-50 flex rounded-xl flex-col p-1 text-center text-[0.65em]">
+            <span>Song removed from playlist</span>
+          </div>
+        </div>
+      ) : null}
     </>
   );
 };

@@ -135,7 +135,8 @@ function Signup() {
         </div>
       </div>
       {showMsg && (
-        <div className="absolute top-[-30px] left-0 w-full h-[calc(100vh-64px)] flex items-center justify-center">
+        <div className="absolute top-[-30px] left-0 w-full h-[calc(100vh-64px)] 
+                        flex items-center justify-center">
           <div
             className="account-created z-50 w-[30vw] h-[50vh] 
     rounded-lg shadow-lg flex flex-col items-center justify-center"

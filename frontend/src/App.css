@@ -154,3 +154,9 @@ progress::-moz-progress-bar {
   transform: scale(1.2);
   box-sizing: border-box;
 }
+.removed-alert {
+  background-color: rgba(230, 230, 235, 1);
+  backdrop-filter: blur(2px);
+  color: black;
+  font-family: forta;
+}
