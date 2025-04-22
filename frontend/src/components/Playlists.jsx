@@ -22,7 +22,7 @@ const Playlists = ( {grabUserPlaylists, setPlaylistView} ) => {
     <>
     <div>
       <div className="createplaylist-btn flex justify-center mb-[1em]">
-    <button className="playlist-btn bg-white" onClick={handlePlaylistCreation}>
+    <button className="playlist-btn " onClick={handlePlaylistCreation}>
       Create New Playlist
     </button>
     </div>

@@ -77,11 +77,18 @@
   /* color: rgb(250, 245, 230); */
   font-family: forta;
 }
+.createplaylist-btn {
+  color:rgb(250, 245, 230);
+}
 .createplaylist-btn:hover {
   border-radius: 75px;
   color:rgb(250, 245, 230);
-  transform: scale(1.2);
+  transform: scale(1.1);
   box-sizing: border-box;
+}
+
+.navbar {
+  font-family: forta;
 }
 
 .dock {
@@ -122,4 +129,28 @@ progress::-moz-progress-bar {
   backdrop-filter: blur(5px);
   color: black;
   font-family: forta;
+}
+.playlists-homepage-container {
+  background-color: rgba(179,179,179, 0.1);
+  backdrop-filter: blur(2px);
+  color: black;
+  font-family: forta;
+}
+.songs-homepage-container {
+  background-color: rgba(179,179,179, 0.1);
+  backdrop-filter: blur(2px);
+  color: black;
+  font-family: forta;
+}
+.searchresults-homepage-container {
+  background-color: rgba(179,179,179, 0.1);
+  backdrop-filter: blur(2px);
+  color: black;
+  font-family: forta;
+}
+.events-link:hover {
+  border-radius: 75px;
+  color:rgb(250, 245, 230);
+  transform: scale(1.2);
+  box-sizing: border-box;
 }

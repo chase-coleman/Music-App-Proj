@@ -58,37 +58,39 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
       {userToken ? (
         <>
           {/* Left side nav items */}
-          <div className="flex-1 flex items-center justify-center">
-            <Nav.Link as={Link} to="/home">
-              <House className="home-btn" color="rgb(250, 245, 230)" />
-            </Nav.Link>
-            <Nav.Link as={Link} to="/events" className="text-white">
+          <div className="flex-1 flex flex-row gap-5 items-center justify-center">
+            <Nav.Link as={Link} to="/events" className="events-link text-white">
               Events
             </Nav.Link>
           </div>
-
           {/* Right side nav items */}
-          <div className="flex gap-2">
+          <div className="flex justify-end pr-2 gap-2">
+            <div className="flex items-center">
+            <Nav.Link as={Link} to="/home">
+              <House className="home-btn" color="rgb(250, 245, 230)" size={35} />
+            </Nav.Link>
+            </div>
             <input
               type="text"
               placeholder="Search"
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="input input-bordered w-24 md:w-auto"
+              className="input input-bordered !w-[50%] md:w-auto"
             />
-            <button className="btn btn-neutral w-[5vw] " onClick={handleSearch}>
+            <button className="btn bg-whitebtn-neutral w-[5rem] bg-white p-0" onClick={handleSearch}>
               Search
             </button>
-            <div className="dropdown dropdown-end">
+            <div className="dropdown dropdown-end rounded">
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-ghost btn-circle avatar"
+                className="btn btn-ghost rounded btn-circle avatar p-0"
               >
-                <div className="w-10 rounded-full">
+                <div className="w-full  rounded overflow-hidden p-0">
                   <img
                     alt="Profile"
                     src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                    className="!w-full !h-full !object-cover"
                   />
                 </div>
               </div>

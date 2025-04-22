@@ -65,7 +65,6 @@ function Signup() {
       const response = await axios.post(signUpUrl, accountInfo);
       localStorage.setItem("token", response.data.token);
       setShowMsg(true);
-      // navigate("/home")
     } catch (error) {
       console.error("Error:", error);
     }
@@ -76,7 +75,7 @@ function Signup() {
       <div className="container flex flex-col justify-center items-center">
         <Navbar />
         <div
-          className="signupinfocontainer flex flex-col justify-center items-center 
+          className="signupinfocontainer rounded-xl flex flex-col justify-center items-center 
         h-[60vh] w-[40vw]"
         >
           <h5 className="text-center">
