@@ -73,7 +73,6 @@ const HomePage = () => {
 
   // API call to backend to grab tracks from a specific playlist
   const getTracks = async () => {
-    console.log(playlistView);
     if (playlistView) {
       const response = await axios.get(
         `${singlePlaylistUrl}${playlistView.name}`
@@ -100,6 +99,7 @@ const HomePage = () => {
       getTracks(); // call the function to load the playlist's tracks which will update the page with the song now removed
     }
   };
+
 
   return (
     <>

@@ -96,12 +96,14 @@ class Spotify_Callback_View(TokenReq):
                 }
 
         result = post(spotify_token_url, headers=headers, data=data)
+
+        if result.status_code != 200:
+            print("Token Access Request Failed:", result.status_code, result.text)
+            raise Exception("Token Access Request Failed")
         json_result = json.loads(result.content)
 
         if "access_token" in json_result:
             return json_result['access_token']
-
-
 
         return Response({"error": "Failed to use refresh token. Please contact site admin"})
 

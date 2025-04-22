@@ -32,7 +32,7 @@ class Playlists(TokenReq):
   
 class Single_Playlist(TokenReq):
   def get(self, request, playlist_name):
-    viewed_playlist = get_object_or_404(Playlist, name=playlist_name)
+    viewed_playlist = get_object_or_404(Playlist, name=playlist_name, user=request.user)
     ser_playlist = PlaylistDisplaySerializer(viewed_playlist)
     return Response(ser_playlist.data, status=s.HTTP_200_OK)
   
@@ -40,7 +40,7 @@ class Single_Playlist(TokenReq):
   # in the delete request, we are passing either an int id (the song's database ID)
   # or we are passing a string id (spotify's id for the song)
   def delete(self, request, playlist_name, id):
-    viewed_playlist = get_object_or_404(Playlist, name=playlist_name)
+    viewed_playlist = get_object_or_404(Playlist, name=playlist_name, user=request.user)
 
     if type(id) == int:
       track_to_delete = viewed_playlist.tracks.filter(id=id)

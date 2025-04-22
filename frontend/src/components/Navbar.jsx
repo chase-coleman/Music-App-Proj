@@ -2,7 +2,7 @@
 https://reactrouter.com/6.30.0/hooks/use-navigate#optionsreplace
  - useNavigate doc
 */
-import { House } from "lucide-react";
+import { House, Settings, LogOut } from "lucide-react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import axios from "../axios";
@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
   const [search, setSearch] = useState("");
-  const { userToken } = useOutletContext();
+  const { userToken, setUserToken } = useOutletContext();
   const navigate = useNavigate();
   const searchUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/";
 
@@ -47,6 +47,7 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
 
       localStorage.removeItem("token"); // remove the deleted token from the local storage
       console.log("user logged out!", userToken);
+      setUserToken(null)
       navigate("/");
     } catch (error) {
       console.error("Error:", error);
@@ -66,9 +67,13 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
           {/* Right side nav items */}
           <div className="flex justify-end pr-2 gap-2">
             <div className="flex items-center">
-            <Nav.Link as={Link} to="/home">
-              <House className="home-btn" color="rgb(250, 245, 230)" size={35} />
-            </Nav.Link>
+              <Nav.Link as={Link} to="/home">
+                <House
+                  className="home-btn"
+                  color="rgb(250, 245, 230)"
+                  size={35}
+                />
+              </Nav.Link>
             </div>
             <input
               type="text"
@@ -77,7 +82,10 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
               onChange={(e) => setSearch(e.target.value)}
               className="input input-bordered !w-[50%] md:w-auto"
             />
-            <button className="btn bg-whitebtn-neutral w-[5rem] bg-white p-0" onClick={handleSearch}>
+            <button
+              className="btn bg-whitebtn-neutral w-[5rem] bg-white p-0"
+              onClick={handleSearch}
+            >
               Search
             </button>
             <div className="dropdown dropdown-end rounded">
@@ -98,20 +106,20 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
                 tabIndex={0}
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
               >
-                <li>
-                  <a className="justify-between">
-                    Profile
-                    <span className="badge">New</span>
-                  </a>
-                </li>
-                <li>
-                  <Nav.Link as={Link} to="/settings" className="text-black">
-                    Settings
-                  </Nav.Link>
-                </li>
+                <div className="flex gap-1">
+                  <Settings size={20} />
+                  <li>
+                    <Nav.Link as={Link} to="/settings" className="text-black">
+                      Settings
+                    </Nav.Link>
+                  </li>
+                </div>
+                <div className="flex items-center">
+                  <LogOut size={17}/>
                 <li>
                   <button onClick={userLogout}>Logout</button>
                 </li>
+                </div>
               </ul>
             </div>
           </div>
