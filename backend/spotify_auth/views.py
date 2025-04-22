@@ -2,10 +2,9 @@
 https://www.youtube.com/watch?v=WAmEZBEeNmg
 tutorial help for the Spotify Web API
 """
-
-from rest_framework.authtoken.models import Token
+from rest_framework import status as s
 from rest_framework.response import Response
-from user_app.views import TokenReq
+from user_app.views import TokenReq, APIView
 from django.conf import settings
 from dotenv import load_dotenv
 from requests import post, get
@@ -31,106 +30,134 @@ load_dotenv() # we have to load the environment variables from .env
 SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID") # my personal client ID for Spotify
 SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET") # my Spotify API client secret number
 spotify_item_search_url = "https://api.spotify.com/v1/" # endpoint for Spotify's item search URL
+SPOTIFY_REFRESH_TOKEN = os.getenv("SPOTIFY_REFRESH_TOKEN") # my spotify account's refresh token
+SPOTIFY_REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI")
 
 
-def convert_ms_into_minutes(ms):
-  seconds = (ms // 1000) % 60
-  minutes = (ms // 1000) // 60
-  return f"{minutes}:{seconds}"
+class Spotify_Callback_View(TokenReq):
+
+    def get(self, request, item=None):
+        # grab my refresh token
+        refresh_token = SPOTIFY_REFRESH_TOKEN
+        if not refresh_token:
+            return Response({"error": "This application's refresh token is invalid/corrupted. Please contact the site manager."})
+        
+        # call necessary functions to generate an access token
+        access_token = self.get_spotify_token(refresh_token)
+        headers = self.get_auth_header(access_token)
+
+        # if the user is searching for a song/album/artist, go this route
+        if item:
+            answer = self.search_for_item(access_token, item=item, headers=headers)
+            # ['artists']['items'][0]['id']
+            return Response(answer)
+        return Response({"access_token": access_token})
 
 
-# this function will call Spotify's API and get an access-token for our app
-def get_spotify_token():
-  # print("CLIENT ID:", SPOTIFY_CLIENT_ID)
-  # print("ClIENT SECRET:", SPOTIFY_CLIENT_ID)
-  
-  auth_str = SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET
-  auth_encoded = auth_str.encode("utf-8")
-  
-  # returns a base64 object, converts to a string so we can pass it w/ our headers when we send a request to Spotify
-  auth_base64 = str(base64.b64encode(auth_encoded), "utf-8")
+    def get_spotify_token(self, refresh_token=None):
 
-  spotify_token_url = "https://accounts.spotify.com/api/token"
-  headers = {
-    "Authorization": "Basic " + auth_base64,
-    "Content-Type": "application/x-www-form-urlencoded" # Content type is telling the server what kind of data is being sent
-  }
-  data = {"grant_type": "client_credentials"} # this is the body of the request we'll be sending
+        # get a new access token using the refresh token
+        if refresh_token:
+            access_token= self.get_access_refresh(refresh_token)
+            return access_token
 
-  result = post(spotify_token_url, headers=headers, data=data)
-  json_result = json.loads(result.content)
-  token = json_result['access_token']
-  return token
+        # put my spotify client ID & secret into one string & encode it
+        auth_str = SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET
+        auth_encoded = auth_str.encode("utf-8")
 
-def get_auth_header(spotify_token):
-  return {"Authorization": "Bearer " + spotify_token}
+        # returns a base64 object, converts to a string so we can pass it w/ our headers when we send a request to Spotify
+        auth_base64 = str(base64.b64encode(auth_encoded), "utf-8")
+
+        # create variables to use in the POST request to generate a token
+        spotify_token_url = "https://accounts.spotify.com/api/token"
+        headers = {
+            "Authorization": "Basic " + auth_base64,
+            "Content-Type": "application/x-www-form-urlencoded" # Content type is telling the server what kind of data is being sent
+        }
+        data = {"grant_type": "client_credentials"} # this is the body of the request we'll be sending
 
 
-# type=... is a list of types that the API will return with a matching searched item (ie artists, albums, tracks(songs)
-# limit=... is limiting how many items are being returned by the API (1 = 1 item returned, 3 = 3 items returned, etc)
-def search_for_item(spotify_token, item, headers):
-  query = f"?q={item}&type=artist,album,track&limit=10" # comma delimited list
 
-  # this query is calling an endpoint that searches Spotify's db using a string
-  # have to do this first because we need to get the artist/genre/album/track id to store in our database
-  query_url = spotify_item_search_url + "search" + query
+        result = post(spotify_token_url, headers=headers, data=data)
+        json_result = json.loads(result.content)
+        token = json_result['access_token']
+        return token
 
-  # make a GET request to the Spotify endpoint that searches for a match in the specified types (inside of the query var)
-  search_result = get(query_url, headers=headers)
-   
-   # converting the search results to a dictionary
-  json_result = json.loads(search_result.content)
-  # artist_id = json_result['artists']['items'][0]['id']
+    # if the refresh token exists, use it to get a new access token
+    def get_access_refresh(self, refresh_token):
+        auth_str = SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET
+        auth_encoded = auth_str.encode("utf-8")
+        auth_base64 = str(base64.b64encode(auth_encoded), "utf-8")
+        spotify_token_url = "https://accounts.spotify.com/api/token"
+        scopes = "user-read-private user-read-email playlist-read-private streaming user-read-playback-state user-modify-playback-state"
+        headers = {"Authorization": "Basic " + auth_base64, "Content-Type": "application/x-www-form-urlencoded"}
+        data = {"grant_type": "refresh_token", 
+                "refresh_token": refresh_token,
+                }
 
-  tracks = [{"id":track['id'], "track_name":track['name'], "artist": track['artists'][0]['name'], 
-             "track_img_lg": track['album']['images'][0]['url'] if len(track['album']['images']) > 0 else None,
-             "track_img_md": track['album']['images'][1]['url'] if len(track['album']['images']) > 1 else None,
-             "track_img_sm": track['album']['images'][2]['url'] if len(track['album']['images']) > 2 else None,
-             "artist_id": track['artists'][0]['id'], 
-             "album": track['album']['name'], "album_id": track['album']['id'],
-             "track_duration": convert_ms_into_minutes(track['duration_ms']),
-             "track_url": track['href']
-             } 
-            for track in json_result['tracks']['items'] ]
-  artists = [{"id": artist['id'], "artist_name": artist['name'], "followers": artist['followers']['total'],
-              "artist_img_lg": artist['images'][0]['url'] if len(artist['images']) > 0 else None,
-              "artist_img_md": artist['images'][1]['url'] if len(artist['images']) > 1 else None,
-              "artist_img_sm": artist['images'][2]['url'] if len(artist['images']) > 2 else None,
-              "popularity": artist['popularity'],
-              "artist_url": artist['href'],
-              } 
-             for artist in json_result['artists']['items']]
-  albums =  [{"id": album['id'], "album_name": album['name'], "artist": album['artists'][0]['name'],
-              "album_img_lg": album['images'][0]['url'] if len(album['images']) > 0 else None,
-              "album_img_lg": album['images'][1]['url'] if len(album['images']) > 1 else None,
-              "album_img_lg": album['images'][2]['url'] if len(album['images']) > 2 else None,
-              "release_date": album['release_date'], 
-              "album_url": album['href']
-              }
-            for album in json_result['albums']['items']]
+        result = post(spotify_token_url, headers=headers, data=data)
 
-  search_results = [
-    {"tracks": tracks},
-    {"artists": artists},
-    {"albums": albums},
-  ]
-# json_result['tracks']['items']
-# json_result['artists']['items']
-# json_result['albums']['items']
-  return search_results
+        if result.status_code != 200:
+            print("Token Access Request Failed:", result.status_code, result.text)
+            raise Exception("Token Access Request Failed")
+        json_result = json.loads(result.content)
 
-# Create your views here.
-class Spotify_Callback_View(TokenReq):  
-  def get(self, request, item=None):
-    # get the user's authorization token
-    user_token = Token.objects.get(user=request.user)
-    spotify_token = get_spotify_token()
-    headers = get_auth_header(spotify_token)
-    if item:
-      answer = search_for_item(spotify_token, item=item, headers=headers)
-      # ['artists']['items'][0]['id']
-      return Response(answer)
-    return Response(True)
+        if "access_token" in json_result:
+            return json_result['access_token']
+
+        return Response({"error": "Failed to use refresh token. Please contact site admin"})
+
+    @classmethod
+    def get_auth_header(cls, access_token):
+        return {"Authorization": "Bearer " + access_token}
+
+    # convert the song duration from ms into proper time format (hh:mm:ss)
+    @classmethod
+    def convert_ms_into_minutes(cls, ms):
+        seconds = (ms // 1000) % 60
+        minutes = (ms // 1000) // 60
+        return f"{minutes}:{str(seconds).zfill(2)}"
+
+    # call spotify's general search api endpoint to get the meta data about the searched item
+    @classmethod
+    def search_for_item(cls, access_token, item, headers):
+        query = f"?q={item}&type=artist,album,track&limit=15"
+        query_url = spotify_item_search_url + "search" + query
+        search_result = get(query_url, headers=headers)
+        json_result = search_result.json()
+
+        tracks = [{"id": track['id'], "track_name": track['name'], "artist": track['artists'][0]['name'],
+                   "track_img_lg": track['album']['images'][0]['url'] if len(track['album']['images']) > 0 else None,
+                   "track_img_md": track['album']['images'][1]['url'] if len(track['album']['images']) > 1 else None,
+                   "track_img_sm": track['album']['images'][2]['url'] if len(track['album']['images']) > 2 else None,
+                   "artist_id": track['artists'][0]['id'],
+                   "album": track['album']['name'], "album_id": track['album']['id'],
+                   "track_duration": cls.convert_ms_into_minutes(track['duration_ms']),
+                   "track_url": track['href']
+                   }
+                  for track in json_result['tracks']['items']]
+        artists = [{"id": artist['id'], "artist_name": artist['name'], "followers": artist['followers']['total'],
+                    "artist_img_lg": artist['images'][0]['url'] if len(artist['images']) > 0 else None,
+                    "artist_img_md": artist['images'][1]['url'] if len(artist['images']) > 1 else None,
+                    "artist_img_sm": artist['images'][2]['url'] if len(artist['images']) > 2 else None,
+                    "popularity": artist['popularity'],
+                    "artist_url": artist['href'],
+                    }
+                   for artist in json_result['artists']['items']]
+        albums = [{"id": album['id'], "album_name": album['name'], "artist": album['artists'][0]['name'],
+                   "album_img_lg": album['images'][0]['url'] if len(album['images']) > 0 else None,
+                   "album_img_md": album['images'][1]['url'] if len(album['images']) > 1 else None,
+                   "album_img_sm": album['images'][2]['url'] if len(album['images']) > 2 else None,
+                   "release_date": album['release_date'],
+                   "album_url": album['href']
+                   }
+                  for album in json_result['albums']['items']]
+
+        return [
+            {"tracks": tracks},
+            {"artists": artists},
+            {"albums": albums},
+        ]
   
 
 

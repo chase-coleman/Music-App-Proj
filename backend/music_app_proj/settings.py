@@ -28,7 +28,7 @@ DEBUG = True
 # SECURITY : spotify's app client ID & Secret for my personal account:
 SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID")
 SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET")
-
+SPOTIFY_REFRESH_TOKEN = os.getenv("SPOTIFY_REFRESH_TOKEN")
 
 ALLOWED_HOSTS = []
 

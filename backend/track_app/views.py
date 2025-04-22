@@ -9,7 +9,7 @@ from playlist_app.models import Playlist
 
 # Create your views here.
 class Tracks(TokenReq):
-  def post(self, request):
+  def post(self, request, playlist_id=None):
     track_data = request.data.copy()
     track_sec = track_data['duration'][-2:] # grab the value of track's 'seconds' 
     track_min = track_data['duration'][:-3] # grab the value of track's 'minutes' 
@@ -39,12 +39,12 @@ class Tracks(TokenReq):
         "track_img_sm": track_data["track_img_sm"]
       }
     )
-
-    # grab the user's liked songs playlist
-    user_liked_playlist = Playlist.objects.get(user=request.user, name="Liked Songs")
-    # if the song already exists in the user's Liked Songs, notify user
-    if user_liked_playlist.tracks.filter(pk=new_track.pk).exists():
-      return Response({'message': "Track already in liked songs!"}, status=s.HTTP_400_BAD_REQUEST)
-    # else, add new song to their liked song
-    user_liked_playlist.tracks.add(new_track)
+    if playlist_id:
+      # grab the user's liked songs playlist
+      user_liked_playlist = Playlist.objects.get(user=request.user, id=playlist_id)
+      # if the song already exists in the user's Liked Songs, notify user
+      if user_liked_playlist.tracks.filter(pk=new_track.pk).exists():
+        return Response({'message': "Track already in this playlist!"}, status=s.HTTP_400_BAD_REQUEST)
+      # else, add new song to their liked song
+      user_liked_playlist.tracks.add(new_track)
     return Response({"Message": "Track added to liked songs!"},status=s.HTTP_201_CREATED)

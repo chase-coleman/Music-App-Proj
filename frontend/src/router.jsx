@@ -1,12 +1,13 @@
 import { createBrowserRouter } from "react-router-dom";
 import App from "./App";
 import HomePage from "./pages/HomePage";
-import Login from "./pages/LoginPage";
 import Signup from "./pages/SignUp";
-import Playlists from "./pages/Playlists";
 import SearchResults from "./pages/SearchResultsPage";
 import ErrorPage from "./pages/ErrorPage";
-import PlaylistView from "./pages/PlaylistView";
+import LandingPage from "./pages/LandingPage";
+import Login from "./pages/LoginPage";
+import Events from "./pages/Events";
+import Settings from "./pages/Settings";
 
 const router = createBrowserRouter([
   {
@@ -15,10 +16,14 @@ const router = createBrowserRouter([
     children: [
       {
         index: true,
+        element: <LandingPage />
+      },
+      {
+        path: "/home",
         element: <HomePage />
       },
       {
-        path: "login",
+        path: "/login",
         element: <Login />
       },
       {
@@ -26,17 +31,17 @@ const router = createBrowserRouter([
         element: <Signup />
       },
       {
-        path: "playlists",
-        element: <Playlists />
-      },
-      {
         path: "search-results/:queryItem",
         element: <SearchResults />
       },
       {
-        path: "playlists/:playlist_name",
-        element: <PlaylistView />
-      }
+        path: "/events",
+        element: <Events />
+      },
+      {
+        path: "/settings",
+        element: <Settings />
+      },
     ],
     errorElement: <ErrorPage />
   }

@@ -1,0 +1,105 @@
+
+  // const spotifyTokenUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/"
+  // const clientID = "35b626a49f4141139225501c7a963489"
+  // const scopes = [
+  //   "user-read-private",
+  //   "user-read-email",
+  //   "playlist-read-private",
+  //   "streaming",
+  //   "user-read-playback-state",
+  //   "user-modify-playback-state"
+  // ]
+
+//   const getSpotifyRefreshToken = () => {
+//   const authUrl = `https://accounts.spotify.com/authorize?client_id=${clientID}&response_type=code&redirect_uri=${encodeURIComponent(
+//     spotifyTokenUrl
+//   )}&scope=${encodeURIComponent(scopes.join(" "))}&state=randomstring123`
+//   window.location.href = authUrl
+//   console.log(response.data)
+// }
+
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
+from user_app.views import TokenReq, APIView
+from django.conf import settings
+from dotenv import load_dotenv
+from requests import post, get
+import requests
+import os 
+import base64 # used for encoding the spotify client ID + secret key together
+import json 
+
+# base64 is used to encode binary data into a string format using ASCII characters. ->
+#  in simple terms, base64 turns binary data into plain text
+# ASCII is standardized characters based off the english alphabet
+# ASCII : aA-zZ, 0-9, symbols(!@#$...), special characters(newline, tab, backspace...), control characters
+
+# TO DO : refactor code so that I get a refresh token instead of an access token
+#         so that the app doesn't have to make an access token request to Spotify every time the endpoint is called
+# TO DO : create methods that parse through the return data based on if it is a song, artist, etc
+# TO DO : create models + model.fields to store a user's liked artists, songs, etc
+# TO DO : using this views.py file, create model instances for when a user wants to like/follow that stuff
+
+
+load_dotenv() # we have to load the environment variables from .env
+
+SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID") # my personal client ID for Spotify
+SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET") # my Spotify API client secret number
+spotify_item_search_url = "https://api.spotify.com/v1/" # endpoint for Spotify's item search URL
+SPOTIFY_REFRESH_TOKEN = os.getenv("SPOTIFY_REFRESH_TOKEN")
+SPOTIFY_REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI")
+
+
+class Spotify_Callback_View(APIView):
+
+    def get(self, request, item=None):
+        code = request.GET.get("code")
+        if not code:
+            return Response({"error": "Authorization code not provided"}, status=400)
+
+        tokens = self.get_spotify_tokens(code)
+        if not tokens:
+            return Response({"error": "Failed to get tokens from Spotify"}, status=400)
+
+        access_token = tokens['access_token']
+        refresh_token = tokens['refresh_token']
+
+        headers = self.get_auth_header(access_token)
+
+        if item:
+            answer = self.search_for_item(access_token, item=item, headers=headers)
+            return Response(answer)
+
+        return Response({
+            "access_token": access_token,
+            "refresh_token": refresh_token
+        })
+
+    def get_spotify_tokens(self, auth_code):
+        auth_str = f"{SPOTIFY_CLIENT_ID}:{SPOTIFY_CLIENT_SECRET}"
+        auth_bytes = auth_str.encode("utf-8")
+        auth_base64 = base64.b64encode(auth_bytes).decode("utf-8")
+
+        token_url = "https://accounts.spotify.com/api/token"
+        headers = {
+            "Authorization": f"Basic {auth_base64}",
+            "Content-Type": "application/x-www-form-urlencoded"
+        }
+        data = {
+            "grant_type": "authorization_code",
+            "code": auth_code,
+            "redirect_uri": SPOTIFY_REDIRECT_URI
+        }
+
+        response = post(token_url, headers=headers, data=data)
+        response_data = response.json()
+
+        # This will include both tokens
+        access_token = response_data.get("access_token")
+        refresh_token = response_data.get("refresh_token")
+        expires_in = response_data.get("expires_in")  # Optional, but useful
+
+        return {
+            "access_token": access_token,
+            "refresh_token": refresh_token
+        }

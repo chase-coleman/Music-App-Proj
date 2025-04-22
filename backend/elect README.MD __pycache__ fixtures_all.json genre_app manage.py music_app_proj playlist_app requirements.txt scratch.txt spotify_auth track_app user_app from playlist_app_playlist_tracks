@@ -1,0 +1,21 @@
+                       List of relations
+ Schema |              Name              | Type  |    Owner     
+--------+--------------------------------+-------+--------------
+ public | auth_group                     | table | chasecoleman
+ public | auth_group_permissions         | table | chasecoleman
+ public | auth_permission                | table | chasecoleman
+ public | authtoken_token                | table | chasecoleman
+ public | django_admin_log               | table | chasecoleman
+ public | django_content_type            | table | chasecoleman
+ public | django_migrations              | table | chasecoleman
+ public | django_session                 | table | chasecoleman
+ public | genre_app_genre                | table | chasecoleman
+ public | playlist_app_playlist          | table | chasecoleman
+ public | playlist_app_playlist_tracks   | table | chasecoleman
+ public | spotify_auth_refreshtoken      | table | chasecoleman
+ public | track_app_track                | table | chasecoleman
+ public | user_app_user                  | table | chasecoleman
+ public | user_app_user_groups           | table | chasecoleman
+ public | user_app_user_user_permissions | table | chasecoleman
+(16 rows)
+

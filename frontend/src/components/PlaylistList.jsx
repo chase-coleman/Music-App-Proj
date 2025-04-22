@@ -1,10 +1,10 @@
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import axios from "../axios";
 import { Link, useOutletContext } from "react-router-dom";
 import { Nav } from "react-bootstrap";
+import { CircleX, Play, Pencil } from 'lucide-react';
 
-
-const PlaylistList = ({ playlist, grabUserPlaylists }) => {
+const PlaylistList = ({ playlist, editPlaylist, grabUserPlaylists,setPlaylistView }) => {
   const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
   const {userToken} = useOutletContext()
   // const userToken = localStorage.getItem("token");
@@ -16,17 +16,22 @@ const PlaylistList = ({ playlist, grabUserPlaylists }) => {
   // the Playlists page and passing it down as a prop, because all playlists
   // shared the same state. so clicking delete on one playlist, deleted them all
 
+
   useEffect(() => {
-    if (delBtn){
-      deletePlaylist()
-      setDelBtn(false)
+    if (delBtn){ // if delBtn is true
+      deletePlaylist() // delete the playlist
+      setDelBtn(false) // set delBtn back to false
     }
   }, [delBtn, setDelBtn])
+
+  const handleEdit = () => {
+    editPlaylist(playlist)
+  }
 
   const deletePlaylist = async () => {
     // get the playlist ID from the current playlist being added to a component
     const playlistID = playlist.id; 
-    console.log("Deleting Playlist...");
+
     try {
       // do a DELETE request to remove the playlist instance from the db 
       const response = await axios.delete(`${playlistUrl}${playlistID}/`);
@@ -34,51 +39,46 @@ const PlaylistList = ({ playlist, grabUserPlaylists }) => {
       // update usersPlaylist state variable without the deleted playlist
       // also also remove it to the page in the .map() function
       grabUserPlaylists()
+
     } catch (error) {
       console.error("Error:", error);
     }
   };
 
+  const changePlaylistView = () => {
+    setPlaylistView(playlist)
+  }
+
+
   return (
     <>
-      <div>
+      <div className="img-container w-[100%] h-[100%]">
         <img
           className="size-10 rounded-box"
           src="https://img.daisyui.com/images/profile/demo/1@94.webp"
         />{" "}
         {/*Playlist Img goes here */}
       </div>
-      <div>
-        <Nav.Link as={Link} to={`/playlists/${playlist.name}`}>
-        <div>{playlist.name}</div> {/* Playlist Name goes here*/}
-        </Nav.Link>
-        <div className="text-xs uppercase font-semibold opacity-60">
-          {" "}
-          {/*Playlist Description goes here*/}
+
+      <div className="text-container text-center text-[.75em] flex flex-col justify-center">
+        <button onClick={changePlaylistView}>{playlist.name}</button> {/* Playlist Name goes here*/}
+        <div className="uppercase font-semibold opacity-60 text-[0.5em] overflow-hidden text-ellipsis">          {/*Playlist Description goes here*/}
           {playlist.description}
         </div>
       </div>
-      <button className="btn btn-square btn-ghost">
-        <svg
-          className="size-[1.2em]"
-          xmlns="http://www.w3.org/2000/svg"
-          viewBox="0 0 24 24"
-        >
-          <g
-            strokeLinejoin="round"
-            strokeLinecap="round"
-            strokeWidth="2"
-            fill="none"
-            stroke="currentColor"
-          >
-            <path d="M6 3L20 12 6 21 6 3z"></path>
-          </g>
-        </svg>
+      <button className="btn w-[10%] btn-square btn-ghost p-0">
+        <Play size={12}/>
       </button>
-      <button className="btn btn-square btn-ghost" onClick={() => setDelBtn(true)}>
-        X
+      <button className="btn w-[10%] btn-square btn-ghost p-0" onClick={handleEdit}>
+        <Pencil size={12} />
       </button>
-      {/*Put Trash icon here for users to delete a playlist*/}
+      {playlist.name === "Liked Songs" ? 
+      null
+      :
+      <button className="btn w-[10%] btn-square btn-ghost p-0" onClick={() => setDelBtn(true)}>
+        <CircleX size={12} color="black"/>
+      </button>
+      }
     </>
   );
 };

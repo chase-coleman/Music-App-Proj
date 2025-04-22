@@ -7,6 +7,9 @@ from rest_framework.views import APIView
 from playlist_app.models import Playlist
 from rest_framework import status as s
 from .models import User
+from .serializers import UserInfoSerializer
+from django.shortcuts import get_object_or_404
+
 
 # TokenReq class enforces a user be logged in to access certain pages/app functions
 class TokenReq(APIView):
@@ -16,12 +19,23 @@ class TokenReq(APIView):
 class User_Info(TokenReq):
   def get(self, request):
     current_user = request.user
-    return Response({"email": current_user.email, 
+    user_info = {"email": current_user.email, 
                      "username": current_user.username, 
                      "first_name": current_user.first_name, 
                      "last_name": current_user.last_name,
                      "playlists": current_user.playlists.all()
-                     })
+                     }
+    user_ser = UserInfoSerializer(user_info)
+    return Response(user_ser.data)
+
+  def put(self, request):
+    data = request.data.copy()
+    # pass the request's data into the serializer
+    serialized = UserInfoSerializer(request.user, data=data, partial=True)
+    if serialized.is_valid():
+      serialized.save() # if the data is valid, save it to the db
+      return Response({"message": "Info was successfully updated!"}, status=s.HTTP_200_OK)
+    return Response(serialized.errors, status=s.HTTP_400_BAD_REQUEST)
 
 class Sign_Up(APIView):
   def post(self, request):
@@ -35,7 +49,7 @@ class Sign_Up(APIView):
     user_token = Token.objects.create(user=new_user)
     new_playlist = Playlist.objects.create(name="Liked Songs", user=new_user)
 
-    return Response(f"New account created with the username of {new_user.username}!, token: {user_token.key}", 
+    return Response({"Message": "Account successfully created!", "token": user_token.key}, 
                     status=s.HTTP_201_CREATED)
 
 class Login(APIView):
@@ -62,3 +76,8 @@ class Logout(TokenReq):
     request.user.auth_token.delete()
     logout(request)
     return Response("user has been logged out", status=s.HTTP_200_OK)
+  
+class DeleteAccount(TokenReq):
+  def delete(self, request):
+      request.user.delete()
+      return Response(status=s.HTTP_204_NO_CONTENT)
