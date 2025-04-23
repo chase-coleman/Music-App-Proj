@@ -28,40 +28,45 @@ const Events = () => {
   return (
     <>
       <Navbar />
-      <div className="pagecontainer h-screen w-screen flex flex-col items-center gap-1">
-        <h4>Events</h4>
-        <div className="inputcontainer border-2 w-full flex items-center justify-center">
-          <fieldset className="fieldset">
-            <legend className="fieldset-legend">Enter a ZIP Code</legend>
-            <input
-              type="text"
-              className="input"
-              value={zipInput}
-              onChange={(e) => setZipInput(e.target.value)}
-              placeholder="ZIP Code"
-            />
-          </fieldset>
-          <button className="searchbtn border-2" onClick={searchEvents}>
-            Search
-          </button>
+      <div className="eventpage-container h-[calc(100vh-70px)] w-screen flex flex-col items-center gap-1">
+        <div className="eventinput-container w-full flex items-center justify-center">
+          <div>
+            <fieldset className="fieldset w-[35vw] flex flex-col items-center gap-1">
+              <div className="flex items-center justify-center ">
+                <span className="w-[100%] text-center text-[1em] text-white">
+                  Enter a ZIP Code to find live music near you!
+                </span>
+              </div>
+              <div className="zipinput-container rounded flex gap-2 w-[75%] p-1.5">
+                <input
+                  type="text"
+                  className="input placeholder-gray-500 rounded text-black"
+                  value={zipInput}
+                  onChange={(e) => setZipInput(e.target.value)}
+                  placeholder="ZIP Code"
+                />
+                <button
+                  className="searchzip-btn rounded w-[20%] !text-[.75em] p-1"
+                  onClick={searchEvents}
+                >
+                  Search
+                </button>
+              </div>
+            </fieldset>
+          </div>
         </div>
 
         {searchResults ? (
-          <div className="event-container w-[100%] h-full flex flex-col items-center mt-4">
-            <div className="flex flex-row justify-center items-center relative p-0 w-full">
-              <h6>Events</h6>
-            </div>
-            <ul className="list bg-base-100 rounded-box shadow-md w-[100%] p-0">
+          <div className="event-container w-[100%] h-[calc(100vh-70px)] h-full flex justify-center flex-col items-center overflow-y-auto ml-[25vw] mt-4">
+            <ul className="list rounded-box shadow-md w-[100%] p-0">
               {searchResults.map((event) => (
-                <li className="list-row p-1 gap-1" key={event.id}>
+                <li className="list-row h-[10vh] w-[75vw] p-0 m-1 text-black bg-white gap-1" key={event.id}>
                   <Event event={event} />
                 </li>
               ))}
             </ul>
           </div>
-        ) : (
-          <h4 className="mt-4">No Events Found</h4>
-        )}
+        ) : null}
       </div>
     </>
   );

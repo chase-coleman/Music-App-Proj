@@ -14,9 +14,49 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import { useNavigate, useOutletContext } from "react-router-dom";
+import { Eye, EyeOff } from "lucide-react";
 // TO DO : create verification for account fields like email & password formatting
 
-function Signup() {
+// Custom Password Input Component
+const PasswordInput = ({ 
+  placeholder = "Enter password", 
+  onChange,
+  value,
+  className = "",
+  ...props 
+}) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const toggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
+
+  return (
+    <div className="relative w-full">
+      <input
+        type={isVisible ? "text" : "password"}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        className={`${className} ${isVisible ? "font-forta" : "font-sans"}`}
+        style={{
+          fontFamily: isVisible ? "'Forta', sans-serif" : "sans-serif"
+        }}
+        {...props}
+      />
+      <button
+        type="button"
+        onClick={toggleVisibility}
+        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+        aria-label={isVisible ? "Hide password" : "Show password"}
+      >
+        {isVisible ? <EyeOff size={18} /> : <Eye size={18} />}
+      </button>
+    </div>
+  );
+};
+
+const Signup = () => {
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [email, setEmail] = useState("");
@@ -86,48 +126,52 @@ function Signup() {
           </h5>
           <fieldset className="fieldset gap-2">
             <input
-              className="input placeholder-gray text-black"
+              className="input placeholder-gray-400 text-black font-forta"
               onChange={(e) => setFname(e.target.value)}
               value={fname}
               type="text"
               placeholder="First Name"
+              style={{ fontFamily: "'Forta', sans-serif" }}
             />
             <input
-              className="input placeholder-gray text-black"
+              className="input placeholder-gray-400 text-black font-forta" 
               onChange={(e) => setLname(e.target.value)}
               value={lname}
               type="text"
               placeholder="Last Name"
+              style={{ fontFamily: "'Forta', sans-serif" }}
             />
-            {/* lookup email and password entry form from a library */}
             <input
-              className="input placeholder-gray text-black"
+              className="input placeholder-gray-400 text-black font-forta"
               onChange={(e) => setEmail(e.target.value)}
               value={email}
               type="text"
               placeholder="Email"
+              style={{ fontFamily: "'Forta', sans-serif" }}
             />
             <input
-              className="input placeholder-gray text-black"
+              className="input placeholder-gray-400 text-black font-forta"
               onChange={(e) => setUsername(e.target.value)}
               value={username}
               type="text"
               placeholder="Username"
+              style={{ fontFamily: "'Forta', sans-serif" }}
             />
-            <input
-              className="input placeholder-gray text-black"
+            
+            <PasswordInput
+              className="input placeholder-gray-400 text-black w-full"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
-              type="text"
               placeholder="Password"
             />
-            <input
-              className="input placeholder-gray text-black"
+            
+            <PasswordInput
+              className="input placeholder-gray-400 text-black w-full"
               onChange={(e) => setPasswordConfirm(e.target.value)}
               value={passwordconfirm}
-              type="text"
               placeholder="Confirm Password"
             />
+            
             <button
               className="createaccount-btn btn-neutral w-[25vw]"
               onClick={handlePasswordMatching}
@@ -154,4 +198,5 @@ function Signup() {
     </>
   );
 }
+
 export default Signup;

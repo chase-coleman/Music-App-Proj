@@ -39,6 +39,39 @@
   font-size: clamp(1em, 6vw, 10em);
 }
 
+.field-container {
+  background-color: rgba(179,179,179,.01);
+  backdrop-filter: blur(5px);
+  color: rgb(244, 243, 241);
+  font-family: forta;
+}
+
+::placeholder {
+  font-family: 'Forta', sans-serif !important;
+}
+
+.font-forta {
+  font-family: 'Forta', sans-serif;
+}
+
+.eventpage-container {
+  font-family: forta;
+}
+
+.zipinput-container {
+  background-color: rgba(179,179,179,.01);
+  backdrop-filter: blur(5px);
+  color: rgb(244, 243, 241);
+  font-family: forta;
+}
+
+.searchzip-btn:hover {
+  border-radius: 75px;
+  color:rgb(244, 243, 241);
+  transform: scale(1.2);
+  box-sizing: border-box;
+}
+
 .login-btn:hover {
   border-radius: 75px;
   color:rgb(244, 243, 241);
@@ -46,9 +79,7 @@
   box-sizing: border-box;
 }
 
-.field-container {
-  background-color: rgba(179,179,179,.01);
-  backdrop-filter: blur(5px);
+.loginbutton-container {
   color: rgb(244, 243, 241);
   font-family: forta;
 }

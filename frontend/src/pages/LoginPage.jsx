@@ -4,9 +4,49 @@ import { Nav } from "react-bootstrap";
 import axios from "axios";
 import Navbar from "../components/Navbar";
 import { BouncyArc, DotPulse } from "ldrs/react";
+import { Eye, EyeOff } from "lucide-react";
 import "ldrs/react/BouncyArc.css";
 import "ldrs/react/DotPulse.css"
 // TO DO : error handling for incorrect user login info
+
+// Custom Password Input Component
+const PasswordInput = ({ 
+  placeholder = "Enter password", 
+  onChange,
+  value,
+  className = "",
+  ...props 
+}) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const toggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
+
+  return (
+    <div className="relative w-full">
+      <input
+        type={isVisible ? "text" : "password"}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        className={`${className} ${isVisible ? "font-forta" : "font-sans"}`}
+        style={{
+          fontFamily: isVisible ? "'Forta', sans-serif" : "sans-serif"
+        }}
+        {...props}
+      />
+      <button
+        type="button"
+        onClick={toggleVisibility}
+        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+        aria-label={isVisible ? "Hide password" : "Show password"}
+      >
+        {isVisible ? <EyeOff size={18} /> : <Eye size={18} />}
+      </button>
+    </div>
+  );
+};
 
 function Login() {
   // creating state variables for user's username and password that they enter
@@ -42,30 +82,33 @@ function Login() {
     <>
       <Navbar />
       <div className="info-container h-screen w-screen mt-[5em] flex flex-col justify-start items-center">
-        <div className="field-container h-[50%] flex flex-col justify-start">
+        <div className="field-container h-[30%] flex flex-col justify-start items-center p-3">
           <fieldset className="fieldset">
             <input
-              className="input placeholder-gray text-black"
+              className="input placeholder-gray text-black font-forta"
               onChange={(e) => setUsername(e.target.value)}
               value={username}
               type="text"
               placeholder="Username"
+              style={{ fontFamily: "'Forta', sans-serif" }}
             />
-            <input
-              className="input placeholder-gray text-black"
+            
+            {/* Replace standard password input with custom component */}
+            <PasswordInput
+              className="input placeholder-gray text-black w-full"
               onChange={(e) => setPassword(e.target.value)}
               value={password}
-              type="text"
               placeholder="Password"
             />
           </fieldset>
-          <div className="button-container m-[1em] gap-2 z-10 flex flex-col items-center">
+          <div className="loginbutton-container m-[1em] w-[50%] gap-2 z-10 flex flex-col items-center">
             <button
-              className="login-btn btn-neutral text-white !text-[1em] w-[100%]"
+              className="login-btn btn-neutral rounded text-white !text-[1em] w-[100%]"
               onClick={handleLogin}
             >
               Login
             </button>
+            <div className="signup-link w-[50%] text-center rounded">
             <Nav.Link
               as={Link}
               to="/signup"
@@ -73,6 +116,7 @@ function Login() {
             >
               Sign Up
             </Nav.Link>
+            </div>
           </div>
         </div>
         {success && (
@@ -97,4 +141,3 @@ function Login() {
 }
 
 export default Login;
-// a17946f2225e496c88fa7ea8419d965d5a4f4bf3
