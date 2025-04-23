@@ -43,15 +43,10 @@ often need that function, variable, etc somewhere else in my project. So multipl
 ## Future Plans
 - I plan to have a few more capabilities in the app :
   - Create a queue of songs to play
-  - Add pages for said artists, albums, and genres to explore 
+  - Add pages for artists, albums, and genres to explore 
   - Add functionality to follow other users, so you can see what they're listening to and what things you have in common (songs, artists followed, etc)
   - Add artists, albums, and genres to "like" 
   - Be able to add local shows that you will be attending to your profile
-
-## Scalability Notes :
-- If I was to make this app live and usable for the public, I'd implement
-
-
 
 ## Resources
 Here are the main resources that I used when creating this project:
