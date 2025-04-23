@@ -1,38 +1,67 @@
-Thanks for checking out my music app! 
+ Rhythym Music is built for people who want a simplified music experience.
+ Whether you want to listen to your all-time favorites, or find new music to obsessively listen to, Rhythm is where you can go.
+ Create personalized playlists, discover new music, and find live music near you, all in one place. 
 
-For all of the app's requirements, please checkout the 'requirements.txt' file.
+## Features
+- OAuth authentication 
+- Spotify authentication
+- Playlist creation, editing and playback
+- Custom audio playback using Spotify's Web Playback SDK
+
+## Tech Stack
+- Frontend :
+  - React, Vite, TailwindCSS, DaisyUI
+  - Ticketmaster API
+  - Lucide, UIball
+- Backend :
+  - Django REST framework
+  - PostgreSQL
+  - Spotify Web API & Playback API
+
+## Dependencies
+For all of the app's backend requirements, please checkout the 'requirements.txt' file.
+& For all of the app's frontend requirements, please checkout the package.json file
+
+## Environment Variables
+- Spotify Client Key
+- Spotify Client Secret
+- Ticketmaster API Key
+- Ticketmaster Secret
+
+## Creator Notes
+Thanks for checking out my music app! This is my first ever full-stack application that I developed while in my 13-week coding bootcamp with Code Platoon.
+I chose to make a music app because I love listening to music, sharing it with friends/family, and especially when you find a song that scratches just the right part of your brain.
+
+## Biggest Issues
+I ran into 2 main issues while developing:
+- Working with Spotify's Playback API
+  - This took me the better part of 3 days to get working properly. I used a few Youtube videos, the Spotify documentation, and my class instructors to figure this out.
+- The second issue was the overall architecture of building it. I found multiple times that when I was creating a new function, variable, etc inside of a component or page, I'd
+often need that function, variable, etc somewhere else in my project. So multiple times I ended up having to "elevate" that to a higher echelon in my stack.
+
+## Future Plans
+- I plan to have a few more capabilities in the app :
+  - Create a queue of songs to play
+  - Add pages for said artists, albums, and genres to explore 
+  - Add functionality to follow other users, so you can see what they're listening to and what things you have in common (songs, artists followed, etc)
+  - Add artists, albums, and genres to "like" 
+  - Be able to add local shows that you will be attending to your profile
+
+## Scalability Notes :
+- If I was to make this app live and usable for the public, I'd implement
 
 
+
+## Resources
 Here are the main resources that I used when creating this project:
-https://www.youtube.com/watch?v=WAmEZBEeNmg - a youtube tutorial on interacting with the spotify API
+https://developer.ticketmaster.com/products-and-docs/apis/getting-started/ - Ticketmaster API Documentation
 https://www.30secondsofcode.org/cheatsheets/p/1/ - Website containing links to different 'Cheat-Sheets'
-https://www.30secondsofcode.org/css/s/units-cheatsheet/ - CSS Sizing Cheat-Sheet 
+https://www.youtube.com/watch?v=WAmEZBEeNmg - a youtube tutorial on interacting with the spotify API
+https://developer.spotify.com/documentation/web-playback-sdk - Spotify's Playback Documentation
 https://acchou.github.io/html-css-cheat-sheet/animation.html - CSS Animations Cheat-Sheet
+https://www.30secondsofcode.org/css/s/units-cheatsheet/ - CSS Sizing Cheat-Sheet 
+https://uiball.com/ldrs/ - Website for loading animations in React
+https://lucide.dev/ - Website I used for icons and such
+https://daisyui.com/ - React component library
+& of course the React + DRF documents
 
-
-My Project Creation Flow :
-1) create necessary project directories/files
-2) download necessary dependencies (this also gets updated as the project grows)
-3) create User model, serializers, views, urls, etc - and make sure it works
-4) create Playlist model, serializers, views, urls, etc - and make sure it works
-5) create skeleton React frontend app to connect to backend
-6) make sure that a user can create a new account, create and delete plists from the frontend app
-7) work with Spotify API
-
-
-
-
-Scalability Notes :
-- Eventually, I might want my application to be live so that my friends and family can use my application.
-  For this, I would add to my code to do this : 
-  - when someone creates a new account, I would get Spotify's refresh token API to give each new user a
-    refresh token that doesn't expire. I would then store that refresh token in my database, associated with it's user.
-    And when a user logs into their account, my application would fetch that user's refresh token,
-    and send it to Spotify to get that user a new access token (these are used for API calls,they expire after 1 hr)
-    that access token would be good for one hour. So I would have to get a new token before that hour is up.
-    I would use a task scheduler like Celery or Django-q to run every 55-58 minutes while the user is logged in,
-    and that would run a function that gets a new access token for a logged in user every 55-58 minutes.
-
-- Ran into the issue of having different user's be able to like the same song. 
-  - In my "Track" model, it has a field of "spotify_id" which is the track's unique ID in Spotify's database. So a user tried to like a song that was already in the database, 
-  it was running into an issue. For this, I use the get_or_create() method in the "Track" view's POST method. 

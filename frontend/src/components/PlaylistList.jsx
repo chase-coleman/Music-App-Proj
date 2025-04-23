@@ -1,8 +1,7 @@
 import { use, useEffect, useState } from "react";
 import axios from "../axios";
 import { Link, useOutletContext } from "react-router-dom";
-import { Nav } from "react-bootstrap";
-import { CircleX, Play, Pencil } from 'lucide-react';
+import { CircleX, Play, Pencil, ListVideo } from 'lucide-react';
 
 const PlaylistList = ({ playlist, editPlaylist, grabUserPlaylists,setPlaylistView }) => {
   const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
@@ -53,10 +52,7 @@ const PlaylistList = ({ playlist, editPlaylist, grabUserPlaylists,setPlaylistVie
   return (
     <>
       <div className="img-container w-[100%] h-[100%]">
-        <img
-          className="size-10 rounded-box"
-          src="https://img.daisyui.com/images/profile/demo/1@94.webp"
-        />{" "}
+        <ListVideo color="black" size={30}/>
         {/*Playlist Img goes here */}
       </div>
 

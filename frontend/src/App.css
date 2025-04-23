@@ -24,14 +24,14 @@
 .landingpage-container {
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
-  color: rgb(250, 245, 230);
+  color:rgb(244, 243, 241);
   font-family: forta;
 }
 
 .login-container {
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
-  color: rgb(250, 245, 230);
+  color: rgb(244, 243, 241);
   font-family: forta;
 }
 
@@ -41,7 +41,7 @@
 
 .login-btn:hover {
   border-radius: 75px;
-  color:rgb(250, 245, 230);
+  color:rgb(244, 243, 241);
   transform: scale(1.2);
   box-sizing: border-box;
 }
@@ -49,40 +49,40 @@
 .field-container {
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
-  color: rgb(250, 245, 230);
+  color: rgb(244, 243, 241);
   font-family: forta;
 }
 
 .signup-btn:hover {
   border-radius: 75px;
-  color:rgb(250, 245, 230);
+  color:rgb(244, 243, 241);
   transform: scale(1.2);
   box-sizing: border-box;
 }
 
 .welcome-text {
   font-family: forta;
-  color:rgb(250, 245, 230);
+  color:rgb(244, 243, 241);
 }
 
 .home-btn:hover {
   border-radius: 75px;
-  color:rgb(250, 245, 230);
+  color:rgb(244, 243, 241);
   transform: scale(1.2);
   box-sizing: border-box;
 }
 .createplaylist-container {
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
-  /* color: rgb(250, 245, 230); */
+  /* color: rgb(244, 243, 241); */
   font-family: forta;
 }
 .createplaylist-btn {
-  color:rgb(250, 245, 230);
+  color:rgb(244, 243, 241);
 }
 .createplaylist-btn:hover {
   border-radius: 75px;
-  color:rgb(250, 245, 230);
+  color:rgb(244, 243, 241);
   transform: scale(1.1);
   box-sizing: border-box;
 }
@@ -94,33 +94,34 @@
 .dock {
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(2px);
-  color: rgb(250, 245, 230);
+  color: rgb(244, 243, 241);
   font-family: forta;
+  width: 100vw;
 }
 
 progress::-webkit-progress-bar {
-  background-color: rgb(250, 245, 230);
+  background-color: rgb(244, 243, 241);
 }
 
 /* Style for Firefox */
 progress::-moz-progress-bar {
-  background-color: rgb(250, 245, 230);
+  background-color: rgb(244, 243, 241);
 }
 
 .signupinfocontainer {
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(2px);
-  color: rgb(250, 245, 230);
+  color: rgb(244, 243, 241);
   font-family: forta;
 }
 .createaccount-btn {
-  color: rgb(250, 245, 230);
+  color: rgb(244, 243, 241);
   font-family: forta;
 }
 
 .createaccount-btn:hover {
   border-radius: 75px;
-  color:rgb(250, 245, 230);
+  color:rgb(244, 243, 241);
   transform: scale(1.2);
   box-sizing: border-box;
 }
@@ -150,19 +151,19 @@ progress::-moz-progress-bar {
 }
 .events-link:hover {
   border-radius: 75px;
-  color:rgb(250, 245, 230);
+  color:rgb(244, 243, 241);
   transform: scale(1.2);
   box-sizing: border-box;
 }
 .removed-alert {
-  background-color: rgba(230, 230, 235, 1);
+  background-color: rgba(244, 243, 241, 1);
   backdrop-filter: blur(2px);
   color: black;
   font-family: forta;
 }
 .editaccount-btn:hover {
   border-radius: 75px;
-  color:rgb(250, 245, 230);
+  color:rgb(244, 243, 241);
   transform: scale(1.2);
   box-sizing: border-box;
 }
@@ -181,6 +182,12 @@ progress::-moz-progress-bar {
 }
 .updated-alert {
   background-color: white;
+  backdrop-filter: blur(10px);
+  color: black;
+  font-family: forta;
+}
+.login-successful {
+  background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(10px);
   color: black;
   font-family: forta;
