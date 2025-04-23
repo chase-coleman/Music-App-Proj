@@ -3,14 +3,12 @@ import { Link } from 'lucide-react';
 
 const Event = ({event}) => {
   
-  useEffect(() => {
-    console.log(event)
-  }, [])
-
+  // redirect the user to a new tab to buy tickets
   const handleTicket = () => {
     window.open(event.url, '_blank')
   }
 
+  // redirect the user to a new tab to view the venue
   const handleVenue = () => {
     window.open(event._embedded.venues[0].url, '_blank')
   }
@@ -39,7 +37,7 @@ const Event = ({event}) => {
         onClick={handleTicket}
         >
           <Link size={10}/>
-          Tix
+          Tickets
           </button>
           <button className="tickets-button flex h-[60%] items-center justify-center pt-0 pr-1 pl-1 rounded gap-1 bg-yellow-500"
           onClick={handleVenue}
