@@ -96,6 +96,7 @@
   backdrop-filter: blur(2px);
   color: rgb(250, 245, 230);
   font-family: forta;
+  width: 100vw;
 }
 
 progress::-webkit-progress-bar {
@@ -181,6 +182,12 @@ progress::-moz-progress-bar {
 }
 .updated-alert {
   background-color: white;
+  backdrop-filter: blur(10px);
+  color: black;
+  font-family: forta;
+}
+.login-successful {
+  background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(10px);
   color: black;
   font-family: forta;

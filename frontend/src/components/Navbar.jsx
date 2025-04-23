@@ -2,7 +2,7 @@
 https://reactrouter.com/6.30.0/hooks/use-navigate#optionsreplace
  - useNavigate doc
 */
-import { House, Settings, LogOut } from "lucide-react";
+import { House, Settings, LogOut, CircleUser } from "lucide-react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import axios from "../axios";
@@ -95,11 +95,7 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
                 className="btn btn-ghost rounded btn-circle avatar p-0"
               >
                 <div className="w-full  rounded overflow-hidden p-0">
-                  <img
-                    alt="Profile"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
-                    className="!w-full !h-full !object-cover"
-                  />
+                  <CircleUser color="white" size={40}/>
                 </div>
               </div>
               <ul

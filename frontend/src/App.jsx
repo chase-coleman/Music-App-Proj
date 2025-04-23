@@ -16,6 +16,8 @@ export default function App() {
   const [currentTrackID, setCurrentTrackID] = useState(null)
   const [player, setPlayer] = useState(null);
   const [currentUserInfo, setCurrentUserInfo] = useState(null)
+
+
   const spotifyAccessUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/"
 
   // when a user logs in, set their token to localstorage and call the func to get an access token

@@ -1,10 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Outlet, Link, useOutletContext } from "react-router-dom";
+import { Outlet, Link, useOutletContext, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Playlists from "../components/Playlists";
 import axios from "../axios";
 import PlaylistSongs from "../components/PlaylistSongs";
 import SearchResults from "../components/SearchResults";
+
+/*
+https://api.reactrouter.com/v7/functions/react_router.useLocation.html
+react router's useLocation function
+*/
 
 const HomePage = () => {
   const [playlistView, setPlaylistView] = useState(null);
@@ -13,6 +18,8 @@ const HomePage = () => {
   const [artistResults, setArtistResults] = useState(null);
   const [albumResults, setAlbumResults] = useState(null);
   const [notifyRemoved, setNotifyRemoved] = useState(false);
+  const location = useLocation();
+  const loginPage = location.pathname === "/login";
 
   const {
     userToken,
@@ -96,11 +103,12 @@ const HomePage = () => {
 
   return (
     <>
+    {!loginPage &&
       <Navbar
         setTrackResults={setTrackResults}
         setArtistResults={setArtistResults}
         setAlbumResults={setAlbumResults}
-      />
+      />}
       {currentUserInfo ? (
         <div className="flex items-center justify-center">
           <h3 className="welcome-text !text-[1em]">
