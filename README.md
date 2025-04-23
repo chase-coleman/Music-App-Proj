@@ -5,6 +5,7 @@
 ## Features
 - OAuth authentication 
 - Spotify authentication
+- Individual Spotify song liking & unliking
 - Playlist creation, editing and playback
 - Custom audio playback using Spotify's Web Playback SDK
 
