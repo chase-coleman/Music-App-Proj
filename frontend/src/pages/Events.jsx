@@ -16,13 +16,12 @@ const Events = () => {
 
   // handle the API call when search button is clicked
   const searchEvents = async () => {
-    setSearching(true)
+    setSearching(true);
     const response = await axios.get(
       `${ticketmasterAPI}&postalCode=${zipInput}`
     );
     const localEvents = response.data._embedded.events;
-    console.log(localEvents);
-    setSearching(false)
+    setSearching(false);
     setSearchResults(localEvents);
     setZipInput("");
   };
@@ -57,22 +56,18 @@ const Events = () => {
             </fieldset>
           </div>
         </div>
-
-        {/* {searchResults ? ( */}
-          {/* <div className="event-container w-[100%] h-[calc(100vh-70px)] flex justify-center flex-col items-center overflow-y-auto ml-[25vw] mt-4"> */}
-          <div className="event-container w-[100%] flex justify-center flex-col items-center overflow-y-auto ml-[25vw] mt-1">
-            <ul className="list rounded-box shadow-md flex w-[100%] h-[95%] p-0">
-              {searchResults.map((event) => (
-                <li
-                  className="list-row h-[10vh] w-[75vw] p-0 m-1 text-black bg-white gap-1"
-                  key={event.id}
-                >
-                  <Event event={event} />
-                </li>
-              ))}
-            </ul>
-          </div>
-        {/* ) : null} */}
+        <div className="event-container w-[100%] flex justify-center flex-col items-center overflow-y-auto ml-[25vw] mt-1">
+          <ul className="list rounded-box shadow-md flex w-[100%] h-[95%] p-0">
+            {searchResults.map((event) => (
+              <li
+                className="list-row h-[10vh] w-[75vw] p-0 m-1 text-black bg-white gap-1"
+                key={event.id}
+              >
+                <Event event={event} />
+              </li>
+            ))}
+          </ul>
+        </div>
         {searching ? (
           <div className="absolute top-[-90px] left-0 w-full h-[calc(100vh-64px)] flex items-center justify-center">
             <div className="account-created z-50 w-[30vw] h-[20vh] rounded-lg shadow-lg flex flex-col items-center justify-center">
