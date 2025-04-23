@@ -5,6 +5,7 @@
 ## Features
 - OAuth authentication 
 - Spotify authentication
+- Individual Spotify song liking & unliking
 - Playlist creation, editing and playback
 - Custom audio playback using Spotify's Web Playback SDK
 
@@ -42,26 +43,21 @@ often need that function, variable, etc somewhere else in my project. So multipl
 ## Future Plans
 - I plan to have a few more capabilities in the app :
   - Create a queue of songs to play
-  - Add pages for said artists, albums, and genres to explore 
+  - Add pages for artists, albums, and genres to explore 
   - Add functionality to follow other users, so you can see what they're listening to and what things you have in common (songs, artists followed, etc)
   - Add artists, albums, and genres to "like" 
   - Be able to add local shows that you will be attending to your profile
 
-## Scalability Notes :
-- If I was to make this app live and usable for the public, I'd implement
-
-
-
 ## Resources
 Here are the main resources that I used when creating this project:
-https://developer.ticketmaster.com/products-and-docs/apis/getting-started/ - Ticketmaster API Documentation
-https://www.30secondsofcode.org/cheatsheets/p/1/ - Website containing links to different 'Cheat-Sheets'
-https://www.youtube.com/watch?v=WAmEZBEeNmg - a youtube tutorial on interacting with the spotify API
-https://developer.spotify.com/documentation/web-playback-sdk - Spotify's Playback Documentation
-https://acchou.github.io/html-css-cheat-sheet/animation.html - CSS Animations Cheat-Sheet
-https://www.30secondsofcode.org/css/s/units-cheatsheet/ - CSS Sizing Cheat-Sheet 
-https://uiball.com/ldrs/ - Website for loading animations in React
-https://lucide.dev/ - Website I used for icons and such
-https://daisyui.com/ - React component library
-& of course the React + DRF documents
+- https://developer.ticketmaster.com/products-and-docs/apis/getting-started/ - Ticketmaster API Documentation
+- https://www.30secondsofcode.org/cheatsheets/p/1/ - Website containing links to different 'Cheat-Sheets'
+- https://www.youtube.com/watch?v=WAmEZBEeNmg - a youtube tutorial on interacting with the spotify API
+- https://developer.spotify.com/documentation/web-playback-sdk - Spotify's Playback Documentation
+- https://acchou.github.io/html-css-cheat-sheet/animation.html - CSS Animations Cheat-Sheet
+- https://www.30secondsofcode.org/css/s/units-cheatsheet/ - CSS Sizing Cheat-Sheet 
+- https://uiball.com/ldrs/ - Website for loading animations in React
+- https://lucide.dev/ - Website I used for icons and such
+- https://daisyui.com/ - React component library
+- & of course the React + DRF documents
 

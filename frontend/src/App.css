@@ -21,6 +21,8 @@
   
 }
 
+/* LANDING PAGE */
+
 .landingpage-container {
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
@@ -35,9 +37,6 @@
   font-family: forta;
 }
 
-.brand {
-  font-size: clamp(1em, 6vw, 10em);
-}
 
 .login-btn:hover {
   border-radius: 75px;
@@ -45,10 +44,35 @@
   transform: scale(1.2);
   box-sizing: border-box;
 }
+.brand {
+  font-size: clamp(1em, 6vw, 10em);
+}
+
+/* LOGIN PAGE */
 
 .field-container {
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
+  color: rgb(244, 243, 241);
+  font-family: forta;
+}
+
+::placeholder {
+  font-family: 'Forta', sans-serif !important;
+}
+
+.font-forta {
+  font-family: 'Forta', sans-serif;
+}
+
+.login-successful {
+  background-color: rgba(179,179,179, 0.1);
+  backdrop-filter: blur(10px);
+  color: black;
+  font-family: forta;
+}
+
+.loginbutton-container {
   color: rgb(244, 243, 241);
   font-family: forta;
 }
@@ -60,21 +84,42 @@
   box-sizing: border-box;
 }
 
-.welcome-text {
+/* EVENT PAGE  */
+
+.zipinput-container {
+  background-color: rgba(179,179,179,.01);
+  backdrop-filter: blur(5px);
+  color: rgb(244, 243, 241);
   font-family: forta;
-  color:rgb(244, 243, 241);
 }
 
-.home-btn:hover {
+.eventpage-container {
+  font-family: forta;
+}
+
+.searchzip-btn:hover {
   border-radius: 75px;
   color:rgb(244, 243, 241);
   transform: scale(1.2);
   box-sizing: border-box;
 }
+
+/* HOMEPAGE */
+
+.listofplaylists {
+  background-color: rgba(179,179,179, 0.1);
+  backdrop-filter: blur(10px);
+  color: black;
+  font-family: forta;
+}
+.welcome-text {
+  font-family: forta;
+  color:rgb(244, 243, 241);
+}
+
 .createplaylist-container {
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
-  /* color: rgb(244, 243, 241); */
   font-family: forta;
 }
 .createplaylist-btn {
@@ -87,12 +132,54 @@
   box-sizing: border-box;
 }
 
+.closeplaylists:hover {
+  border-radius: 75px;
+  color: black;
+  transform: scale(1.2);
+  box-sizing: border-box;
+}
+
+.playlists-homepage-container {
+  background-color: rgba(179,179,179, 0.1);
+  backdrop-filter: blur(2px);
+  color: black;
+  font-family: forta;
+}
+.songs-homepage-container {
+  background-color: rgba(179,179,179, 0.1);
+  backdrop-filter: blur(2px);
+  color: black;
+  font-family: forta;
+}
+.searchresults-homepage-container {
+  background-color: rgba(179,179,179, 0.1);
+  backdrop-filter: blur(2px);
+  color: black;
+  font-family: forta;
+}
+/* NAVBAR */
+
+.events-link:hover {
+  border-radius: 75px;
+  color:rgb(244, 243, 241);
+  transform: scale(1.2);
+  box-sizing: border-box;
+}
+.home-btn:hover {
+  border-radius: 75px;
+  color:rgb(244, 243, 241);
+  transform: scale(1.2);
+  box-sizing: border-box;
+}
+
 .navbar {
   font-family: forta;
 }
 
+/* MUSIC PLAYER COMPONENT */
+
 .dock {
-  background-color: rgba(179,179,179, 0.1);
+  background-color: black;
   backdrop-filter: blur(2px);
   color: rgb(244, 243, 241);
   font-family: forta;
@@ -107,6 +194,8 @@ progress::-webkit-progress-bar {
 progress::-moz-progress-bar {
   background-color: rgb(244, 243, 241);
 }
+
+/* SIGNUP PAGE */
 
 .signupinfocontainer {
   background-color: rgba(179,179,179, 0.1);
@@ -131,64 +220,27 @@ progress::-moz-progress-bar {
   color: black;
   font-family: forta;
 }
-.playlists-homepage-container {
-  background-color: rgba(179,179,179, 0.1);
-  backdrop-filter: blur(2px);
-  color: black;
-  font-family: forta;
-}
-.songs-homepage-container {
-  background-color: rgba(179,179,179, 0.1);
-  backdrop-filter: blur(2px);
-  color: black;
-  font-family: forta;
-}
-.searchresults-homepage-container {
-  background-color: rgba(179,179,179, 0.1);
-  backdrop-filter: blur(2px);
-  color: black;
-  font-family: forta;
-}
-.events-link:hover {
-  border-radius: 75px;
-  color:rgb(244, 243, 241);
-  transform: scale(1.2);
-  box-sizing: border-box;
-}
+
+/* ALERTS */
+
 .removed-alert {
   background-color: rgba(244, 243, 241, 1);
   backdrop-filter: blur(2px);
   color: black;
   font-family: forta;
 }
-.editaccount-btn:hover {
-  border-radius: 75px;
-  color:rgb(244, 243, 241);
-  transform: scale(1.2);
-  box-sizing: border-box;
-}
 
-.listofplaylists {
-  background-color: rgba(179,179,179, 0.1);
-  backdrop-filter: blur(10px);
-  color: black;
-  font-family: forta;
-}
-.closeplaylists:hover {
-  border-radius: 75px;
-  color: black;
-  transform: scale(1.2);
-  box-sizing: border-box;
-}
 .updated-alert {
   background-color: white;
   backdrop-filter: blur(10px);
   color: black;
   font-family: forta;
 }
-.login-successful {
-  background-color: rgba(179,179,179, 0.1);
-  backdrop-filter: blur(10px);
-  color: black;
-  font-family: forta;
+/* SETTINGS PAGE */
+
+.editaccount-btn:hover {
+  border-radius: 75px;
+  color:rgb(244, 243, 241);
+  transform: scale(1.2);
+  box-sizing: border-box;
 }

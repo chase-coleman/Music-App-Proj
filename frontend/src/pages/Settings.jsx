@@ -2,9 +2,48 @@ import React, { useState, useEffect } from "react";
 import axios from "../axios";
 import Navbar from "../components/Navbar";
 import { Navigate, useNavigate, useOutletContext } from "react-router-dom";
-import { CircleX, UserRoundX, UserRoundPen } from "lucide-react";
-import { BouncyArc } from "ldrs/react";
+import { CircleX, UserRoundX, UserRoundPen, Eye, EyeOff } from "lucide-react";
+import { BouncyArc, DotPulse } from "ldrs/react";
 import "ldrs/react/BouncyArc.css";
+
+// Custom Password Input Component
+const PasswordInput = ({ 
+  placeholder = "Enter password", 
+  onChange,
+  value,
+  className = "",
+  ...props 
+}) => {
+  const [isVisible, setIsVisible] = useState(false);
+
+  const toggleVisibility = () => {
+    setIsVisible(!isVisible);
+  };
+
+  return (
+    <div className="relative w-full">
+      <input
+        type={isVisible ? "text" : "password"}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        className={`${className} ${isVisible ? "font-forta" : "font-sans"}`}
+        style={{
+          fontFamily: isVisible ? "'Forta', sans-serif" : "sans-serif"
+        }}
+        {...props}
+      />
+      <button
+        type="button"
+        onClick={toggleVisibility}
+        className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500 hover:text-gray-700"
+        aria-label={isVisible ? "Hide password" : "Show password"}
+      >
+        {isVisible ? <EyeOff size={18} /> : <Eye size={18} />}
+      </button>
+    </div>
+  );
+};
 
 const Settings = () => {
   const [showInfo, setShowInfo] = useState(false);
@@ -49,7 +88,7 @@ const Settings = () => {
       }, 2000);
     }
     setShowInfo(false);
-    getUserInfo()
+    getUserInfo();
   };
 
   // handles deleting a user's account
@@ -62,13 +101,23 @@ const Settings = () => {
       const response = await axios.delete(accountDelUrl);
       if (response.status === 204) {
         localStorage.removeItem("token");
-        alert("Your account has been deleted. We hope you comeback soon!");
         setAccountDeleted(true);
-        setUserToken(null);
-        navigate("/");
       }
     }
   };
+
+  useEffect(() => {
+    if (accountDeleted) {
+      const timer = setTimeout(() => {
+        setUserToken(null);
+        setAccountDeleted(false);
+        navigate("/");
+      }, 3000);
+      
+      // Clean up the timer if the component unmounts
+      return () => clearTimeout(timer);
+    }
+  }, [accountDeleted]);
 
   // handles de-rendering the user-info fields from the screen
   const cancelEdit = () => {
@@ -125,47 +174,54 @@ const Settings = () => {
               </div>
               <fieldset className="fieldset gap-2">
                 <input
-                  className="input placeholder-gray text-black"
+                  className="input placeholder-gray text-black font-forta"
                   onChange={(e) => setFname(e.target.value)}
                   value={fname}
                   type="text"
                   placeholder="First Name"
+                  style={{ fontFamily: "'Forta', sans-serif" }}
                 />
                 <input
-                  className="input placeholder-gray text-black"
+                  className="input placeholder-gray text-black font-forta"
                   onChange={(e) => setLname(e.target.value)}
                   value={lname}
                   type="text"
                   placeholder="Last Name"
+                  style={{ fontFamily: "'Forta', sans-serif" }}
                 />
                 <input
-                  className="input placeholder-gray text-black"
+                  className="input placeholder-gray text-black font-forta"
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                   type="text"
                   placeholder="Email"
+                  style={{ fontFamily: "'Forta', sans-serif" }}
                 />
                 <input
-                  className="input placeholder-gray text-black"
+                  className="input placeholder-gray text-black font-forta"
                   onChange={(e) => setUsername(e.target.value)}
                   value={username}
                   type="text"
                   placeholder="Username"
+                  style={{ fontFamily: "'Forta', sans-serif" }}
                 />
-                <input
-                  className="input placeholder-gray text-black"
+                
+                {/* Custom password input with Forta for placeholder and visible text */}
+                <PasswordInput
+                  className="input placeholder-gray text-black w-full"
                   onChange={(e) => setPassword(e.target.value)}
                   value={password}
-                  type="text"
                   placeholder="Password"
                 />
-                <input
-                  className="input placeholder-gray text-black"
+                
+                {/* Custom password confirmation input */}
+                <PasswordInput
+                  className="input placeholder-gray text-black w-full"
                   onChange={(e) => setPasswordConfirm(e.target.value)}
                   value={passwordconfirm}
-                  type="text"
                   placeholder="Confirm Password"
                 />
+                
                 <button
                   className="editaccount-btn btn-neutral text-white w-[25vw]"
                   onClick={handleInfoSubmit}
@@ -173,6 +229,22 @@ const Settings = () => {
                   Submit Edits
                 </button>
               </fieldset>
+            </div>
+          </div>
+        ) : null}
+        {accountDeleted ? (
+          <div
+            className="absolute top-[-30px] left-0 w-full h-[calc(100vh-64px)] 
+                                flex items-center justify-center"
+          >
+            <div
+              className="account-created z-50 w-[30vw] h-[50vh] 
+            rounded-lg shadow-lg flex flex-col items-center justify-center"
+            >
+              <h4 className="text-center text-white">Account Deleted!</h4>
+              <h6 className="text-center text-white">One moment please <DotPulse color="white" size={10}/></h6>
+
+              <BouncyArc size="70" speed="1.65" color="white" />
             </div>
           </div>
         ) : null}
