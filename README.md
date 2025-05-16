@@ -1,19 +1,22 @@
+# Rhythm Music
  Rhythym Music is built for people who want a simplified music experience.
  Whether you want to listen to your all-time favorites, or find new music to obsessively listen to, Rhythm is where you can go.
  Create personalized playlists, discover new music, and find live music near you, all in one place. 
 
 ## Features
-- OAuth authentication 
-- Spotify authentication
+- DRF Token Authentication 
+- Spotify User Authentication
 - Individual Spotify song liking & unliking
 - Playlist creation, editing and playback
 - Custom audio playback using Spotify's Web Playback SDK
 
-## Tech Stack
-- Frontend :
-  - React, Vite, TailwindCSS, DaisyUI
-  - Ticketmaster API
-  - Lucide, UIball
+## 💻 Tech Stack
+### Frontend :
+- ![React](https://img.shields.io/badge/-React-61DAFB?style=flat&logo=react&logoColor=white)
+- ![TailwindCSS](https://img.shields.io/badge/-TailwindCSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
+- ![DaisyUI](https://img.shields.io/badge/-DaisyUI-FF69B4?style=flat&logo=daisyui&logoColor=white)
+- ![Lucide](https://img.shields.io/badge/-Lucide-000000?style=flat&logo=feather&logoColor=white)
+- ![UIBall](https://img.shields.io/badge/-UIBall-4B9CD3?style=flat&logoColor=white&label=UIBall)
 - Backend :
   - Django REST framework
   - PostgreSQL
