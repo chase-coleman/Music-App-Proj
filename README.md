@@ -9,7 +9,7 @@ Create personalized playlists, discover new tracks, and even find live music eve
 ## ✨ Features
 
 - DRF Token Authentication
-- Spotify OAuth User Login
+- Spotify Authentication
 - Like and Unlike Individual Spotify Songs
 - Create, Edit, and Play Custom Playlists
 - Custom Audio Playback using Spotify's Web Playback SDK
