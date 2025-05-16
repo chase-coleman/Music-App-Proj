@@ -16,7 +16,7 @@
 - ![TailwindCSS](https://img.shields.io/badge/-TailwindCSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
 - ![DaisyUI](https://img.shields.io/badge/-DaisyUI-FF69B4?style=flat&logo=daisyui&logoColor=white)
 - ![Lucide](https://img.shields.io/badge/-Lucide-000000?style=flat&logo=feather&logoColor=white)
-- ![UIBall](https://img.shields.io/badge/-UIBall-4B9CD3?style=flat&logoColor=white&label=UIBall)
+- ![UIBall](https://img.shields.io/badge/-UIBall-4B9CD3?style=flat&logoColor=white)
 - Backend :
   - Django REST framework
   - PostgreSQL
