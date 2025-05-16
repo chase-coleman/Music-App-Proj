@@ -16,6 +16,8 @@ Create personalized playlists, discover new tracks, and even find live music eve
 
 ---
 
+▶️ [Click here to watch the demo on YouTube](https://www.youtube.com/watch?v=croIFJEaFZ8)
+
 ## 💻 Tech Stack
 
 ### Frontend
