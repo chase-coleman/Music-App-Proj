@@ -67,7 +67,7 @@ Thanks for checking out my music app!
 This is my first full-stack application, built during a 13-week coding bootcamp with Code Platoon.  
 Development took approximately 3 weeks.
 
-I chose to build a music app because I love listening to and sharing music with friends and family — especially those tracks that just *hit*.
+I chose to build a music app because I love listening to and sharing music with friends and family, especially those tracks that just *hit*.
 
 ---
 
