@@ -105,5 +105,3 @@ I chose to build a music app because I love listening to and sharing music with 
 - [React Docs](https://reactjs.org/) and [Django REST Framework Docs](https://www.django-rest-framework.org/)
 
 ---
-
-> Let me know if you'd like help turning this into a more visual README (with screenshots or embedded demo videos) or deploying it for others to try out.
