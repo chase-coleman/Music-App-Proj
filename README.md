@@ -62,6 +62,8 @@ Ensure the following environment variables are set:
 ---
 
 ## 🧠 Creator Notes
+As of May 15, 2025:
+This was my first full-stack application, and I'm proud of how far it’s come. That said, there’s definitely room for code cleanup and architectural improvements. Before adding new features, I plan to refactor and optimize the existing codebase as time allows. There’s a lot more I want to build into this app — and I’m excited to keep improving it!
 
 Thanks for checking out my music app!  
 This is my first full-stack application, built during a 13-week coding bootcamp with Code Platoon.  
