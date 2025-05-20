@@ -47,3 +47,10 @@ font-family: "forta" !important;
   transform: scale(1.2);
   box-sizing: border-box;
 } 
+
+button:hover {
+  border-radius: 75px;
+  color:rgb(244, 243, 241);
+  transform: scale(1.2);
+  box-sizing: border-box;
+}

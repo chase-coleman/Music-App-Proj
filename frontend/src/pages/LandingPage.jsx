@@ -16,7 +16,6 @@ const LandingPage = () => {
     navigate("/login")
   }
 
-
   return (
     <>
     <Navbar />

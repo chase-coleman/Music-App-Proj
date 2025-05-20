@@ -78,11 +78,16 @@ function Login() {
     }
   };
 
+  const handleSignup = () => {
+    navigate("/signup")
+  }
+
+
   return (
     <>
       <Navbar />
       <div className="info-container h-screen w-screen mt-[5em] flex flex-col justify-start items-center">
-        <div className="field-container h-[30%] flex flex-col justify-start items-center p-3">
+        <div className="field-container h-1/3 flex flex-col justify-start items-center p-5">
           <fieldset className="fieldset">
             <input
               className="input placeholder-gray text-black font-forta"
@@ -101,7 +106,7 @@ function Login() {
               placeholder="Password"
             />
           </fieldset>
-          <div className="loginbutton-container m-[1em] w-[50%] gap-2 z-10 flex flex-col items-center">
+          <div className="loginbutton-container m-[1em] w-[50%] z-10 flex flex-col items-center">
             <button
               className="login-btn btn-neutral rounded text-white !text-[1em] w-[100%]"
               onClick={handleLogin}
@@ -109,13 +114,9 @@ function Login() {
               Login
             </button>
             <div className="signup-link w-[50%] text-center rounded">
-            <Nav.Link
-              as={Link}
-              to="/signup"
-              className="signup-btn !text-[.5em]"
-            >
-              Sign Up
-            </Nav.Link>
+              <button className="!text-[0.5em]" onClick={handleSignup}>
+                Signup
+              </button>
             </div>
           </div>
         </div>

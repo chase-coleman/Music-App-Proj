@@ -49,12 +49,12 @@
   /* font-family: ledlight; */
 } 
 
-.login-btn:hover {
+/* .login-btn:hover {
   border-radius: 75px;
   color:rgb(244, 243, 241);
   transform: scale(1.2);
   box-sizing: border-box;
-}
+} */
 .brand {
   font-size: clamp(1em, 6vw, 10em);
   /* font-family: ledlight; */
@@ -89,12 +89,12 @@
   /* font-family: forta; */
 }
 
-.signup-btn:hover {
+/* .signup-btn:hover {
   border-radius: 75px;
   color:rgb(244, 243, 241);
   transform: scale(1.2);
   box-sizing: border-box;
-}
+} */
 
 /* EVENT PAGE  */
 
@@ -109,12 +109,12 @@
   /* font-family: forta; */
 }
 
-.searchzip-btn:hover {
+/* .searchzip-btn:hover {
   border-radius: 75px;
   color:rgb(244, 243, 241);
   transform: scale(1.2);
   box-sizing: border-box;
-}
+} */
 
 /* HOMEPAGE */
 
@@ -137,12 +137,12 @@
 .createplaylist-btn {
   color:rgb(244, 243, 241);
 }
-.createplaylist-btn:hover {
+/* .createplaylist-btn:hover {
   border-radius: 75px;
   color:rgb(244, 243, 241);
   transform: scale(1.1);
   box-sizing: border-box;
-}
+} */
 
 .closeplaylists:hover {
   border-radius: 75px;
@@ -171,22 +171,19 @@
 }
 /* NAVBAR */
 
-.events-link:hover {
+/* .events-link:hover {
   border-radius: 75px;
   color:rgb(244, 243, 241);
   transform: scale(1.2);
   box-sizing: border-box;
-}
-.home-btn:hover {
+} */
+/* .home-btn:hover {
   border-radius: 75px;
   color:rgb(244, 243, 241);
   transform: scale(1.2);
   box-sizing: border-box;
-}
+} */
 
-.navbar {
-  /* font-family: forta; */
-}
 
 /* MUSIC PLAYER COMPONENT */
 
@@ -220,12 +217,12 @@ progress::-moz-progress-bar {
   /* font-family: forta; */
 }
 
-.createaccount-btn:hover {
+/* .createaccount-btn:hover {
   border-radius: 75px;
   color:rgb(244, 243, 241);
   transform: scale(1.2);
   box-sizing: border-box;
-}
+} */
 .account-created {
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(5px);
@@ -250,9 +247,9 @@ progress::-moz-progress-bar {
 }
 /* SETTINGS PAGE */
 
-.editaccount-btn:hover {
-  border-radius: 75px;
-  color:rgb(244, 243, 241);
-  transform: scale(1.2);
-  box-sizing: border-box;
+.search-btn:hover {
+  border-radius: initial;
+  color: inherit;
+  transform: none;
+  box-sizing: inherit;
 }

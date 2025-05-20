@@ -84,7 +84,7 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
               className="input input-bordered !w-[50%] md:w-auto"
             />
             <button
-              className="btn bg-whitebtn-neutral w-[5rem] bg-white p-0"
+              className="search-btn !bg-whitebtn-neutral !w-[5rem] !bg-white !p-0"
               onClick={handleSearch}
             >
               Search
