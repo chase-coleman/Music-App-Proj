@@ -22,6 +22,9 @@ export default function App() {
 
   // when a user logs in, set their token to localstorage and call the func to get an access token
   useEffect(() => {
+    if (!userToken) {
+      console.log("no user token!")
+    }
     if (userToken){
       localStorage.setItem("token", userToken)
       console.log("setting userToken:", userToken)
@@ -30,6 +33,15 @@ export default function App() {
     }
   }, [userToken]);
   
+  useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    console.log("resetting token!")
+    setUserToken(token);
+  }
+  }, []);
+
+
   // get a spotify access token via the backend & set it to state 
   const get_access_token = async () => {
     const response = await axios.get(spotifyAccessUrl)

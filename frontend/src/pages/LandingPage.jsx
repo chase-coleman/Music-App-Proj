@@ -16,17 +16,14 @@ const LandingPage = () => {
     navigate("/login")
   }
 
-  useEffect(() => {
-    console.log(loginBtn)
-  }, [loginBtn])
 
   return (
     <>
     <Navbar />
     <div className="h-screen flex flex-col justify-start items-center">
-      <div className="landingpage-container h-[5em] w-[20em] mt-[7em] flex justify-center items-center">
+      <div className="landingpage-container h-[cakc(80vh-70px)] w-[100vw] mt-[7em] flex justify-center items-center">
       {/* fix the pt issue where rhythm isnt centered verticall */}
-      <h1 className="brand pt-3 ">Rhythm</h1>    
+      <span className="brand pt-3 !text-[7.5em]">Rhythm</span>    
       </div>
       <div className="login-container h-[2em] mt-[1em] w-[5em] flex flex-col justify-center items-center">
       <button className="login-btn text-[clamp(0.5em,2vw,3em)]" onClick={handleLogin}>

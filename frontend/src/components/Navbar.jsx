@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
   const [search, setSearch] = useState("");
-  const { userToken, setUserToken } = useOutletContext();
+  const { userToken, setMusicActive, setUserToken } = useOutletContext();
   const navigate = useNavigate();
   const searchUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/";
 
@@ -47,7 +47,8 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
 
       localStorage.removeItem("token"); // remove the deleted token from the local storage
       console.log("user logged out!", userToken);
-      setUserToken(null)
+      setUserToken(null);
+      setMusicActive(false);
       navigate("/");
     } catch (error) {
       console.error("Error:", error);

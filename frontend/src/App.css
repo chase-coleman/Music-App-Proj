@@ -3,6 +3,14 @@
   font-family: forta, sans-serif;
   src: url(fortafont);
 }
+@font-face {
+  font-family: ledlight;
+  src: url(LEDLIGHT);
+}
+@font-face {
+  font-family: metal;
+  src: url(MetalBlockUltra);
+}
 
 #root {
   height: 100% !important;
@@ -27,16 +35,19 @@
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
   color:rgb(244, 243, 241);
-  font-family: forta;
+  /* font-family: forta; */
 }
 
 .login-container {
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
   color: rgb(244, 243, 241);
-  font-family: forta;
+  /* font-family: forta; */
 }
 
+.login-btn {
+  /* font-family: ledlight; */
+} 
 
 .login-btn:hover {
   border-radius: 75px;
@@ -46,6 +57,7 @@
 }
 .brand {
   font-size: clamp(1em, 6vw, 10em);
+  /* font-family: ledlight; */
 }
 
 /* LOGIN PAGE */
@@ -54,7 +66,7 @@
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
   color: rgb(244, 243, 241);
-  font-family: forta;
+  /* font-family: forta; */
 }
 
 ::placeholder {
@@ -69,12 +81,12 @@
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(10px);
   color: black;
-  font-family: forta;
+  /* font-family: forta; */
 }
 
 .loginbutton-container {
   color: rgb(244, 243, 241);
-  font-family: forta;
+  /* font-family: forta; */
 }
 
 .signup-btn:hover {
@@ -90,11 +102,11 @@
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
   color: rgb(244, 243, 241);
-  font-family: forta;
+  /* font-family: forta; */
 }
 
 .eventpage-container {
-  font-family: forta;
+  /* font-family: forta; */
 }
 
 .searchzip-btn:hover {
@@ -110,17 +122,17 @@
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(10px);
   color: black;
-  font-family: forta;
+  /* font-family: forta; */
 }
 .welcome-text {
-  font-family: forta;
+  /* font-family: forta; */
   color:rgb(244, 243, 241);
 }
 
 .createplaylist-container {
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
-  font-family: forta;
+  /* font-family: forta; */
 }
 .createplaylist-btn {
   color:rgb(244, 243, 241);
@@ -143,19 +155,19 @@
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(2px);
   color: black;
-  font-family: forta;
+  /* font-family: forta; */
 }
 .songs-homepage-container {
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(2px);
   color: black;
-  font-family: forta;
+  /* font-family: forta; */
 }
 .searchresults-homepage-container {
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(2px);
   color: black;
-  font-family: forta;
+  /* font-family: forta; */
 }
 /* NAVBAR */
 
@@ -173,7 +185,7 @@
 }
 
 .navbar {
-  font-family: forta;
+  /* font-family: forta; */
 }
 
 /* MUSIC PLAYER COMPONENT */
@@ -182,7 +194,7 @@
   background-color: black;
   backdrop-filter: blur(2px);
   color: rgb(244, 243, 241);
-  font-family: forta;
+  /* font-family: forta; */
   width: 100vw;
 }
 
@@ -201,11 +213,11 @@ progress::-moz-progress-bar {
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(2px);
   color: rgb(244, 243, 241);
-  font-family: forta;
+  /* font-family: forta; */
 }
 .createaccount-btn {
   color: rgb(244, 243, 241);
-  font-family: forta;
+  /* font-family: forta; */
 }
 
 .createaccount-btn:hover {
@@ -218,7 +230,7 @@ progress::-moz-progress-bar {
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(5px);
   color: black;
-  font-family: forta;
+  /* font-family: forta; */
 }
 
 /* ALERTS */
@@ -227,14 +239,14 @@ progress::-moz-progress-bar {
   background-color: rgba(244, 243, 241, 1);
   backdrop-filter: blur(2px);
   color: black;
-  font-family: forta;
+  /* font-family: forta; */
 }
 
 .updated-alert {
   background-color: white;
   backdrop-filter: blur(10px);
   color: black;
-  font-family: forta;
+  /* font-family: forta; */
 }
 /* SETTINGS PAGE */
 
