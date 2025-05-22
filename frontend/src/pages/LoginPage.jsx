@@ -65,11 +65,12 @@ function Login() {
         username: username,
         password: password,
       });
+      // if user credentials are valid, set token and log them in
       if (response.status === 200){
         const current_user_token = response.data.token;
         if (current_user_token) {
-          if (error) {
-            setError(false)
+          if (error) { // check if they have an error message activate
+            setError(false) 
           }
           setUserToken(current_user_token);
           setSuccess(true); // show a message
@@ -77,6 +78,8 @@ function Login() {
           setSuccess(false);
           navigate("/home");
           }, 1000);
+        } else {
+          console.error("Issue retrieving the user's token")
         }
       }
     } catch (error) {
