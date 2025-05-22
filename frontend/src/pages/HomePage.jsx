@@ -108,21 +108,21 @@ const HomePage = () => {
           {/* <h6>{(`${day} ${month}, ${year}`).toString()}</h6> */}
         </div>
       ) : null}
-      <div className="page-container relative flex flex-row justify-center gap-2 h-screen overflow-hidden">
+      <div className="page-container relative flex flex-wrap justify-center gap-2 h-[calc(100vh-104px)] overflow-y-auto">
         {/* users playlists */}
-        <div className="playlists-homepage-container w-[20vw] border-1 h-[calc(100vh-104px)] overflow-y-auto">
+        <div className="playlists-homepage-container w-64 border-1 h-full overflow-y-auto">
           <Playlists />
         </div>
 
         {/* Songs within the selected playlist */}
-        <div className="songs-homepage-container border-2 w-[50vw] h-[calc(100vh-104px)] overflow-y-auto">
+        <div className="songs-homepage-container border-2 !w-150 h-full overflow-y-auto">
           {playlistView && (
             <PlaylistSongs />
           )}
         </div>
 
         {/* search results */}
-        <div className="searchresults-homepage-container w-[25vw] h-[calc(100vh-104px)] overflow-y-auto">
+        <div className="searchresults-homepage-container w-64 h-[calc(100vh-104px)] overflow-y-auto">
           {trackResults && (
             <SearchResults
               tracks={trackResults}
