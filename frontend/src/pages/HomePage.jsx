@@ -9,7 +9,7 @@ import SearchResults from "../components/SearchResults";
 import { grabUserPlaylists, getTracks } from "../utils/MusicUtils";
 
 // TO DO : Find out why the getTracks function is being called twice.
-// TO DO : 
+// TO DO : Find out why when selecting a new playlist, the song's are updating
 
 const singlePlaylistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";

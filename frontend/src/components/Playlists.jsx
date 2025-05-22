@@ -48,6 +48,21 @@ const Playlists = () => {
     setShowEditInfo(false)
   };
 
+  const deletePlaylist = async (playlistID) => {
+
+    try {
+    // do a DELETE request to remove the playlist instance from the db 
+      const response = await axios.delete(`${playlistUrl}${playlistID}/`);
+    
+      // update usersPlaylist state variable without the deleted playlist
+      // also also remove it to the page in the .map() function
+      grabUserPlaylists(playlistUrl, setUserPlaylists)
+
+    } catch (error) {
+      console.error("Error:", error);
+    }
+  };
+
   return (
     <>
       <div>
@@ -77,9 +92,7 @@ const Playlists = () => {
                     <PlaylistList // display a component for each playlist
                       playlist={playlist}
                       editPlaylist={editPlaylist}
-                      submitEdits={submitEdits}
-                      setPlaylistView={setPlaylistView}
-                      grabUserPlaylists={grabUserPlaylists}
+                      deletePlaylist={deletePlaylist}
                     />
                   </li>
                 )
