@@ -33,11 +33,6 @@ const HomePage = () => {
     currentUserInfo,
   } = useOutletContext();
 
-  // const date = new Date();
-  // const month = date.getMonth()+1;
-  // const day = date.getDate();
-  // const year = date.getFullYear();
-
   // when page is mounted, grab the user's playlists 
   // grabUserPlaylists being imported 
   useEffect(() => {
@@ -60,19 +55,20 @@ const HomePage = () => {
   }, [userPlaylists]);
 
 
-  /* API call using a DELETE method to remove the track from the currently viewed playlist*/
+  /* API call using a DELETE method to remove the track from the currently viewed playlist
+    set deleted notification for user in the setTimeout
+    recall the getTracks function to update the playlist tracks */
   const removeTrack = async (trackID) => {
     const response = await axios.delete(
       `${playlistUrl}${playlistView.name}/${trackID}/`
     );
 
     if (response.status === 204) {
-      // if song has been removed from the playlist successfully,
       setNotifyRemoved(true)
       const timer = setTimeout(() => {
         setNotifyRemoved(false)
       }, 3000)
-      getTracks(); // call the function to load the playlist's tracks which will update the page with the song now removed
+      getTracks(); 
     } else {
       console.error("There was an issue removing this song from your playlist!")
     }

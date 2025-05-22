@@ -16,7 +16,6 @@ export const getTracks = async (playlistName, setPlaylistTracks) => {
     const response = await axiosInstance.get(
       `${singlePlaylistUrl}${playlistName}`
       );
-    console.log("setting the playlist's tracks!")
     setPlaylistTracks(response.data.tracks);
   } else {
     console.error("The function was called with an undefined playlistName")
