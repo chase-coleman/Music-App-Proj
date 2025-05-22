@@ -22,15 +22,36 @@
 font-family: "forta" !important;  
 } 
 
-.body > blurbg {
+/* .body > blurbg {
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
   color: rgb(250, 245, 230);
+} */
+
+.landingpage-container {
+  background-color: rgba(179,179,179,.01);
+  backdrop-filter: blur(5px);
+  color: rgb(250, 245, 230);
+  /* font-family: forta; */
+}
+
+.login-container {
+  background-color: rgba(179,179,179,.01);
+  backdrop-filter: blur(5px);
+  color: rgb(250, 245, 230);
+  /* font-family: forta; */
 }
 
 .brand {
   font-size: clamp(1em, 6vw, 10em);
 }
+
+.login-btn:hover {
+  border-radius: 75px;
+  color:rgb(250, 245, 230);
+  transform: scale(1.2);
+  box-sizing: border-box;
+} 
 
 button:hover {
   border-radius: 75px;

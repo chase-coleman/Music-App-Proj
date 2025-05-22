@@ -31,19 +31,12 @@
 
 /* LANDING PAGE */
 
-.landingpage-container {
+/* .landingpage-container {
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
   color:rgb(244, 243, 241);
-  /* font-family: forta; */
-}
+} */
 
-.login-container {
-  background-color: rgba(179,179,179,.01);
-  backdrop-filter: blur(5px);
-  color: rgb(244, 243, 241);
-  /* font-family: forta; */
-}
 
 .login-btn {
   /* font-family: ledlight; */
@@ -89,13 +82,6 @@
   /* font-family: forta; */
 }
 
-/* .signup-btn:hover {
-  border-radius: 75px;
-  color:rgb(244, 243, 241);
-  transform: scale(1.2);
-  box-sizing: border-box;
-} */
-
 /* EVENT PAGE  */
 
 .zipinput-container {
@@ -105,16 +91,7 @@
   /* font-family: forta; */
 }
 
-.eventpage-container {
-  /* font-family: forta; */
-}
 
-/* .searchzip-btn:hover {
-  border-radius: 75px;
-  color:rgb(244, 243, 241);
-  transform: scale(1.2);
-  box-sizing: border-box;
-} */
 
 /* HOMEPAGE */
 
@@ -171,19 +148,6 @@
 }
 /* NAVBAR */
 
-/* .events-link:hover {
-  border-radius: 75px;
-  color:rgb(244, 243, 241);
-  transform: scale(1.2);
-  box-sizing: border-box;
-} */
-/* .home-btn:hover {
-  border-radius: 75px;
-  color:rgb(244, 243, 241);
-  transform: scale(1.2);
-  box-sizing: border-box;
-} */
-
 
 /* MUSIC PLAYER COMPONENT */
 
@@ -214,15 +178,8 @@ progress::-moz-progress-bar {
 }
 .createaccount-btn {
   color: rgb(244, 243, 241);
-  /* font-family: forta; */
 }
 
-/* .createaccount-btn:hover {
-  border-radius: 75px;
-  color:rgb(244, 243, 241);
-  transform: scale(1.2);
-  box-sizing: border-box;
-} */
 .account-created {
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(5px);

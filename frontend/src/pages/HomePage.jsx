@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, createContext } from "react";
 import { Outlet, Link, useOutletContext, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Playlists from "../components/Playlists";
@@ -9,9 +9,36 @@ import SearchResults from "../components/SearchResults";
 import { grabUserPlaylists, getTracks } from "../utils/MusicUtils";
 
 // TO DO : Find out why the getTracks function is being called twice.
+// TO DO : 
 
 const singlePlaylistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
+
+// export const ExploreContext = createContext({
+//   address: "",
+//   setAddress: () => {},
+//   place: null,
+//   selectedFilters: [],
+//   setPlace: () => {},
+//   coords: { lat: 0, lng: 0 },
+//   getPlaceDetails: () => {},
+//   setPlaceDetails: () => {},
+//   handleViewOnGoogle: () => {},
+//   handleViewWebsite: () => {},
+//   setMapInst: () => {},
+//   restaurants: [],
+//   hotels: [],
+//   attractions: [],
+// });
+
+export const HomePageContext = createContext({
+  playlistView: '',
+  setPlaylistView: () => {},
+  playlistTracks: [],
+  setPlaylistTracks: () => {},
+  removeTrack: () => {},
+})
+
 
 const HomePage = () => {
   const [playlistView, setPlaylistView] = useState(null);
@@ -42,15 +69,12 @@ const HomePage = () => {
   // when page is mounted, call the function to load liked songs playlist
   useEffect(() => {
     if (!userPlaylists) return;
-    console.log("useEffect triggered!")
-    console.log(userPlaylists)
-    // get the user's Liked Songs playlist to display in the playlistView component
     const initPlaylist = userPlaylists.find(
       (playlist) => playlist.name === "Liked Songs"
     );
     if (initPlaylist){
       setPlaylistView(initPlaylist);
-      getTracks(initPlaylist.name, setPlaylistTracks)      
+      getTracks(initPlaylist.name, setPlaylistTracks) // in the MusicUtils file
     }
   }, [userPlaylists]);
 
@@ -58,7 +82,7 @@ const HomePage = () => {
   /* API call using a DELETE method to remove the track from the currently viewed playlist
     set deleted notification for user in the setTimeout
     recall the getTracks function to update the playlist tracks */
-  const removeTrack = async (trackID) => {
+  const removeTrack = async (trackID, playlistName, playlistUrl) => {
     const response = await axios.delete(
       `${playlistUrl}${playlistView.name}/${trackID}/`
     );
@@ -68,7 +92,7 @@ const HomePage = () => {
       const timer = setTimeout(() => {
         setNotifyRemoved(false)
       }, 3000)
-      getTracks(); 
+      getTracks(playlistName, setPlaylistTracks); 
     } else {
       console.error("There was an issue removing this song from your playlist!")
     }
@@ -77,6 +101,15 @@ const HomePage = () => {
 
   return (
     <>
+    <HomePageContext.Provider
+    value={{
+      playlistView,
+      setPlaylistView,
+      playlistTracks,
+      setPlaylistTracks,
+      removeTrack,
+    }}
+    >
     {!loginPage &&
       <Navbar
         setTrackResults={setTrackResults}
@@ -106,12 +139,8 @@ const HomePage = () => {
         <div className="songs-homepage-container border-2 w-[50vw] h-[calc(100vh-104px)] overflow-y-auto">
           {playlistView && (
             <PlaylistSongs
-              removeTrack={removeTrack}
-              getTracks={getTracks}
               isPaused={isPaused}
               setIsPaused={setIsPaused}
-              playlistView={playlistView}
-              playlistTracks={playlistTracks}
             />
           )}
         </div>
@@ -136,6 +165,7 @@ const HomePage = () => {
           </div>
         </div>
       ) : null}
+      </HomePageContext.Provider>
     </>
   );
 };

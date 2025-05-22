@@ -1,16 +1,21 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "../axios";
 import { useOutletContext} from "react-router-dom";
 import PlaylistTracks from "./PlaylistTracks";
 
-const PlaylistSongs = ({ getTracks, removeTrack, playlistTracks, playlistView }) => {
+import { getTracks } from "../utils/MusicUtils";
+import { HomePageContext } from "../pages/HomePage";
+
+const PlaylistSongs = () => {
   // const [playlistTracks, setPlaylistTracks] = useState([]);
   const { musicActive, setMusicActive, setCurrentTrack } = useOutletContext()
 
+  const { playlistView, playlistTracks, setPlaylistTracks, removeTrack } = useContext(HomePageContext)
+
   useEffect(() => {
     if (!playlistView) return;
-    getTracks()
+    getTracks(playlistView.name, setPlaylistTracks)
   }, []);
 
 
@@ -31,9 +36,6 @@ const PlaylistSongs = ({ getTracks, removeTrack, playlistTracks, playlistView })
             <li className="list-row p-1 gap-1" key={track.id}>
               <PlaylistTracks
                 track={track}
-                removeTrack={removeTrack}
-                playlistView={playlistView}
-                getTracks={getTracks}
                 />
             </li>
           ))}

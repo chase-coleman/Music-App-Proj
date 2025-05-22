@@ -1,12 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "../axios";
 import { useOutletContext } from "react-router-dom";
 import { SkipBack, CircleX, Play, Pause, SkipForward } from "lucide-react";
 
-const PlaylistTracks = ({ track, playlistView, removeTrack, getTracks }) => {
+import { getTracks } from "../utils/MusicUtils";
+import { HomePageContext } from "../pages/HomePage";
+const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
+
+
+const PlaylistTracks = ({ track }) => {
   const {isPaused, setIsPaused, 
         setMusicActive, currentTrack, 
         player, setCurrentTrack} = useOutletContext()
+
+  const { playlistView, removeTrack } = useContext(HomePageContext)
 
   const handlePlay = async () => {
     if (!isPaused){
@@ -20,8 +27,6 @@ const PlaylistTracks = ({ track, playlistView, removeTrack, getTracks }) => {
       setIsPaused(false)
     }
   };
-
-
 
   return (
     <>
@@ -54,7 +59,7 @@ const PlaylistTracks = ({ track, playlistView, removeTrack, getTracks }) => {
       <button className="btn btn-square btn-ghost" onClick={handlePlay}>
         {currentTrack?.id === track.id && !isPaused ? <Pause /> : <Play />}
       </button>
-      <button className="btn btn-square btn-ghost" onClick={() => removeTrack(track.id)}>
+      <button className="btn btn-square btn-ghost" onClick={() => removeTrack(track.id, playlistView.name, playlistUrl)}>
         <CircleX color="black" />
       </button>
       {/*Put Trash icon here for users to delete a playlist*/}
