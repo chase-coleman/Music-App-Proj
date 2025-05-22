@@ -4,7 +4,9 @@ import './App.css'
 import axios from './axios'
 import MusicPlayer from './components/MusicPlayer';
 import SearchResults from './components/SearchResults';
+import { ListEnd } from 'lucide-react'; // SYMBOL for adding song to a queue
 
+import { getAccessToken } from './utils/SpotifyUtils';
 
 export default function App() {
   const [musicActive, setMusicActive] = useState(false)
@@ -18,7 +20,6 @@ export default function App() {
   const [currentUserInfo, setCurrentUserInfo] = useState(null)
 
 
-  const spotifyAccessUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/"
 
   // when a user logs in, set their token to localstorage and call the func to get an access token
   useEffect(() => {
@@ -27,8 +28,7 @@ export default function App() {
     }
     if (userToken){
       localStorage.setItem("token", userToken)
-      console.log("setting userToken:", userToken)
-      get_access_token()
+      getAccessToken(setAccessToken)
       getUserInfo()
     }
   }, [userToken]);
@@ -36,18 +36,9 @@ export default function App() {
   useEffect(() => {
   const token = localStorage.getItem("token");
   if (token) {
-    console.log("resetting token!")
     setUserToken(token);
   }
   }, []);
-
-
-  // get a spotify access token via the backend & set it to state 
-  const get_access_token = async () => {
-    const response = await axios.get(spotifyAccessUrl)
-    const spotifyToken = response.data.access_token
-    setAccessToken(spotifyToken)
-  }
 
   const getUserInfo = async () => {
     const response = await axios.get("http://127.0.0.1:8000/api/v1/users/info/")
@@ -56,7 +47,6 @@ export default function App() {
 
   useEffect(() => {
     if (!currentTrack) return;
-    // console.log(currentTrack)
     setCurrentTrackID(currentTrack.id)
   }, [currentTrack])
 
