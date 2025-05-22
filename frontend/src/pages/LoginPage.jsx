@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useOutletContext, useNavigate } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import axios from "axios";
@@ -53,6 +53,7 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
   const { setUserToken } = useOutletContext();
   const navigate = useNavigate();
 
@@ -64,17 +65,26 @@ function Login() {
         username: username,
         password: password,
       });
-      const current_user_token = response.data.token;
-      if (current_user_token) {
-        setUserToken(current_user_token);
-        setSuccess(true); // show a message
-        setTimeout(() => {
-        setSuccess(false);
-        navigate("/home");
-        }, 1000);
+      if (response.status === 200){
+        const current_user_token = response.data.token;
+        if (current_user_token) {
+          if (error) {
+            setError(false)
+          }
+          setUserToken(current_user_token);
+          setSuccess(true); // show a message
+          setTimeout(() => {
+          setSuccess(false);
+          navigate("/home");
+          }, 1000);
+        }
       }
     } catch (error) {
+      if (error.status === 400){
+        setError(true);
+      } else {
       console.error("Error:", error);
+      }
     }
   };
 
@@ -82,12 +92,23 @@ function Login() {
     navigate("/signup")
   }
 
+  useEffect(() => {
+    if (error) {
+      console.log("error!")
+    }
+  }, [error])
+
 
   return (
     <>
       <Navbar />
       <div className="info-container h-screen w-screen mt-[5em] flex flex-col justify-start items-center">
-        <div className="field-container h-1/3 flex flex-col justify-start items-center p-5">
+        <div className="field-container h-1/3 flex flex-col justify-start items-center p-3">
+          <div className="error-msg h-1/10 w-full flex items-center justify-center">
+          {error &&
+            <span className="text-[.5em] text-red-500">Invalid login credentials, please try again!</span>
+            }
+          </div>
           <fieldset className="fieldset">
             <input
               className="input placeholder-gray text-black font-forta"
