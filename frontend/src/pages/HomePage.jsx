@@ -6,10 +6,12 @@ import axios from "../axios";
 import PlaylistSongs from "../components/PlaylistSongs";
 import SearchResults from "../components/SearchResults";
 
-/*
-https://api.reactrouter.com/v7/functions/react_router.useLocation.html
-react router's useLocation function
-*/
+import { grabUserPlaylists, getTracks } from "../utils/MusicUtils";
+
+// TO DO : Find out why the getTracks function is being called twice.
+
+const singlePlaylistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
+const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 
 const HomePage = () => {
   const [playlistView, setPlaylistView] = useState(null);
@@ -30,58 +32,32 @@ const HomePage = () => {
     setUserPlaylists,
     currentUserInfo,
   } = useOutletContext();
-  const singlePlaylistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
-  const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 
   // const date = new Date();
   // const month = date.getMonth()+1;
   // const day = date.getDate();
   // const year = date.getFullYear();
 
-  // when page is mounted, run the user info function to get the current user's info
+  // when page is mounted, grab the user's playlists 
+  // grabUserPlaylists being imported 
   useEffect(() => {
-    grabUserPlaylists();
+    grabUserPlaylists(playlistUrl, setUserPlaylists);
   }, []);
 
   // when page is mounted, call the function to load liked songs playlist
   useEffect(() => {
     if (!userPlaylists) return;
-    getInitPlaylist();
-  }, [userPlaylists]);
-
-  // get the user's Liked Songs playlist to display in the playlistView component
-  const getInitPlaylist = () => {
+    console.log("useEffect triggered!")
+    console.log(userPlaylists)
+    // get the user's Liked Songs playlist to display in the playlistView component
     const initPlaylist = userPlaylists.find(
       (playlist) => playlist.name === "Liked Songs"
     );
-    setPlaylistView(initPlaylist);
-  };
-
-  // API Call to backend
-  const grabUserPlaylists = async () => {
-    // API Call to the playlists endpoint to get all the user's playlists
-    const response = await axios.get(playlistUrl);
-
-    // set their created playlists to state so we can display it
-    setUserPlaylists(response.data);
-  };
-
-  useEffect(() => {
-    if (playlistView) {
-      getTracks();
+    if (initPlaylist){
+      setPlaylistView(initPlaylist);
+      getTracks(initPlaylist.name, setPlaylistTracks)      
     }
-  }, [playlistView]);
-
-
-  // API call to backend to grab tracks from a specific playlist
-  const getTracks = async () => {
-    if (playlistView) {
-      const response = await axios.get(
-        `${singlePlaylistUrl}${playlistView.name}`
-      );
-      setPlaylistTracks(response.data.tracks);
-    }
-  };
+  }, [userPlaylists]);
 
   // API call to a specific playlist's endpoint to remove a song from the playlist
   const removeTrack = async (trackID) => {
