@@ -1,11 +1,14 @@
-import { use, useEffect, useState } from "react";
+import { use, useContext, useEffect, useState } from "react";
 import axios from "../axios";
 import { Link, useOutletContext } from "react-router-dom";
 import { CircleX, Play, Pencil, ListVideo } from 'lucide-react';
+import { HomePageContext } from "../pages/HomePage";
+import { grabUserPlaylists } from "../utils/MusicUtils";
 
-const PlaylistList = ({ playlist, editPlaylist, grabUserPlaylists,setPlaylistView }) => {
+const PlaylistList = ({ playlist, editPlaylist }) => {
   const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
-  const {userToken} = useOutletContext()
+  const {userToken, setUserPlaylists} = useOutletContext()
+  const { setPlaylistView } = useContext(HomePageContext)
   // const userToken = localStorage.getItem("token");
   const [delBtn, setDelBtn] = useState(false);
 
@@ -37,7 +40,7 @@ const PlaylistList = ({ playlist, editPlaylist, grabUserPlaylists,setPlaylistVie
       
       // update usersPlaylist state variable without the deleted playlist
       // also also remove it to the page in the .map() function
-      grabUserPlaylists()
+      grabUserPlaylists(playlistUrl, setUserPlaylists)
 
     } catch (error) {
       console.error("Error:", error);

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import axios from "../axios";
 import PlaylistList from "../components/PlaylistList";
@@ -7,22 +7,20 @@ import CreatePlaylist from "./CreatePlaylist";
 import EditPlaylist from "../components/EditPlaylist";
 import { DotStream } from "ldrs/react";
 import "ldrs/react/DotStream.css";
-
-// import deletePlaylist from "../utilities/deleteplaylist";
+import { HomePageContext } from "../pages/HomePage";
+import { grabUserPlaylists } from "../utils/MusicUtils";
+const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 
 // TO DO : create loading state variable to display while the API makes it's call
-// TO DO : create a button on the page so a user can create a new playlist, and when the button is clicked,
-//         a popup opens that asks for the basic playlists information
 
-const Playlists = ({ grabUserPlaylists, setPlaylistView }) => {
+const Playlists = () => {
   const [createBtn, setCreateBtn] = useState(false);
   const [editInfo, setShowEditInfo] = useState(false);
   const [playlistToEdit, setPlaylistToEdit] = useState(null);
   const [showEditConfirmation, setShowEditConfirmation] = useState(false);
 
-  const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
   const { userPlaylists, setUserPlaylists } = useOutletContext();
-
+  const { setPlaylistView } = useContext(HomePageContext)
   const handlePlaylistCreation = () => {
     setCreateBtn(true);
   };
@@ -45,7 +43,7 @@ const Playlists = ({ grabUserPlaylists, setPlaylistView }) => {
       const timer = setTimeout(() => {
         setShowEditConfirmation(false);
       }, 2000);
-      grabUserPlaylists()
+      grabUserPlaylists(playlistUrl, setUserPlaylists)
     }
     setShowEditInfo(false)
   };
@@ -62,7 +60,6 @@ const Playlists = ({ grabUserPlaylists, setPlaylistView }) => {
           <div className="search-results z-50 fixed inset-0 flex items-center justify-center">
             <CreatePlaylist
               setCreateBtn={setCreateBtn}
-              grabUserPlaylists={grabUserPlaylists}
             />
           </div>
         ) : null}

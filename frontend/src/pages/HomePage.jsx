@@ -14,22 +14,6 @@ import { grabUserPlaylists, getTracks } from "../utils/MusicUtils";
 const singlePlaylistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 
-// export const ExploreContext = createContext({
-//   address: "",
-//   setAddress: () => {},
-//   place: null,
-//   selectedFilters: [],
-//   setPlace: () => {},
-//   coords: { lat: 0, lng: 0 },
-//   getPlaceDetails: () => {},
-//   setPlaceDetails: () => {},
-//   handleViewOnGoogle: () => {},
-//   handleViewWebsite: () => {},
-//   setMapInst: () => {},
-//   restaurants: [],
-//   hotels: [],
-//   attractions: [],
-// });
 
 export const HomePageContext = createContext({
   playlistView: '',
@@ -127,21 +111,13 @@ const HomePage = () => {
       <div className="page-container relative flex flex-row justify-center gap-2 h-screen overflow-hidden">
         {/* users playlists */}
         <div className="playlists-homepage-container w-[20vw] border-1 h-[calc(100vh-104px)] overflow-y-auto">
-          <Playlists
-            userPlaylists={userPlaylists}
-            grabUserPlaylists={grabUserPlaylists}
-            setPlaylistView={setPlaylistView}
-            setUserPlaylists={setUserPlaylists}
-          />
+          <Playlists />
         </div>
 
         {/* Songs within the selected playlist */}
         <div className="songs-homepage-container border-2 w-[50vw] h-[calc(100vh-104px)] overflow-y-auto">
           {playlistView && (
-            <PlaylistSongs
-              isPaused={isPaused}
-              setIsPaused={setIsPaused}
-            />
+            <PlaylistSongs />
           )}
         </div>
 
