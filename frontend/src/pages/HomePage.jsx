@@ -59,9 +59,9 @@ const HomePage = () => {
     }
   }, [userPlaylists]);
 
-  // API call to a specific playlist's endpoint to remove a song from the playlist
+
+  /* API call using a DELETE method to remove the track from the currently viewed playlist*/
   const removeTrack = async (trackID) => {
-    // do a DELETE request to the Playlist endpoint for the viewed playlist and seleted song
     const response = await axios.delete(
       `${playlistUrl}${playlistView.name}/${trackID}/`
     );
@@ -73,6 +73,8 @@ const HomePage = () => {
         setNotifyRemoved(false)
       }, 3000)
       getTracks(); // call the function to load the playlist's tracks which will update the page with the song now removed
+    } else {
+      console.error("There was an issue removing this song from your playlist!")
     }
   };
 
