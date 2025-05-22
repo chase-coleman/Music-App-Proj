@@ -122,7 +122,7 @@ const HomePage = () => {
         </div>
 
         {/* search results */}
-        <div className="searchresults-homepage-container w-64 h-[calc(100vh-104px)] overflow-y-auto">
+        <div className="searchresults-homepage-container w-64 h-full overflow-y-auto">
           {trackResults && (
             <SearchResults
               tracks={trackResults}

@@ -132,22 +132,22 @@
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(2px);
   color: black;
-  /* font-family: forta; */
+  height: fit-content;
 }
 .songs-homepage-container {
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(2px);
   color: black;
-  /* font-family: forta; */
+  height: fit-content;
 }
 .searchresults-homepage-container {
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(2px);
   color: black;
-  /* font-family: forta; */
+  height: fit-content;
 }
-/* NAVBAR */
 
+/* NAVBAR */
 
 /* MUSIC PLAYER COMPONENT */
 
