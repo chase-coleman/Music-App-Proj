@@ -102,13 +102,11 @@ const HomePage = () => {
       />}
       {currentUserInfo ? (
         <div className="flex items-center justify-center">
-          <h3 className="welcome-text !text-[1em]">
-            Welcome, {currentUserInfo.first_name}!
-          </h3>
-          {/* <h6>{(`${day} ${month}, ${year}`).toString()}</h6> */}
+          <h3 className="welcome-text !text-[1em]">Welcome, {currentUserInfo.first_name}!</h3>
         </div>
       ) : null}
       <div className="page-container relative flex flex-wrap justify-center gap-2 h-[calc(100vh-104px)] overflow-y-auto">
+
         {/* users playlists */}
         <div className="playlists-homepage-container w-64 border-1 h-full overflow-y-auto">
           <Playlists />

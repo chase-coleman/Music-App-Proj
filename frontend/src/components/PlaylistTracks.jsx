@@ -1,9 +1,9 @@
 import { useContext, useEffect, useState } from "react";
 import axios from "../axios";
 import { useOutletContext } from "react-router-dom";
-import { SkipBack, CircleX, Play, Pause, SkipForward } from "lucide-react";
+import { SkipBack, CircleX, Play, Pause, SkipForward, ListEnd } from "lucide-react";
 
-import { getTracks } from "../utils/MusicUtils";
+import { getTracks, addToQueue } from "../utils/MusicUtils";
 import { HomePageContext } from "../pages/HomePage";
 const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 
@@ -11,7 +11,7 @@ const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 const PlaylistTracks = ({ track }) => {
   const {isPaused, setIsPaused, 
         setMusicActive, currentTrack, 
-        player, setCurrentTrack} = useOutletContext()
+        player, setCurrentTrack, queue, setQueue} = useOutletContext()
 
   const { playlistView, removeTrack } = useContext(HomePageContext)
 
@@ -56,6 +56,9 @@ const PlaylistTracks = ({ track }) => {
         </div>
       </div>
       </div>
+      <button onClick={() => addToQueue(track, queue, setQueue)}>
+        <ListEnd color="black" />
+      </button>
       <button className="btn btn-square btn-ghost" onClick={handlePlay}>
         {currentTrack?.id === track.id && !isPaused ? <Pause /> : <Play />}
       </button>

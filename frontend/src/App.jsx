@@ -18,7 +18,7 @@ export default function App() {
   const [currentTrackID, setCurrentTrackID] = useState(null)
   const [player, setPlayer] = useState(null);
   const [currentUserInfo, setCurrentUserInfo] = useState(null)
-
+  const [queue, setQueue] = useState([])
 
 
   // when a user logs in, set their token to localstorage and call the func to get an access token
@@ -57,7 +57,9 @@ export default function App() {
     }
   }, [musicActive])
 
-
+  useEffect(() => {
+    console.log(queue)
+  }, [queue])
 
   return (
       <>
@@ -69,7 +71,8 @@ export default function App() {
         player, getUserInfo,
         musicActive, setMusicActive, 
         currentTrack, setCurrentTrack,
-        userPlaylists, setUserPlaylists
+        userPlaylists, setUserPlaylists,
+        queue, setQueue
         }}/>
       {userToken && accessToken && musicActive ? 
       (<MusicPlayer 

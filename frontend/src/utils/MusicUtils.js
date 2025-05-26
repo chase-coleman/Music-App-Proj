@@ -21,3 +21,17 @@ export const getTracks = async (playlistName, setPlaylistTracks) => {
     console.error("The function was called with an undefined playlistName")
   }
 };
+
+export const addToQueue = (track, queue, setQueue) => {
+  // checking if the song is already in the queue
+  if (queue.filter(prevTrack => prevTrack.id == track.id).length === 1){
+        const confirmed = window.confirm(
+      "This song is already in your queue. Would you like to add it again?"
+    );
+    if (confirmed) {
+      setQueue((prevQueue) => [...prevQueue, track])
+    } else return;
+  } else {
+    setQueue((prevQueue) => [...prevQueue, track])
+  }
+}
