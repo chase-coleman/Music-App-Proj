@@ -133,6 +133,7 @@
   backdrop-filter: blur(2px);
   color: black;
   height: fit-content;
+  justify-content: ;
 }
 .songs-homepage-container {
   background-color: rgba(179,179,179, 0.1);
@@ -208,5 +209,11 @@ progress::-moz-progress-bar {
   border-radius: initial;
   color: inherit;
   transform: none;
+  box-sizing: inherit;
+}
+
+.queue-btn:hover {
+  border-radius: initial;
+  color: inherit;
   box-sizing: inherit;
 }
