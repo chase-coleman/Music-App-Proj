@@ -8,7 +8,7 @@ import { HomePageContext } from "../pages/HomePage";
 const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 
 
-const PlaylistTracks = ({ track }) => {
+const PlaylistTracks = ({ track, queued, removeFromQueue }) => {
   const {isPaused, setIsPaused, 
         setMusicActive, currentTrack, 
         player, setCurrentTrack, queue, setQueue} = useOutletContext()
@@ -62,9 +62,15 @@ const PlaylistTracks = ({ track }) => {
       <button className="btn btn-square btn-ghost" onClick={handlePlay}>
         {currentTrack?.id === track.id && !isPaused ? <Pause /> : <Play />}
       </button>
+      {/* checking if the track is queued. That way we can remove it from the Queue but not the playlist */}
+      {queued ? 
+      <button className="btn btn-square btn-ghost" onClick={() => removeFromQueue(track.id)}>
+        <CircleX color="red" />
+      </button> :
       <button className="btn btn-square btn-ghost" onClick={() => removeTrack(track.id, playlistView.name, playlistUrl)}>
         <CircleX color="black" />
       </button>
+      }
       {/*Put Trash icon here for users to delete a playlist*/}
     </>
   );

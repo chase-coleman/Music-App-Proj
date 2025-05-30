@@ -113,14 +113,14 @@ const HomePage = () => {
         </div>
 
         {/* Songs within the selected playlist */}
-        <div className="songs-homepage-container border-2 !w-150 h-full overflow-y-auto">
+        <div className="songs-homepage-container border-2 !w-120 h-full overflow-y-auto">
           {playlistView && (
             <PlaylistSongs />
           )}
         </div>
 
         {/* search results */}
-        <div className="searchresults-homepage-container w-64 h-full overflow-y-auto">
+        <div className="searchresults-homepage-container w-64 h-full border-4 overflow-y-auto">
           {trackResults && (
             <SearchResults
               tracks={trackResults}
