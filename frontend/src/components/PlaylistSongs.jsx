@@ -27,11 +27,6 @@ const PlaylistSongs = () => {
     } else setQueueView(false);
   };
 
-  useEffect(() => {
-    if (queue.length < 1) return;
-    console.log(queue)
-  }, [queue])
-
   return (
     <>
       {playlistView ? (

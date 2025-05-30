@@ -13,7 +13,7 @@ const PlaylistTracks = ({ track, queued }) => {
         setMusicActive, currentTrack, 
         player, setCurrentTrack, queue, setQueue} = useOutletContext()
 
-  const { playlistView, removeTrack } = useContext(HomePageContext)
+  const { playlistView, removeTrack, timerFunction } = useContext(HomePageContext)
 
   const handlePlay = async () => {
     if (!isPaused){
@@ -57,7 +57,7 @@ const PlaylistTracks = ({ track, queued }) => {
       </div>
       </div> 
       {!queued &&
-      <button onClick={() => addToQueue(track, queue, setQueue)}>
+      <button onClick={() => addToQueue(track, queue, setQueue, timerFunction)}>
         <ListEnd color="black" />
       </button>}
       <button className="btn btn-square btn-ghost" onClick={handlePlay}>
@@ -65,7 +65,7 @@ const PlaylistTracks = ({ track, queued }) => {
       </button>
       {/* checking if the track is queued. That way we can remove it from the Queue but not the playlist */}
       {queued ? 
-      <button className="btn btn-square btn-ghost" onClick={() => removeFromQueue(track.id, queue, setQueue)}>
+      <button className="btn btn-square btn-ghost" onClick={() => removeFromQueue(track.id, queue, setQueue, timerFunction)}>
         <CircleX color="black" />
       </button> :
       <button className="btn btn-square btn-ghost" onClick={() => removeTrack(track.id, playlistView.name, playlistUrl)}>

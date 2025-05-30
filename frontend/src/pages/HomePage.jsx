@@ -22,6 +22,8 @@ export const HomePageContext = createContext({
   playlistTracks: [],
   setPlaylistTracks: () => {},
   removeTrack: () => {},
+  setPopupMsg: () => {},
+  timerFunction: () => {},
 })
 
 
@@ -31,7 +33,7 @@ const HomePage = () => {
   const [trackResults, setTrackResults] = useState(null);
   const [artistResults, setArtistResults] = useState(null);
   const [albumResults, setAlbumResults] = useState(null);
-  const [notifyRemoved, setNotifyRemoved] = useState(false);
+  const [notification, setNotification] = useState(false);
   const [popupMsg, setPopupMsg] = useState('')
   const location = useLocation();
   const loginPage = location.pathname === "/login";
@@ -74,18 +76,23 @@ const HomePage = () => {
     );
 
     if (response.status === 204) {
-      setNotifyRemoved(true)
-      setPopupMsg("Song removed from playlist")
-      const timer = setTimeout(() => {
-        setNotifyRemoved(false)
-        setPopupMsg('')
-      }, 3000)
+      let m = "Song removed from playlist"
+      timerFunction(3000, m)
       getTracks(playlistName, setPlaylistTracks); 
     } else {
       console.error("There was an issue removing this song from your playlist!")
     }
   };
 
+// reusable function to display different messages to the user for action results
+  const timerFunction = (duration, msg) => {
+    setNotification(true)
+    setPopupMsg(msg)
+    const timer = setTimeout(() => {
+      setNotification(false)
+      setPopupMsg('')
+    }, duration)
+  }
 
   return (
     <>
@@ -96,6 +103,8 @@ const HomePage = () => {
       playlistTracks,
       setPlaylistTracks,
       removeTrack,
+      setPopupMsg,
+      timerFunction
     }}
     >
     {!loginPage &&
@@ -136,7 +145,7 @@ const HomePage = () => {
           )}
         </div>
       </div>
-      {notifyRemoved ? (
+      {notification ? (
         <div className="absolute left-5 bottom-5 z-50">
         <ToastComponent msg={popupMsg} />
         </div>

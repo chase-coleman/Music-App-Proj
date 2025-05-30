@@ -22,7 +22,7 @@ export const getTracks = async (playlistName, setPlaylistTracks) => {
   }
 };
 
-export const addToQueue = (track, queue, setQueue) => {
+export const addToQueue = (track, queue, setQueue, timerFunction) => {
   // checking if the song is already in the queue
   if (queue.filter(prevTrack => prevTrack.id == track.id).length === 1){
         const confirmed = window.confirm(
@@ -30,13 +30,16 @@ export const addToQueue = (track, queue, setQueue) => {
     );
     if (confirmed) {
       setQueue((prevQueue) => [...prevQueue, track])
+      timerFunction(2000, "Song added to queue!")
     } else return;
   } else {
     setQueue((prevQueue) => [...prevQueue, track])
+    timerFunction(2000, "Song added to the queue!")
   }
 }
 
-export const removeFromQueue = (trackID, queue, setQueue) => {
+export const removeFromQueue = (trackID, queue, setQueue, timerFunction) => {
   const newQ = queue.filter(prevTrack => prevTrack.id !== trackID)
   setQueue(newQ)
+  timerFunction(2000, "Song removed from the queue")
 }
