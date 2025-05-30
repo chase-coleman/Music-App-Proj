@@ -35,3 +35,8 @@ export const addToQueue = (track, queue, setQueue) => {
     setQueue((prevQueue) => [...prevQueue, track])
   }
 }
+
+export const removeFromQueue = (trackID, queue, setQueue) => {
+  const newQ = queue.filter(prevTrack => prevTrack.id !== trackID)
+  setQueue(newQ)
+}

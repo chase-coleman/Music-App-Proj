@@ -3,12 +3,12 @@ import axios from "../axios";
 import { useOutletContext } from "react-router-dom";
 import { SkipBack, CircleX, Play, Pause, SkipForward, ListEnd } from "lucide-react";
 
-import { getTracks, addToQueue } from "../utils/MusicUtils";
+import { getTracks, addToQueue, removeFromQueue } from "../utils/MusicUtils";
 import { HomePageContext } from "../pages/HomePage";
 const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 
 
-const PlaylistTracks = ({ track, queued, removeFromQueue }) => {
+const PlaylistTracks = ({ track, queued }) => {
   const {isPaused, setIsPaused, 
         setMusicActive, currentTrack, 
         player, setCurrentTrack, queue, setQueue} = useOutletContext()
@@ -55,17 +55,18 @@ const PlaylistTracks = ({ track, queued, removeFromQueue }) => {
           {track.duration}
         </div>
       </div>
-      </div>
+      </div> 
+      {!queued &&
       <button onClick={() => addToQueue(track, queue, setQueue)}>
         <ListEnd color="black" />
-      </button>
+      </button>}
       <button className="btn btn-square btn-ghost" onClick={handlePlay}>
         {currentTrack?.id === track.id && !isPaused ? <Pause /> : <Play />}
       </button>
       {/* checking if the track is queued. That way we can remove it from the Queue but not the playlist */}
       {queued ? 
-      <button className="btn btn-square btn-ghost" onClick={() => removeFromQueue(track.id)}>
-        <CircleX color="red" />
+      <button className="btn btn-square btn-ghost" onClick={() => removeFromQueue(track.id, queue, setQueue)}>
+        <CircleX color="black" />
       </button> :
       <button className="btn btn-square btn-ghost" onClick={() => removeTrack(track.id, playlistView.name, playlistUrl)}>
         <CircleX color="black" />

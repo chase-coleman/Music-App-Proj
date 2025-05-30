@@ -7,6 +7,7 @@ import PlaylistSongs from "../components/PlaylistSongs";
 import SearchResults from "../components/SearchResults";
 
 import { grabUserPlaylists, getTracks } from "../utils/MusicUtils";
+import ToastComponent from "../components/ToastComponent";
 
 // TO DO : Find out why the getTracks function is being called twice.
 // TO DO : Find out why when selecting a new playlist, the song's are updating
@@ -31,6 +32,7 @@ const HomePage = () => {
   const [artistResults, setArtistResults] = useState(null);
   const [albumResults, setAlbumResults] = useState(null);
   const [notifyRemoved, setNotifyRemoved] = useState(false);
+  const [popupMsg, setPopupMsg] = useState('')
   const location = useLocation();
   const loginPage = location.pathname === "/login";
 
@@ -73,8 +75,10 @@ const HomePage = () => {
 
     if (response.status === 204) {
       setNotifyRemoved(true)
+      setPopupMsg("Song removed from playlist")
       const timer = setTimeout(() => {
         setNotifyRemoved(false)
+        setPopupMsg('')
       }, 3000)
       getTracks(playlistName, setPlaylistTracks); 
     } else {
@@ -134,9 +138,7 @@ const HomePage = () => {
       </div>
       {notifyRemoved ? (
         <div className="absolute left-5 bottom-5 z-50">
-          <div className="removed-alert z-50 flex rounded-xl flex-col p-1 text-center text-[0.65em]">
-            <span>Song removed from playlist</span>
-          </div>
+        <ToastComponent msg={popupMsg} />
         </div>
       ) : null}
       </HomePageContext.Provider>

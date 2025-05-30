@@ -27,11 +27,6 @@ const PlaylistSongs = () => {
     } else setQueueView(false);
   };
 
-  const removeFromQueue = (trackID) => {
-    const newQ = queue.filter(prevTrack => prevTrack.id !== trackID)
-    setQueue(newQ)
-  }
-
   useEffect(() => {
     if (queue.length < 1) return;
     console.log(queue)
@@ -59,10 +54,12 @@ const PlaylistSongs = () => {
               </div>
               <div className="w-1/4"></div>
             </div>
-            {queueView
-              ? queue.map((track) => (
+            {/* conditionally render components for the songs in queue or in the playlist as well as if there are no songs in the queue */}
+            {queueView ? 
+              queue.length < 1 ? <span className="text-[.75em] text-center">No songs in your queue!</span>:
+              queue.map((track) => (
                   <li className="list-row p-1 gap-1" key={track.id}>
-                    <PlaylistTracks track={track} removeFromQueue={removeFromQueue} queued={queueView}/>
+                    <PlaylistTracks track={track} queued={queueView}/>
                   </li>
                 ))
               : playlistTracks.map((track) => (
