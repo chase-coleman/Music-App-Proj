@@ -114,7 +114,7 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
                 <div className="flex items-center">
                   <LogOut size={17}/>
                 <li>
-                  <button onClick={userLogout}>Logout</button>
+                  <button className="logoutbutton" onClick={userLogout}>Logout</button>
                 </li>
                 </div>
               </ul>

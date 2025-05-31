@@ -217,3 +217,10 @@ progress::-moz-progress-bar {
   color: inherit;
   box-sizing: inherit;
 }
+
+.logoutbutton:hover {
+  border-radius: initial;
+  color: inherit;
+  transform: none;
+  box-sizing: inherit;
+}
