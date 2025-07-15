@@ -7,6 +7,7 @@ import LandingPage from "./pages/LandingPage";
 import Login from "./pages/LoginPage";
 import Events from "./pages/Events";
 import Settings from "./pages/Settings";
+import AccountPage from "./pages/AccountPage";
 
 const router = createBrowserRouter([
   {
@@ -37,6 +38,10 @@ const router = createBrowserRouter([
         path: "/settings",
         element: <Settings />
       },
+      {
+        path: "/account",
+        element: <AccountPage />
+      }
     ],
     errorElement: <ErrorPage />
   }

@@ -57,10 +57,6 @@ export default function App() {
     }
   }, [musicActive])
 
-  useEffect(() => {
-    console.log(queue)
-  }, [queue])
-
   return (
       <>
       <Outlet context={

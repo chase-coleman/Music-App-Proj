@@ -58,7 +58,7 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    const loginUrl = "http://127.0.0.1:8000/api/v1/users/login/";
+    const loginUrl = "http://localhost:8000/api/v1/users/login/";
     try {
       // call backend login view and send user-input data to authenticate
       const response = await axios.post(loginUrl, {

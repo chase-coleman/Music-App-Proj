@@ -64,6 +64,9 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
             <Nav.Link as={Link} to="/events" className="events-link text-white">
               Events
             </Nav.Link>
+            <Nav.Link as={Link} to="/account" className="account-link text-white">
+            Account
+            </Nav.Link>
           </div>
           {/* Right side nav items */}
           <div className="flex justify-end pr-2 gap-2">

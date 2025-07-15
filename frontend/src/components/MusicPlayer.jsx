@@ -25,13 +25,11 @@ const MusicPlayer = ({
       return;
     }
 
-    // create a script that will run Spotify's Web Playback API
-    // const script = document.createElement("script");
-    // script.src = "https://sdk.scdn.co/spotify-player.js";
-    // script.async = true;
-    // document.body.appendChild(script);
+    const scriptTag = document.createElement("script");
+    scriptTag.src = "https://sdk.scdn.co/spotify-player.js";
+    scriptTag.async = true;
+    document.body.appendChild(scriptTag);
 
-    // this will auto call Spotify's Web Playback once the SDK script above is fully loaded
     window.onSpotifyWebPlaybackSDKReady = () => {
       console.log("Spotify SDK Ready!");
 

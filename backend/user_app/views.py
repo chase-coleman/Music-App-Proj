@@ -68,8 +68,7 @@ class Login(APIView):
       return Response({"token":token.key}, status=s.HTTP_200_OK)
     
     return Response(f"Username or password incorrect", status=s.HTTP_400_BAD_REQUEST)
-    # don't specify which is incorrect because that would help a malicious party
-    # a direction to go
+    # don't specify which is incorrect because that would narrow it down for a malicious party
 
 class Logout(TokenReq):
   def post(self, request):
@@ -81,3 +80,10 @@ class DeleteAccount(TokenReq):
   def delete(self, request):
       request.user.delete()
       return Response(status=s.HTTP_204_NO_CONTENT)
+  
+class TokenVerification(APIView):
+  def get(self, request):
+    current_token = request.headers.get('Authorization').split(' ')[1]
+    token = get_object_or_404(Token, key=current_token)
+    user = token.user
+    return Response(status=s.HTTP_200_OK)
