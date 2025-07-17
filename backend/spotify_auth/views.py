@@ -63,30 +63,33 @@ class Spotify_Callback_View(TokenReq):
 
         # get a new access token using the refresh token
         if refresh_token:
-            access_token = self.get_access_refresh(refresh_token)
-            return access_token
+            try:
+                access_token = self.get_access_refresh(refresh_token)
+                return access_token
+            except Exception as e:
+                return Response({"error": "There was an error retrieving user's access token", "details": str(e)}, status=s.HTTP_500_INTERNAL_SERVER_ERROR)
 
         # put my spotify client ID & secret into one string & encode it
-        auth_str = SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET
-        auth_encoded = auth_str.encode("utf-8")
+        try:
+            auth_str = SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET
+            auth_encoded = auth_str.encode("utf-8")
+            # returns a base64 object, converts to a string so we can pass it w/ our headers when we send a request to Spotify
+            auth_base64 = str(base64.b64encode(auth_encoded), "utf-8")
+            # create variables to use in the POST request to generate a token
+            spotify_token_url = "https://accounts.spotify.com/api/token"
+            headers = {
+                "Authorization": "Basic " + auth_base64,
+                "Content-Type": "application/x-www-form-urlencoded" # Content type is telling the server what kind of data is being sent
+            }
+            data = {"grant_type": "client_credentials"} # this is the body of the request we'll be sending
+            result = post(spotify_token_url, headers=headers, data=data)
+            json_result = json.loads(result.content)
+            token = json_result['access_token']
+            return token
+        except Exception as e:
+            return Response({"error": "There was an error getting the access token", "details": str(e)}, status=s.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        # returns a base64 object, converts to a string so we can pass it w/ our headers when we send a request to Spotify
-        auth_base64 = str(base64.b64encode(auth_encoded), "utf-8")
-
-        # create variables to use in the POST request to generate a token
-        spotify_token_url = "https://accounts.spotify.com/api/token"
-        headers = {
-            "Authorization": "Basic " + auth_base64,
-            "Content-Type": "application/x-www-form-urlencoded" # Content type is telling the server what kind of data is being sent
-        }
-        data = {"grant_type": "client_credentials"} # this is the body of the request we'll be sending
-
-
-
-        result = post(spotify_token_url, headers=headers, data=data)
-        json_result = json.loads(result.content)
-        token = json_result['access_token']
-        return token
+        
 
     # if the refresh token exists, use it to get a new access token
     def get_access_refresh(self, refresh_token):
