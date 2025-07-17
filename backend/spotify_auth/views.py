@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 from requests import post, get
 import requests
 import os 
+from .encoding import encode_client_credentials
 import base64 # used for encoding the spotify client ID + secret key together
 import json 
 
@@ -69,12 +70,10 @@ class Spotify_Callback_View(TokenReq):
             except Exception as e:
                 return Response({"error": "There was an error retrieving user's access token", "details": str(e)}, status=s.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        # put my spotify client ID & secret into one string & encode it
         try:
-            auth_str = SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET
-            auth_encoded = auth_str.encode("utf-8")
+            # encode_client_credentials is a helper function in encode.py
             # returns a base64 object, converts to a string so we can pass it w/ our headers when we send a request to Spotify
-            auth_base64 = str(base64.b64encode(auth_encoded), "utf-8")
+            auth_base64 = encode_client_credentials(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
             # create variables to use in the POST request to generate a token
             spotify_token_url = "https://accounts.spotify.com/api/token"
             headers = {
@@ -93,9 +92,7 @@ class Spotify_Callback_View(TokenReq):
 
     # if the refresh token exists, use it to get a new access token
     def get_access_refresh(self, refresh_token):
-        auth_str = SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET
-        auth_encoded = auth_str.encode("utf-8")
-        auth_base64 = str(base64.b64encode(auth_encoded), "utf-8")
+        auth_base64 = encode_client_credentials(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
         spotify_token_url = "https://accounts.spotify.com/api/token"
         scopes = "user-read-private user-read-email playlist-read-private streaming user-read-playback-state user-modify-playback-state"
         headers = {"Authorization": "Basic " + auth_base64, "Content-Type": "application/x-www-form-urlencoded"}
