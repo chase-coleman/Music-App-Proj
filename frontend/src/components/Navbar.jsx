@@ -24,9 +24,9 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
       // console.log(response.data)
       const tracks = response.data[0]["tracks"];
       // console.log("tracks:", tracks)
-      const artists = response.data[1]["artists"];
+      const artists = response.data[0]["artists"];
       // console.log("artists:", artists)
-      const albums = response.data[2]["albums"];
+      const albums = response.data[0]["albums"];
       // console.log("albums:", albums)
       setTrackResults(tracks);
       setArtistResults(artists);

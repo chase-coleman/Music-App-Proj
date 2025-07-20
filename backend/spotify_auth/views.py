@@ -159,9 +159,9 @@ class Spotify_Callback_View(TokenReq):
                   for album in json_result['albums']['items']]
 
         return [
-            {"tracks": tracks},
-            {"artists": artists},
-            {"albums": albums},
+            {"tracks": tracks,
+            "artists": artists,
+            "albums": albums},
         ]
   
 
