@@ -9,6 +9,7 @@ import { DotStream } from "ldrs/react";
 import "ldrs/react/DotStream.css";
 import { HomePageContext } from "../pages/HomePage";
 import { grabUserPlaylists } from "../utils/MusicUtils";
+import axiosInstance from "../axios";
 const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 
 // TO DO : create loading state variable to display while the API makes it's call
@@ -52,11 +53,11 @@ const Playlists = () => {
 
     try {
     // do a DELETE request to remove the playlist instance from the db 
-      const response = await axios.delete(`${playlistUrl}${playlistID}/`);
+      const response = await axiosInstance.delete(`playlists/${playlistID}/`);
     
       // update usersPlaylist state variable without the deleted playlist
       // also also remove it to the page in the .map() function
-      grabUserPlaylists(playlistUrl, setUserPlaylists)
+      grabUserPlaylists(setUserPlaylists)
 
     } catch (error) {
       console.error("Error:", error);
