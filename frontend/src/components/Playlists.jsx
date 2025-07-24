@@ -44,7 +44,7 @@ const Playlists = () => {
       const timer = setTimeout(() => {
         setShowEditConfirmation(false);
       }, 2000);
-      grabUserPlaylists(playlistUrl, setUserPlaylists)
+      grabUserPlaylists(setUserPlaylists)
     }
     setShowEditInfo(false)
   };
