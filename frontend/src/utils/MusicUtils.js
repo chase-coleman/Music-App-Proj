@@ -5,7 +5,6 @@ const singlePlaylistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 export const grabUserPlaylists = async (setUserPlaylists) => {
   // API Call to the playlists endpoint to get all the user's playlists
   const response = await axiosInstance.get("playlists/");
-
   // set their created playlists to state so we can display it
   setUserPlaylists(response.data);
 };

@@ -18,23 +18,28 @@ class Playlists(TokenReq):
     playlist_to_delete.delete()
     return Response(f"{playlist_to_delete.name} has been deleted.", status=s.HTTP_204_NO_CONTENT)
 
-  def put(self, request, id):
-    data = request.data.copy() # copy the request data
-    # grab the playlist instance of the playlist being edited
-    playlist_to_edit = get_object_or_404(Playlist, id=id, user=request.user)
-    serialized = PlaylistSerializer(playlist_to_edit, data=data, partial=True)
-    if serialized.is_valid():
-      serialized.save() # if serialization has worked and is valid, save it
-      return Response(status=s.HTTP_200_OK)
-    return Response(serialized.errors, status=s.HTTP_400_BAD_REQUEST)
+  def post(self, request):
+    data = request.data.copy()
+    serialized_playlist = PlaylistSerializer(data=data)
+    if serialized_playlist.is_valid():
+        serialized_playlist.save(user=request.user)
+        return Response(serialized_playlist.data, status=s.HTTP_201_CREATED)
+    
+    # Debug print
+    print("Create Playlist Error:", serialized_playlist.errors)
+    
+    return Response(
+        {"error": "Error creating a new playlist", "details": serialized_playlist.errors},
+        status=s.HTTP_400_BAD_REQUEST
+    )
 
   def post(self, request):
     data = request.data.copy()
-    data['user'] = request.user
-    # turn data into the model
-    new_playlist = Playlist.objects.create(**data)
-    serialized_playlist = PlaylistSerializer(new_playlist)
-    return Response(serialized_playlist.data)
+    serialized_playlist = PlaylistSerializer(data=data)
+    if serialized_playlist.is_valid():
+      serialized_playlist.save(user=request.user)
+      return Response(serialized_playlist.data, status=s.HTTP_201_CREATED)
+    return Response({"Error creating a new playlist":serialized_playlist.errors}, status=s.HTTP_400_BAD_REQUEST)
   
 class Single_Playlist(TokenReq):
   def get(self, request, playlist_name):

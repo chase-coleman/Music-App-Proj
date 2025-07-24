@@ -151,24 +151,24 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Telling the project that this is the user model to use 
 AUTH_USER_MODEL = 'user_app.User' 
 
-LOGGING = {
-    'version': 1,
-    'disable_existing_loggers': False, 
-    'handlers': {
-        'console': {
-            'class': 'logging.StreamHandler',
-            'stream': sys.stdout,
-        },
-    },
-    'root': {
-        'handlers': ['console'],
-        'level': 'DEBUG',  # Change to 'INFO' or 'ERROR' in production
-    },
-    'loggers': {
-        'django': {
-            'handlers': ['console'],
-            'level': 'DEBUG',
-            'propagate': True,
-        },
-    },
-}
+# LOGGING = {
+#     'version': 1,
+#     'disable_existing_loggers': False, 
+#     'handlers': {
+#         'console': {
+#             'class': 'logging.StreamHandler',
+#             'stream': sys.stdout,
+#         },
+#     },
+#     'root': {
+#         'handlers': ['console'],
+#         'level': 'DEBUG',  # Change to 'INFO' or 'ERROR' in production
+#     },
+#     'loggers': {
+#         'django': {
+#             'handlers': ['console'],
+#             'level': 'DEBUG',
+#             'propagate': True,
+#         },
+#     },
+# }
