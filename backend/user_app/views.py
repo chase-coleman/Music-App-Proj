@@ -9,25 +9,29 @@ from rest_framework import status as s
 from .models import User
 from .serializers import UserInfoSerializer
 from django.shortcuts import get_object_or_404
-
+import logging
 
 # TokenReq class enforces a user be logged in to access certain pages/app functions
 class TokenReq(APIView):
   authentication_classes = [TokenAuthentication]
   permission_classes = [IsAuthenticated] 
 
+logger = logging.getLogger(__name__)
+
 class User_Info(TokenReq):
   def get(self, request):
-    current_user = request.user
-    user_info = {"email": current_user.email, 
-                     "username": current_user.username, 
-                     "first_name": current_user.first_name, 
-                     "last_name": current_user.last_name,
-                     "playlists": current_user.playlists.all()
-                     }
-    user_ser = UserInfoSerializer(user_info)
-    return Response(user_ser.data)
-
+    try:
+      current_user = request.user
+      logger.debug(f"Current user: {current_user}")
+      if current_user.is_anonymous:
+        return Response({"error": "User is not authenticated"}, status=s.HTTP_401_UNAUTHORIZED)
+      user_ser = UserInfoSerializer(current_user)
+      logger.debug(f"Serialized data: {user_ser.data}")
+      return Response(user_ser.data, status=s.HTTP_200_OK)
+    except Exception as e:
+      logger.error(f"Error in User_Info view: {str(e)}")
+      return Response({"error": str(e)}, status=s.HTTP_400_BAD_REQUEST)
+      
   def put(self, request):
     data = request.data.copy()
     # pass the request's data into the serializer

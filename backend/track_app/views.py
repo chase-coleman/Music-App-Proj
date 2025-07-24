@@ -11,6 +11,7 @@ from playlist_app.models import Playlist
 class Tracks(TokenReq):
   def post(self, request, playlist_id=None):
     track_data = request.data.copy()
+    print(track_data['duration'])
     track_sec = track_data['duration'][-2:] # grab the value of track's 'seconds' 
     track_min = track_data['duration'][:-3] # grab the value of track's 'minutes' 
 

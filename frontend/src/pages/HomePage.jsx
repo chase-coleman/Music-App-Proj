@@ -51,7 +51,7 @@ const HomePage = () => {
   // when page is mounted, grab the user's playlists 
   // grabUserPlaylists being imported 
   useEffect(() => {
-    grabUserPlaylists(playlistUrl, setUserPlaylists);
+    grabUserPlaylists(setUserPlaylists);
   }, []);
 
   // when page is mounted, call the function to load liked songs playlist

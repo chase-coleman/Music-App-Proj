@@ -1,7 +1,7 @@
 import { Outlet } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import './App.css'
-import axios from './axios'
+import axiosInstance from './axios';
 import MusicPlayer from './components/MusicPlayer';
 import SearchResults from './components/SearchResults';
 import { ListEnd } from 'lucide-react'; // SYMBOL for adding song to a queue
@@ -41,8 +41,12 @@ export default function App() {
   }, []);
 
   const getUserInfo = async () => {
-    const response = await axios.get("http://127.0.0.1:8000/api/v1/users/info/")
+    try {
+    const response = await axiosInstance.get("users/info/")
     setCurrentUserInfo(response.data)
+    } catch (error) {
+      console.error("Error getting user info:", error.response?.data || error.message)
+    }
   }
 
   useEffect(() => {

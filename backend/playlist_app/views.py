@@ -14,8 +14,7 @@ class Playlists(TokenReq):
     return Response(all_playlists.data, status=s.HTTP_200_OK)
 
   def delete(self, request, id):
-    playlist_to_delete = Playlist.objects.get(id=id)
-    print(playlist_to_delete)
+    playlist_to_delete = get_object_or_404(Playlist, id=id, user=request.user)
     playlist_to_delete.delete()
     return Response(f"{playlist_to_delete.name} has been deleted.", status=s.HTTP_204_NO_CONTENT)
 

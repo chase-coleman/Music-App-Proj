@@ -2,9 +2,9 @@ import axiosInstance from "../axios";
 const singlePlaylistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 
 // API Call to backend
-export const grabUserPlaylists = async (playlistUrl, setUserPlaylists) => {
+export const grabUserPlaylists = async (setUserPlaylists) => {
   // API Call to the playlists endpoint to get all the user's playlists
-  const response = await axiosInstance.get(playlistUrl);
+  const response = await axiosInstance.get("playlists/");
 
   // set their created playlists to state so we can display it
   setUserPlaylists(response.data);
