@@ -1,10 +1,12 @@
 import { Outlet } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import './App.css'
-import axios from './axios'
+import axiosInstance from './axios';
 import MusicPlayer from './components/MusicPlayer';
 import SearchResults from './components/SearchResults';
+import { ListEnd } from 'lucide-react'; // SYMBOL for adding song to a queue
 
+import { getAccessToken } from './utils/SpotifyUtils';
 
 export default function App() {
   const [musicActive, setMusicActive] = useState(false)
@@ -16,35 +18,39 @@ export default function App() {
   const [currentTrackID, setCurrentTrackID] = useState(null)
   const [player, setPlayer] = useState(null);
   const [currentUserInfo, setCurrentUserInfo] = useState(null)
+  const [queue, setQueue] = useState([])
 
-
-  const spotifyAccessUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/"
 
   // when a user logs in, set their token to localstorage and call the func to get an access token
   useEffect(() => {
+    if (!userToken) {
+      console.log("no user token!")
+    }
     if (userToken){
       localStorage.setItem("token", userToken)
-      console.log("setting userToken:", userToken)
-      get_access_token()
+      getAccessToken(setAccessToken)
       getUserInfo()
     }
   }, [userToken]);
   
-  // get a spotify access token via the backend & set it to state 
-  const get_access_token = async () => {
-    const response = await axios.get(spotifyAccessUrl)
-    const spotifyToken = response.data.access_token
-    setAccessToken(spotifyToken)
+  useEffect(() => {
+  const token = localStorage.getItem("token");
+  if (token) {
+    setUserToken(token);
   }
+  }, []);
 
   const getUserInfo = async () => {
-    const response = await axios.get("http://127.0.0.1:8000/api/v1/users/info/")
+    try {
+    const response = await axiosInstance.get("users/info/")
     setCurrentUserInfo(response.data)
+    } catch (error) {
+      console.error("Error getting user info:", error.response?.data || error.message)
+    }
   }
 
   useEffect(() => {
     if (!currentTrack) return;
-    // console.log(currentTrack)
     setCurrentTrackID(currentTrack.id)
   }, [currentTrack])
 
@@ -54,8 +60,6 @@ export default function App() {
       console.log("musicActive triggered")
     }
   }, [musicActive])
-
-
 
   return (
       <>
@@ -67,7 +71,8 @@ export default function App() {
         player, getUserInfo,
         musicActive, setMusicActive, 
         currentTrack, setCurrentTrack,
-        userPlaylists, setUserPlaylists
+        userPlaylists, setUserPlaylists,
+        queue, setQueue
         }}/>
       {userToken && accessToken && musicActive ? 
       (<MusicPlayer 

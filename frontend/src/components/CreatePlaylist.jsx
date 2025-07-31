@@ -3,12 +3,14 @@ import axios from "../axios";
 import { useOutletContext } from "react-router-dom";
 import { CircleX } from "lucide-react";
 
+import { grabUserPlaylists } from "../utils/MusicUtils";
+import axiosInstance from "../axios";
 
-const CreatePlaylist = ( { grabUserPlaylists, setCreateBtn } ) => {
+const CreatePlaylist = ( { setCreateBtn } ) => {
   const [playlistName, setPlaylistName] = useState("");
   const [playlistDescription, setPlaylistDescription] = useState("");
   const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/"; // url to playlist view
-  const {userToken} = useOutletContext()
+  const {userToken, setUserPlaylists} = useOutletContext()
 
   const createPlaylist = async () => {
     // creating object to send to backend to create the playlist
@@ -19,14 +21,10 @@ const CreatePlaylist = ( { grabUserPlaylists, setCreateBtn } ) => {
 
     try {
       // send a POST request to backend to create a playlist model in the db
-      const response = await axios.post(playlistUrl, playlistInfo, {
-        headers: {
-          Authorization: `Token ${userToken}`,
-        },
-      });
+      const response = await axiosInstance.post('playlists/', playlistInfo );
       // update usersPlaylist state variable to include newly created playlist
       // also also add it to the page in the .map() function
-      grabUserPlaylists();
+      grabUserPlaylists(setUserPlaylists);
       setCreateBtn(false)
     } catch (error) {
       console.error("Error:", error);

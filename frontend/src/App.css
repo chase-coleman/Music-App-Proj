@@ -3,6 +3,14 @@
   font-family: forta, sans-serif;
   src: url(fortafont);
 }
+@font-face {
+  font-family: ledlight;
+  src: url(LEDLIGHT);
+}
+@font-face {
+  font-family: metal;
+  src: url(MetalBlockUltra);
+}
 
 #root {
   height: 100% !important;
@@ -23,29 +31,26 @@
 
 /* LANDING PAGE */
 
-.landingpage-container {
+/* .landingpage-container {
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
   color:rgb(244, 243, 241);
-  font-family: forta;
-}
-
-.login-container {
-  background-color: rgba(179,179,179,.01);
-  backdrop-filter: blur(5px);
-  color: rgb(244, 243, 241);
-  font-family: forta;
-}
+} */
 
 
-.login-btn:hover {
+.login-btn {
+  /* font-family: ledlight; */
+} 
+
+/* .login-btn:hover {
   border-radius: 75px;
   color:rgb(244, 243, 241);
   transform: scale(1.2);
   box-sizing: border-box;
-}
+} */
 .brand {
   font-size: clamp(1em, 6vw, 10em);
+  /* font-family: ledlight; */
 }
 
 /* LOGIN PAGE */
@@ -54,7 +59,7 @@
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
   color: rgb(244, 243, 241);
-  font-family: forta;
+  /* font-family: forta; */
 }
 
 ::placeholder {
@@ -69,19 +74,12 @@
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(10px);
   color: black;
-  font-family: forta;
+  /* font-family: forta; */
 }
 
 .loginbutton-container {
   color: rgb(244, 243, 241);
-  font-family: forta;
-}
-
-.signup-btn:hover {
-  border-radius: 75px;
-  color:rgb(244, 243, 241);
-  transform: scale(1.2);
-  box-sizing: border-box;
+  /* font-family: forta; */
 }
 
 /* EVENT PAGE  */
@@ -90,19 +88,10 @@
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
   color: rgb(244, 243, 241);
-  font-family: forta;
+  /* font-family: forta; */
 }
 
-.eventpage-container {
-  font-family: forta;
-}
 
-.searchzip-btn:hover {
-  border-radius: 75px;
-  color:rgb(244, 243, 241);
-  transform: scale(1.2);
-  box-sizing: border-box;
-}
 
 /* HOMEPAGE */
 
@@ -110,27 +99,27 @@
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(10px);
   color: black;
-  font-family: forta;
+  /* font-family: forta; */
 }
 .welcome-text {
-  font-family: forta;
+  /* font-family: forta; */
   color:rgb(244, 243, 241);
 }
 
 .createplaylist-container {
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
-  font-family: forta;
+  /* font-family: forta; */
 }
 .createplaylist-btn {
   color:rgb(244, 243, 241);
 }
-.createplaylist-btn:hover {
+/* .createplaylist-btn:hover {
   border-radius: 75px;
   color:rgb(244, 243, 241);
   transform: scale(1.1);
   box-sizing: border-box;
-}
+} */
 
 .closeplaylists:hover {
   border-radius: 75px;
@@ -143,38 +132,23 @@
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(2px);
   color: black;
-  font-family: forta;
+  height: fit-content;
+  justify-content: ;
 }
 .songs-homepage-container {
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(2px);
   color: black;
-  font-family: forta;
+  height: fit-content;
 }
 .searchresults-homepage-container {
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(2px);
   color: black;
-  font-family: forta;
+  height: fit-content;
 }
+
 /* NAVBAR */
-
-.events-link:hover {
-  border-radius: 75px;
-  color:rgb(244, 243, 241);
-  transform: scale(1.2);
-  box-sizing: border-box;
-}
-.home-btn:hover {
-  border-radius: 75px;
-  color:rgb(244, 243, 241);
-  transform: scale(1.2);
-  box-sizing: border-box;
-}
-
-.navbar {
-  font-family: forta;
-}
 
 /* MUSIC PLAYER COMPONENT */
 
@@ -182,7 +156,7 @@
   background-color: black;
   backdrop-filter: blur(2px);
   color: rgb(244, 243, 241);
-  font-family: forta;
+  /* font-family: forta; */
   width: 100vw;
 }
 
@@ -201,24 +175,17 @@ progress::-moz-progress-bar {
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(2px);
   color: rgb(244, 243, 241);
-  font-family: forta;
+  /* font-family: forta; */
 }
 .createaccount-btn {
   color: rgb(244, 243, 241);
-  font-family: forta;
 }
 
-.createaccount-btn:hover {
-  border-radius: 75px;
-  color:rgb(244, 243, 241);
-  transform: scale(1.2);
-  box-sizing: border-box;
-}
 .account-created {
   background-color: rgba(179,179,179, 0.1);
   backdrop-filter: blur(5px);
   color: black;
-  font-family: forta;
+  /* font-family: forta; */
 }
 
 /* ALERTS */
@@ -227,20 +194,33 @@ progress::-moz-progress-bar {
   background-color: rgba(244, 243, 241, 1);
   backdrop-filter: blur(2px);
   color: black;
-  font-family: forta;
+  /* font-family: forta; */
 }
 
 .updated-alert {
   background-color: white;
   backdrop-filter: blur(10px);
   color: black;
-  font-family: forta;
+  /* font-family: forta; */
 }
 /* SETTINGS PAGE */
 
-.editaccount-btn:hover {
-  border-radius: 75px;
-  color:rgb(244, 243, 241);
-  transform: scale(1.2);
-  box-sizing: border-box;
+.search-btn:hover {
+  border-radius: initial;
+  color: inherit;
+  transform: none;
+  box-sizing: inherit;
+}
+
+.queue-btn:hover {
+  border-radius: initial;
+  color: inherit;
+  box-sizing: inherit;
+}
+
+.logoutbutton:hover {
+  border-radius: initial;
+  color: inherit;
+  transform: none;
+  box-sizing: inherit;
 }

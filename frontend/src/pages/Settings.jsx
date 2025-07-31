@@ -221,7 +221,6 @@ const Settings = () => {
                   value={passwordconfirm}
                   placeholder="Confirm Password"
                 />
-                
                 <button
                   className="editaccount-btn btn-neutral text-white w-[25vw]"
                   onClick={handleInfoSubmit}
@@ -232,6 +231,9 @@ const Settings = () => {
             </div>
           </div>
         ) : null}
+
+        {/*  account deletion component */}
+        
         {accountDeleted ? (
           <div
             className="absolute top-[-30px] left-0 w-full h-[calc(100vh-64px)] 

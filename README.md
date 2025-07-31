@@ -1,5 +1,6 @@
 # 🎵 Rhythm Music
 
+
 **Rhythm Music** is built for people who want a simplified music experience.  
 Whether you're listening to old favorites or discovering something new, Rhythm brings it all together in one place.  
 Create personalized playlists, discover new tracks, and even find live music events near you.

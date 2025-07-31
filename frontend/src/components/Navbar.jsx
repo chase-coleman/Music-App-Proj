@@ -10,7 +10,7 @@ import { useEffect, useState } from "react";
 
 const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
   const [search, setSearch] = useState("");
-  const { userToken, setUserToken } = useOutletContext();
+  const { userToken, setMusicActive, setUserToken } = useOutletContext();
   const navigate = useNavigate();
   const searchUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/";
 
@@ -24,9 +24,9 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
       // console.log(response.data)
       const tracks = response.data[0]["tracks"];
       // console.log("tracks:", tracks)
-      const artists = response.data[1]["artists"];
+      const artists = response.data[0]["artists"];
       // console.log("artists:", artists)
-      const albums = response.data[2]["albums"];
+      const albums = response.data[0]["albums"];
       // console.log("albums:", albums)
       setTrackResults(tracks);
       setArtistResults(artists);
@@ -47,7 +47,8 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
 
       localStorage.removeItem("token"); // remove the deleted token from the local storage
       console.log("user logged out!", userToken);
-      setUserToken(null)
+      setUserToken(null);
+      setMusicActive(false);
       navigate("/");
     } catch (error) {
       console.error("Error:", error);
@@ -62,6 +63,9 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
           <div className="flex-1 flex flex-row gap-5 items-center justify-center">
             <Nav.Link as={Link} to="/events" className="events-link text-white">
               Events
+            </Nav.Link>
+            <Nav.Link as={Link} to="/account" className="account-link text-white">
+            Account
             </Nav.Link>
           </div>
           {/* Right side nav items */}
@@ -83,7 +87,7 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
               className="input input-bordered !w-[50%] md:w-auto"
             />
             <button
-              className="btn bg-whitebtn-neutral w-[5rem] bg-white p-0"
+              className="search-btn !bg-whitebtn-neutral !w-[5rem] !bg-white !p-0"
               onClick={handleSearch}
             >
               Search
@@ -113,7 +117,7 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
                 <div className="flex items-center">
                   <LogOut size={17}/>
                 <li>
-                  <button onClick={userLogout}>Logout</button>
+                  <button className="logoutbutton" onClick={userLogout}>Logout</button>
                 </li>
                 </div>
               </ul>

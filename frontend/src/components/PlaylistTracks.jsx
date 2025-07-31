@@ -1,12 +1,19 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import axios from "../axios";
 import { useOutletContext } from "react-router-dom";
-import { SkipBack, CircleX, Play, Pause, SkipForward } from "lucide-react";
+import { SkipBack, CircleX, Play, Pause, SkipForward, ListEnd } from "lucide-react";
 
-const PlaylistTracks = ({ track, playlistView, removeTrack, getTracks }) => {
+import { getTracks, addToQueue, removeFromQueue } from "../utils/MusicUtils";
+import { HomePageContext } from "../pages/HomePage";
+const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
+
+
+const PlaylistTracks = ({ track, queued }) => {
   const {isPaused, setIsPaused, 
         setMusicActive, currentTrack, 
-        player, setCurrentTrack} = useOutletContext()
+        player, setCurrentTrack, queue, setQueue} = useOutletContext()
+
+  const { playlistView, removeTrack, timerFunction } = useContext(HomePageContext)
 
   const handlePlay = async () => {
     if (!isPaused){
@@ -20,8 +27,6 @@ const PlaylistTracks = ({ track, playlistView, removeTrack, getTracks }) => {
       setIsPaused(false)
     }
   };
-
-
 
   return (
     <>
@@ -50,13 +55,23 @@ const PlaylistTracks = ({ track, playlistView, removeTrack, getTracks }) => {
           {track.duration}
         </div>
       </div>
-      </div>
+      </div> 
+      {!queued &&
+      <button onClick={() => addToQueue(track, queue, setQueue, timerFunction)}>
+        <ListEnd color="black" />
+      </button>}
       <button className="btn btn-square btn-ghost" onClick={handlePlay}>
         {currentTrack?.id === track.id && !isPaused ? <Pause /> : <Play />}
       </button>
-      <button className="btn btn-square btn-ghost" onClick={() => removeTrack(track.id)}>
+      {/* checking if the track is queued. That way we can remove it from the Queue but not the playlist */}
+      {queued ? 
+      <button className="btn btn-square btn-ghost" onClick={() => removeFromQueue(track.id, queue, setQueue, timerFunction)}>
+        <CircleX color="black" />
+      </button> :
+      <button className="btn btn-square btn-ghost" onClick={() => removeTrack(track.id, playlistView.name, playlistUrl)}>
         <CircleX color="black" />
       </button>
+      }
       {/*Put Trash icon here for users to delete a playlist*/}
     </>
   );

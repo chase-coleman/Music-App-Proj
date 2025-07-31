@@ -14,8 +14,7 @@ class Playlists(TokenReq):
     return Response(all_playlists.data, status=s.HTTP_200_OK)
 
   def delete(self, request, id):
-    playlist_to_delete = Playlist.objects.get(id=id)
-    print(playlist_to_delete)
+    playlist_to_delete = get_object_or_404(Playlist, id=id, user=request.user)
     playlist_to_delete.delete()
     return Response(f"{playlist_to_delete.name} has been deleted.", status=s.HTTP_204_NO_CONTENT)
 
@@ -31,11 +30,11 @@ class Playlists(TokenReq):
 
   def post(self, request):
     data = request.data.copy()
-    data['user'] = request.user
-    # turn data into the model
-    new_playlist = Playlist.objects.create(**data)
-    serialized_playlist = PlaylistSerializer(new_playlist)
-    return Response(serialized_playlist.data)
+    serialized_playlist = PlaylistSerializer(data=data)
+    if serialized_playlist.is_valid():
+      serialized_playlist.save(user=request.user)
+      return Response(serialized_playlist.data, status=s.HTTP_201_CREATED)
+    return Response({"Error creating a new playlist":serialized_playlist.errors}, status=s.HTTP_400_BAD_REQUEST)
   
 class Single_Playlist(TokenReq):
   def get(self, request, playlist_name):
@@ -48,17 +47,19 @@ class Single_Playlist(TokenReq):
   # or we are passing a string id (spotify's id for the song)
   def delete(self, request, playlist_name, id):
     viewed_playlist = get_object_or_404(Playlist, name=playlist_name, user=request.user)
-
-    if type(id) == int:
+    try:
+      id = int(id)
+      track = get_object_or_404(Track, id=id)
       track_to_delete = viewed_playlist.tracks.filter(id=id)
       if track_to_delete:
         # using .remove() removes the association. .delete() would remove the song from the entire database
         viewed_playlist.tracks.remove(id)
         return Response({"Message": "Song removed from playlist!"}, status=s.HTTP_204_NO_CONTENT)
-    # if the id argument is a string (meaning we passed in Spotify's song ID as the arg)
-    elif type(id) == str:
+    
+    # if converting the id to an int fails, that means the id being passed is a spotify song id, and not the database song id
+    except ValueError:
       track_to_delete = get_object_or_404(Track, spotify_id=id)
       viewed_playlist.tracks.remove(track_to_delete.id)
-
+      
       return Response({"Message": "Song removed from playlist!"}, status=s.HTTP_204_NO_CONTENT)
     

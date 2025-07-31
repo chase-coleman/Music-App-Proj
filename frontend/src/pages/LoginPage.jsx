@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link, useOutletContext, useNavigate } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import axios from "axios";
@@ -53,36 +53,65 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [success, setSuccess] = useState(false);
+  const [error, setError] = useState(false);
   const { setUserToken } = useOutletContext();
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    const loginUrl = "http://127.0.0.1:8000/api/v1/users/login/";
+    const loginUrl = "http://localhost:8000/api/v1/users/login/";
     try {
       // call backend login view and send user-input data to authenticate
       const response = await axios.post(loginUrl, {
         username: username,
         password: password,
       });
-      const current_user_token = response.data.token;
-      if (current_user_token) {
-        setUserToken(current_user_token);
-        setSuccess(true); // show a message
-        setTimeout(() => {
-        setSuccess(false);
-        navigate("/home");
-        }, 1000);
+      // if user credentials are valid, set token and log them in
+      if (response.status === 200){
+        const current_user_token = response.data.token;
+        if (current_user_token) {
+          if (error) { // check if they have an error message activate
+            setError(false) 
+          }
+          setUserToken(current_user_token);
+          setSuccess(true); // show a message
+          setTimeout(() => {
+          setSuccess(false);
+          navigate("/home");
+          }, 1000);
+        } else {
+          console.error("Issue retrieving the user's token")
+        }
       }
     } catch (error) {
+      if (error.status === 400){
+        setError(true);
+      } else {
       console.error("Error:", error);
+      }
     }
   };
+
+  const handleSignup = () => {
+    navigate("/signup")
+  }
+
+  useEffect(() => {
+    if (error) {
+      console.log("error!")
+    }
+  }, [error])
+
 
   return (
     <>
       <Navbar />
       <div className="info-container h-screen w-screen mt-[5em] flex flex-col justify-start items-center">
-        <div className="field-container h-[30%] flex flex-col justify-start items-center p-3">
+        <div className="field-container h-1/3 flex flex-col justify-start items-center p-3">
+          <div className="error-msg h-1/10 w-full flex items-center justify-center">
+          {error &&
+            <span className="text-[.5em] text-red-500">Invalid login credentials, please try again!</span>
+            }
+          </div>
           <fieldset className="fieldset">
             <input
               className="input placeholder-gray text-black font-forta"
@@ -101,7 +130,7 @@ function Login() {
               placeholder="Password"
             />
           </fieldset>
-          <div className="loginbutton-container m-[1em] w-[50%] gap-2 z-10 flex flex-col items-center">
+          <div className="loginbutton-container m-[1em] w-[50%] z-10 flex flex-col items-center">
             <button
               className="login-btn btn-neutral rounded text-white !text-[1em] w-[100%]"
               onClick={handleLogin}
@@ -109,13 +138,9 @@ function Login() {
               Login
             </button>
             <div className="signup-link w-[50%] text-center rounded">
-            <Nav.Link
-              as={Link}
-              to="/signup"
-              className="signup-btn !text-[.5em]"
-            >
-              Sign Up
-            </Nav.Link>
+              <button className="!text-[0.5em]" onClick={handleSignup}>
+                Signup
+              </button>
             </div>
           </div>
         </div>

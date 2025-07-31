@@ -10,6 +10,7 @@ from dotenv import load_dotenv
 from requests import post, get
 import requests
 import os 
+from .encoding import encode_client_credentials
 import base64 # used for encoding the spotify client ID + secret key together
 import json 
 
@@ -18,21 +19,21 @@ import json
 # ASCII is standardized characters based off the english alphabet
 # ASCII : aA-zZ, 0-9, symbols(!@#$...), special characters(newline, tab, backspace...), control characters
 
-# TO DO : refactor code so that I get a refresh token instead of an access token
-#         so that the app doesn't have to make an access token request to Spotify every time the endpoint is called
+# TO DO : refactor code so that each user has their own spotify refresh token (meaning they need their own spotify account), 
+# store that into field for the user's model via new field for it, fix Spotify_Callback_View method to get that refresh token from the database
 # TO DO : create methods that parse through the return data based on if it is a song, artist, etc
 # TO DO : create models + model.fields to store a user's liked artists, songs, etc
 # TO DO : using this views.py file, create model instances for when a user wants to like/follow that stuff
 
 
+#### Environment Variables ###
 load_dotenv() # we have to load the environment variables from .env
-
 SPOTIFY_CLIENT_ID = os.getenv("SPOTIFY_CLIENT_ID") # my personal client ID for Spotify
 SPOTIFY_CLIENT_SECRET = os.getenv("SPOTIFY_CLIENT_SECRET") # my Spotify API client secret number
-spotify_item_search_url = "https://api.spotify.com/v1/" # endpoint for Spotify's item search URL
 SPOTIFY_REFRESH_TOKEN = os.getenv("SPOTIFY_REFRESH_TOKEN") # my spotify account's refresh token
 SPOTIFY_REDIRECT_URI = os.getenv("SPOTIFY_REDIRECT_URI")
 
+spotify_item_search_url = "https://api.spotify.com/v1/" # endpoint for Spotify's item search URL
 
 class Spotify_Callback_View(TokenReq):
 
@@ -42,52 +43,56 @@ class Spotify_Callback_View(TokenReq):
         if not refresh_token:
             return Response({"error": "This application's refresh token is invalid/corrupted. Please contact the site manager."})
         
-        # call necessary functions to generate an access token
-        access_token = self.get_spotify_token(refresh_token)
-        headers = self.get_auth_header(access_token)
-
+        ### Error handling for retrieving Spotify refresh or access tokens ###
+        try:
+            # call necessary functions to generate an access token
+            access_token = self.get_spotify_token(refresh_token)
+            headers = self.get_auth_header(access_token)
+        except Exception as e:
+            return Response({"error": "There was an error in retrieving the user's refresh/access token", "details":str(e)}, status=s.HTTP_500_INTERNAL_SERVER_ERROR)
         # if the user is searching for a song/album/artist, go this route
         if item:
-            answer = self.search_for_item(access_token, item=item, headers=headers)
-            # ['artists']['items'][0]['id']
-            return Response(answer)
-        return Response({"access_token": access_token})
+            try:
+                results = self.search_for_item(access_token, item=item, headers=headers)
+                return Response(results)
+            except Exception as e:
+                return Response({"error": "There was an error retrieving search results", "details": str(e)}, status=s.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({"access_token": access_token}, status=s.HTTP_200_OK)
 
 
     def get_spotify_token(self, refresh_token=None):
 
         # get a new access token using the refresh token
         if refresh_token:
-            access_token= self.get_access_refresh(refresh_token)
-            return access_token
+            try:
+                access_token = self.get_access_refresh(refresh_token)
+                return access_token
+            except Exception as e:
+                return Response({"error": "There was an error retrieving user's access token", "details": str(e)}, status=s.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        # put my spotify client ID & secret into one string & encode it
-        auth_str = SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET
-        auth_encoded = auth_str.encode("utf-8")
+        try:
+            # encode_client_credentials is a helper function in encode.py
+            # returns a base64 object, converts to a string so we can pass it w/ our headers when we send a request to Spotify
+            auth_base64 = encode_client_credentials(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
+            # create variables to use in the POST request to generate a token
+            spotify_token_url = "https://accounts.spotify.com/api/token"
+            headers = {
+                "Authorization": "Basic " + auth_base64,
+                "Content-Type": "application/x-www-form-urlencoded" # Content type is telling the server what kind of data is being sent
+            }
+            data = {"grant_type": "client_credentials"} # this is the body of the request we'll be sending
+            result = post(spotify_token_url, headers=headers, data=data)
+            json_result = json.loads(result.content)
+            token = json_result['access_token']
+            return token
+        except Exception as e:
+            return Response({"error": "There was an error getting the access token", "details": str(e)}, status=s.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        # returns a base64 object, converts to a string so we can pass it w/ our headers when we send a request to Spotify
-        auth_base64 = str(base64.b64encode(auth_encoded), "utf-8")
-
-        # create variables to use in the POST request to generate a token
-        spotify_token_url = "https://accounts.spotify.com/api/token"
-        headers = {
-            "Authorization": "Basic " + auth_base64,
-            "Content-Type": "application/x-www-form-urlencoded" # Content type is telling the server what kind of data is being sent
-        }
-        data = {"grant_type": "client_credentials"} # this is the body of the request we'll be sending
-
-
-
-        result = post(spotify_token_url, headers=headers, data=data)
-        json_result = json.loads(result.content)
-        token = json_result['access_token']
-        return token
+        
 
     # if the refresh token exists, use it to get a new access token
     def get_access_refresh(self, refresh_token):
-        auth_str = SPOTIFY_CLIENT_ID + ':' + SPOTIFY_CLIENT_SECRET
-        auth_encoded = auth_str.encode("utf-8")
-        auth_base64 = str(base64.b64encode(auth_encoded), "utf-8")
+        auth_base64 = encode_client_credentials(SPOTIFY_CLIENT_ID, SPOTIFY_CLIENT_SECRET)
         spotify_token_url = "https://accounts.spotify.com/api/token"
         scopes = "user-read-private user-read-email playlist-read-private streaming user-read-playback-state user-modify-playback-state"
         headers = {"Authorization": "Basic " + auth_base64, "Content-Type": "application/x-www-form-urlencoded"}
@@ -154,9 +159,9 @@ class Spotify_Callback_View(TokenReq):
                   for album in json_result['albums']['items']]
 
         return [
-            {"tracks": tracks},
-            {"artists": artists},
-            {"albums": albums},
+            {"tracks": tracks,
+            "artists": artists,
+            "albums": albums},
         ]
   
 

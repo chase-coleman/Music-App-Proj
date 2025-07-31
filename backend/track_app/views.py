@@ -4,23 +4,16 @@ from rest_framework.views import Response
 from user_app.views import TokenReq
 from rest_framework import status as s
 from playlist_app.models import Playlist
+from durationFormatter import format_duration
 
-# TO DO : make handling the duration account for songs that may be longer than an hour
 
 # Create your views here.
 class Tracks(TokenReq):
   def post(self, request, playlist_id=None):
     track_data = request.data.copy()
-    track_sec = track_data['duration'][-2:] # grab the value of track's 'seconds' 
-    track_min = track_data['duration'][:-3] # grab the value of track's 'minutes' 
 
-    # here we have to properly format the track's duration
-    # in the Track model, I am using a DurationField type
-    # which accepts duration's as "HH:MM:SS"
-    if len(track_min) > 1: 
-      track_data['duration'] = f"00:{track_min}:{track_sec}"
-    else:
-      track_data['duration'] = f"00:0{track_min}:{track_sec}"
+    # format_duration in helper file
+    track_data['duration'] = format_duration(track_data['duration'])
 
     # each track has a unique spotify ID#, so we need to see if it already exists
     # in the database, or create it if it doesn't exist
@@ -48,3 +41,4 @@ class Tracks(TokenReq):
       # else, add new song to their liked song
       user_liked_playlist.tracks.add(new_track)
     return Response({"Message": "Track added to liked songs!"},status=s.HTTP_201_CREATED)
+  

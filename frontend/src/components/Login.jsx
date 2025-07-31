@@ -37,6 +37,11 @@ const Login = () => {
     }
   }
 
+  const handleSignup = () => {
+    navigate("/signup")
+  }
+
+
   return (
   <>
   <div className="container flex flex-col border-2 justify-center items-center w-50" >
@@ -45,9 +50,7 @@ const Login = () => {
             <input className="input" onChange={(e) => setPassword(e.target.value)} value={password} type="text" placeholder="Password" />
           </fieldset>
           <button className="btn btn-neutral w-[25vw]" onClick={handleLogin} >Login</button>
-        <Nav.Link as={Link} to="/signup">
-        Sign Up
-        </Nav.Link>
+        <button onClick={handleSignup}>Signup</button>
     </div>
   </>
 
