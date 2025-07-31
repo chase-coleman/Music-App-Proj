@@ -1,63 +1,111 @@
- Rhythym Music is built for people who want a simplified music experience.
- Whether you want to listen to your all-time favorites, or find new music to obsessively listen to, Rhythm is where you can go.
- Create personalized playlists, discover new music, and find live music near you, all in one place. 
+# 🎵 Rhythm Music
 
-## Features
-- OAuth authentication 
-- Spotify authentication
-- Individual Spotify song liking & unliking
-- Playlist creation, editing and playback
-- Custom audio playback using Spotify's Web Playback SDK
 
-## Tech Stack
-- Frontend :
-  - React, Vite, TailwindCSS, DaisyUI
-  - Ticketmaster API
-  - Lucide, UIball
-- Backend :
-  - Django REST framework
-  - PostgreSQL
-  - Spotify Web API & Playback API
+**Rhythm Music** is built for people who want a simplified music experience.  
+Whether you're listening to old favorites or discovering something new, Rhythm brings it all together in one place.  
+Create personalized playlists, discover new tracks, and even find live music events near you.
 
-## Dependencies
-For all of the app's backend requirements, please checkout the 'requirements.txt' file.
-& For all of the app's frontend requirements, please checkout the package.json file
+---
+## 🧠 Important Dev Notes
+As of May 15, 2025:
+This was my first full-stack application, and I'm proud of how far it’s come. That said, there’s definitely room for code cleanup and architectural improvements. Before adding new features, I plan to refactor and optimize the existing codebase as time allows. There’s a lot more I want to build into this app — and I’m excited to keep improving it!
+---
+## ✨ Features
 
-## Environment Variables
-- Spotify Client Key
-- Spotify Client Secret
-- Ticketmaster API Key
-- Ticketmaster Secret
+- DRF Token Authentication
+- Spotify Authentication
+- Like and Unlike Individual Spotify Songs
+- Create, Edit, and Play Custom Playlists
+- Custom Audio Playback using Spotify's Web Playback SDK
 
-## Creator Notes
-Thanks for checking out my music app! This is my first ever full-stack application that I developed while in my 13-week coding bootcamp with Code Platoon.
-I chose to make a music app because I love listening to music, sharing it with friends/family, and especially when you find a song that scratches just the right part of your brain.
+---
 
-## Biggest Issues
-I ran into 2 main issues while developing:
-- Working with Spotify's Playback API
-  - This took me the better part of 3 days to get working properly. I used a few Youtube videos, the Spotify documentation, and my class instructors to figure this out.
-- The second issue was the overall architecture of building it. I found multiple times that when I was creating a new function, variable, etc inside of a component or page, I'd
-often need that function, variable, etc somewhere else in my project. So multiple times I ended up having to "elevate" that to a higher echelon in my stack.
+▶️ [Click here to watch the demo on YouTube](https://www.youtube.com/watch?v=croIFJEaFZ8)
 
-## Future Plans
-- I plan to have a few more capabilities in the app :
-  - Create a queue of songs to play
-  - Add pages for artists, albums, and genres to explore 
-  - Add functionality to follow other users, so you can see what they're listening to and what things you have in common (songs, artists followed, etc)
-  - Add artists, albums, and genres to "like" 
-  - Be able to add local shows that you will be attending to your profile
+## 💻 Tech Stack
 
-## Resources
-Here are the main resources that I used when creating this project:
-- https://developer.ticketmaster.com/products-and-docs/apis/getting-started/ - Ticketmaster API Documentation
-- https://www.youtube.com/watch?v=WAmEZBEeNmg - a youtube tutorial on interacting with the spotify API
-- https://www.30secondsofcode.org/cheatsheets/p/1/ - Website containing links to different 'Cheat-Sheets'
-- https://developer.spotify.com/documentation/web-playback-sdk - Spotify's Playback Documentation
-- https://acchou.github.io/html-css-cheat-sheet/animation.html - CSS Animations Cheat-Sheet
-- https://www.30secondsofcode.org/css/s/units-cheatsheet/ - CSS Sizing Cheat-Sheet 
-- https://uiball.com/ldrs/ - Website for loading animations in React
-- https://lucide.dev/ - Website I used for icons and such
-- https://daisyui.com/ - React component library
-- & of course the React + DRF documents
+### Frontend
+- ![React](https://img.shields.io/badge/-React-61DAFB?style=flat&logo=react&logoColor=white)
+- ![TailwindCSS](https://img.shields.io/badge/-TailwindCSS-38B2AC?style=flat&logo=tailwind-css&logoColor=white)
+- ![DaisyUI](https://img.shields.io/badge/-DaisyUI-FF69B4?style=flat&logo=daisyui&logoColor=white)
+- ![Lucide](https://img.shields.io/badge/-Lucide-000000?style=flat&logo=feather&logoColor=white)
+- ![UIBall](https://img.shields.io/badge/-UIBall-4B9CD3?style=flat&logoColor=white)
 
+### Backend
+- ![Django](https://img.shields.io/badge/-Django-092E20?style=flat&logo=django&logoColor=white)
+- ![DRF](https://img.shields.io/badge/-Django%20Rest%20Framework-00796B?style=flat&logo=django&logoColor=white)
+- ![PostgreSQL](https://img.shields.io/badge/-PostgreSQL-336791?style=flat&logo=postgresql&logoColor=white)
+
+---
+
+## 🔌 APIs and SDKs
+
+### RESTful APIs
+- [Spotify Web API](https://developer.spotify.com/documentation/web-api)
+- [Ticketmaster Discovery API](https://developer.ticketmaster.com/products-and-docs/apis/discovery-api/v2/)
+
+### SDKs
+- [Spotify Web Playback SDK](https://developer.spotify.com/documentation/web-playback-sdk)
+
+---
+
+## 📦 Dependencies
+
+- All backend requirements are listed in `requirements.txt`
+- All frontend dependencies are listed in `package.json`
+
+---
+
+## 🔐 Environment Variables
+
+Ensure the following environment variables are set:
+
+- `SPOTIFY_CLIENT_ID`
+- `SPOTIFY_CLIENT_SECRET`
+- `TICKETMASTER_API_KEY`
+- `TICKETMASTER_SECRET`
+
+---
+## 🧠 Dev Notes
+Thanks for checking out my music app!  
+This is my first full-stack application, built during a 13-week coding bootcamp with Code Platoon.  
+Development took approximately 3 weeks.
+
+I chose to build a music app because I love listening to and sharing music with friends and family, especially those tracks that just *hit*.
+
+---
+
+## 🛠️ Biggest Challenges
+
+1. **Spotify Web Playback SDK**  
+   This took about 3 days to get working properly. I leaned on YouTube tutorials, Spotify's documentation, and help from my instructors.
+
+2. **Application Architecture**  
+   I often found that functions or variables created in one component were needed elsewhere, which led to a lot of "lifting state up" and refactoring shared logic.
+
+---
+
+## 🚀 Future Plans
+
+- Add a song queue system
+- Pages for artists, albums, and genres
+- Follow other users to see what they’re listening to
+- Like/favorite artists, albums, and genres
+- Add local shows to user profiles
+
+---
+
+## 📚 Resources
+
+- [Ticketmaster API Docs](https://developer.ticketmaster.com/products-and-docs/apis/getting-started/)
+- [Spotify Web API Video Tutorial](https://www.youtube.com/watch?v=WAmEZBEeNmg)
+- [Spotify Playback SDK Docs](https://developer.spotify.com/documentation/web-playback-sdk)
+- [30 Seconds of Code - Cheat Sheets](https://www.30secondsofcode.org/cheatsheets/p/1/)
+- [CSS Animation Cheatsheet](https://acchou.github.io/html-css-cheat-sheet/animation.html)
+- [CSS Sizing Cheatsheet](https://www.30secondsofcode.org/css/s/units-cheatsheet/)
+- [UIBall - Loaders for React](https://uiball.com/ldrs/)
+- [Lucide - Icon Library](https://lucide.dev/)
+- [DaisyUI - Component Library](https://daisyui.com/)
+- [React Docs](https://reactjs.org/) and [Django REST Framework Docs](https://www.django-rest-framework.org/)
+
+---
