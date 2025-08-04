@@ -18,12 +18,12 @@ import { Eye, EyeOff } from "lucide-react";
 // TO DO : create verification for account fields like email & password formatting
 
 // Custom Password Input Component
-const PasswordInput = ({ 
-  placeholder = "Enter password", 
+const PasswordInput = ({
+  placeholder = "Enter password",
   onChange,
   value,
   className = "",
-  ...props 
+  ...props
 }) => {
   const [isVisible, setIsVisible] = useState(false);
 
@@ -40,7 +40,7 @@ const PasswordInput = ({
         onChange={onChange}
         className={`${className} ${isVisible ? "font-forta" : "font-sans"}`}
         style={{
-          fontFamily: isVisible ? "'Forta', sans-serif" : "sans-serif"
+          fontFamily: isVisible ? "'Forta', sans-serif" : "sans-serif",
         }}
         {...props}
       />
@@ -63,24 +63,28 @@ const Signup = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [passwordconfirm, setPasswordConfirm] = useState("");
-  const [showMsg, setShowMsg] = useState(false);
+
+  // used to show the user successful account creation
+  const [showSuccessMsg, setShowSuccessMsg] = useState(false);
+
+  // used to show the user any signup issues
+  const [showErrorMsg, setShowErrorMsg] = useState(false);
+  const [errorMsg, setErrorMsg] = useState("");
+
   const navigate = useNavigate();
-  const { setUserToken } = useOutletContext()
+  const { setUserToken } = useOutletContext();
 
-  const handleMsg = () => {
-    setShowMsg(true);
-  };
-
+  // if user account created successfully, notify them of it and log them in.
   useEffect(() => {
-    if (showMsg) {
+    if (showSuccessMsg) {
       const timer = setTimeout(() => {
-        setShowMsg(false);
-        const token = localStorage.getItem("token")
-        setUserToken(token)
+        setShowSuccessMsg(false);
+        const token = localStorage.getItem("token");
+        setUserToken(token);
         navigate("/home");
       }, 3000);
     }
-  }, [showMsg]);
+  }, [showSuccessMsg]);
 
   /* When user hits 'Create Account' button, the 2 passwords 
   that they entered are checked to make sure they match*/
@@ -93,7 +97,7 @@ const Signup = () => {
         last_name: lname,
         email: email,
         //if the user entered a username, send it to backend. otherwise username will be generated for them
-        username: username.length ? username : null, 
+        username: username.length ? username : null,
         password: password,
       };
       handleSubmit(accountInfo);
@@ -108,83 +112,164 @@ const Signup = () => {
       // call backend signup view and send it the new user's entered info
       const response = await axios.post(signUpUrl, accountInfo);
       localStorage.setItem("token", response.data.token);
-      setShowMsg(true);
+      setShowSuccessMsg(true);
     } catch (error) {
-      console.error("Error:", error);
+      console.log(error);
+      if (error.response) {
+        if (error.response.status === 400) {
+          const errors = error.response.data;
+          const errorMessages = [];
+
+          for (const field in errors) {
+            if (Array.isArray(errors[field])) {
+              errorMessages.push(`${field}: ${errors[field].join(" ")}`);
+            }
+          }
+          setShowErrorMsg(true);
+          setErrorMsg(errorMessages);
+        } else {
+          console.error(error);
+        }
+      }
     }
   };
 
   return (
     <>
-      <div className="container flex flex-col justify-center items-center">
-        <Navbar />
-        <div
-          className="signupinfocontainer rounded-xl flex flex-col justify-center items-center 
-        h-[60vh] w-[40vw]"
-        >
-          <h5 className="text-center">
+      {/* the h-[calc(100vh-64px)] is to account for the navbar's size increasing the viewport causing issues
+    whenever h-full/screen is used.  */}
+      <div className="signup-page-container w-full h-[calc(100vh-64px)]">
+        <div className="outer-signup-container flex flex-col items-center justify-center w-full h-full min-h-[calc(100vh-64px)]">
+          <h5 className="text-center mb-0 text-white">
             Please enter the required information:
           </h5>
-          <fieldset className="fieldset gap-2">
-            <input
-              className="input placeholder-gray-400 text-black font-forta"
-              onChange={(e) => setFname(e.target.value)}
-              value={fname}
-              type="text"
-              placeholder="First Name"
-              style={{ fontFamily: "'Forta', sans-serif" }}
-            />
-            <input
-              className="input placeholder-gray-400 text-black font-forta" 
-              onChange={(e) => setLname(e.target.value)}
-              value={lname}
-              type="text"
-              placeholder="Last Name"
-              style={{ fontFamily: "'Forta', sans-serif" }}
-            />
-            <input
-              className="input placeholder-gray-400 text-black font-forta"
-              onChange={(e) => setEmail(e.target.value)}
-              value={email}
-              type="text"
-              placeholder="Email"
-              style={{ fontFamily: "'Forta', sans-serif" }}
-            />
-            <input
-              className="input placeholder-gray-400 text-black font-forta"
-              onChange={(e) => setUsername(e.target.value)}
-              value={username}
-              type="text"
-              placeholder="Username"
-              style={{ fontFamily: "'Forta', sans-serif" }}
-            />
-            
-            <PasswordInput
-              className="input placeholder-gray-400 text-black w-full"
-              onChange={(e) => setPassword(e.target.value)}
-              value={password}
-              placeholder="Password"
-            />
-            
-            <PasswordInput
-              className="input placeholder-gray-400 text-black w-full"
-              onChange={(e) => setPasswordConfirm(e.target.value)}
-              value={passwordconfirm}
-              placeholder="Confirm Password"
-            />
-            
-            <button
-              className="createaccount-btn btn-neutral w-[25vw]"
-              onClick={handlePasswordMatching}
-            >
-              Create Account
-            </button>
-          </fieldset>
+          <span className="text-center text-[.75rem] mb-0 text-white">Indicated by a *</span>
+          <div className="signupinfocontainer rounded-xl flex flex-col items-center h-3/4 w-1/2">
+            <fieldset className="fieldset gap-3">
+
+              {/* first name */}
+              <span className="text-[.6rem] text-red-500 max-h-[.3rem]">
+                {errorMsg && errorMsg.some((msg) => msg.includes("first_name"))
+                  ? "First name cannot be blank."
+                  : null}
+              </span>
+              <input
+                className={`input border-2 ${
+                  showErrorMsg && errorMsg.some((msg) => msg.includes("first_name"))
+                    ? "border-red-500"
+                    : "border-black-500"
+                } placeholder-gray-400 focus:border-blue-500 text-black`}
+                onChange={(e) => setFname(e.target.value)}
+                value={fname}
+                type="text"
+                placeholder="* First Name"
+                style={{ fontFamily: "'Forta', sans-serif" }}
+              />
+
+              {/* last name */}
+              <span className="text-[.6rem] text-red-500 w-full h-full max-h-[.3rem]">
+                {errorMsg && errorMsg.some((msg) => msg.includes("last_name"))
+                  ? "Last name cannot be blank."
+                  : null}
+              </span>
+              <input
+                className={`input border-2 ${
+                  showErrorMsg && errorMsg.some((msg) => msg.includes("last_name"))
+                    ? "border-red-500"
+                    : "border-black-500"
+                } placeholder-gray-400 focus:border-blue-500 text-black`}
+                onChange={(e) => setLname(e.target.value)}
+                value={lname}
+                type="text"
+                placeholder="* Last Name"
+                style={{ fontFamily: "'Forta', sans-serif" }}
+              />
+
+              {/* email */}
+              <span className="text-[.6rem] text-red-500 w-full max-h-[.3rem]">
+                {Array.isArray(errorMsg) ? errorMsg?.find((msg) => msg.includes("email")) || "" 
+                : "" }
+              </span>
+              <input
+                className={`input border-2 ${
+                  showErrorMsg && errorMsg.some((msg) => msg.includes("email"))
+                    ? "border-red-500"
+                    : "border-black-500"
+                } placeholder-gray-400 focus:border-blue-500 text-black`}
+                onChange={(e) => setEmail(e.target.value)}
+                value={email}
+                type="text"
+                placeholder="* Email"
+                style={{ fontFamily: "'Forta', sans-serif" }}
+              />
+
+              {/* username */}
+              <span className="text-[.6rem] text-red-500 w-full h-full max-h-[.3rem]">
+                {errorMsg && errorMsg.some((msg) => msg.includes("username"))
+                  ? "Username already exists."
+                  : null}
+              </span>
+              <input
+                className={`input border-2 ${
+                  showErrorMsg && errorMsg.some((msg) => msg.includes("username"))
+                    ? "border-red-500"
+                    : "border-black-500"
+                } placeholder-gray-400 focus:border-blue-500 text-black`}
+                onChange={(e) => setUsername(e.target.value)}
+                value={username}
+                type="text"
+                placeholder="Username"
+                style={{ fontFamily: "'Forta', sans-serif" }}
+              />
+
+              {/* passwords */}
+              <span className="text-[.6rem] text-red-500 w-full h-full max-h-[.3rem]">
+                {errorMsg && errorMsg.some((msg) => msg.includes("password"))
+                  ? "Password cannot be blank."
+                  : null}
+              </span>
+              <PasswordInput
+                className={`input border-2 ${
+                  showErrorMsg && errorMsg.some((msg) => msg.includes("password"))
+                    ? "border-red-500"
+                    : "border-black-500"
+                } placeholder-gray-400 focus:border-blue-500 text-black`}
+                onChange={(e) => setPassword(e.target.value)}
+                value={password}
+                placeholder="* Password"
+              />
+
+              <span className="text-[.6rem] text-red-500 w-full h-full max-h-[.3rem]">
+                {errorMsg && errorMsg.some((msg) => msg.includes("password"))
+                  ? "Password cannot be blank."
+                  : null}
+              </span>
+              <PasswordInput
+                className={`input border-2 ${
+                  showErrorMsg && errorMsg.some((msg) => msg.includes("password"))
+                    ? "border-red-500"
+                    : "border-black-500"
+                } placeholder-gray-400 focus:border-blue-500 text-black`}
+                onChange={(e) => setPasswordConfirm(e.target.value)}
+                value={passwordconfirm}
+                placeholder="* Confirm Password"
+              />
+
+              <button
+                className="createaccount-btn btn-neutral w-[25vw]"
+                onClick={handlePasswordMatching}
+              >
+                Create Account
+              </button>
+            </fieldset>
+          </div>
         </div>
       </div>
-      {showMsg && (
-        <div className="absolute top-[-30px] left-0 w-full h-[calc(100vh-64px)] 
-                        flex items-center justify-center">
+      {showSuccessMsg && (
+        <div
+          className="absolute top-[-30px] left-0 w-full h-[calc(100vh-64px)] 
+                        flex items-center justify-center"
+        >
           <div
             className="account-created z-50 w-[30vw] h-[50vh] 
     rounded-lg shadow-lg flex flex-col items-center justify-center"
@@ -198,6 +283,6 @@ const Signup = () => {
       )}
     </>
   );
-}
+};
 
 export default Signup;

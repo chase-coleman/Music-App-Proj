@@ -8,9 +8,8 @@ import { Nav } from "react-bootstrap";
 import axios from "../axios";
 import { useEffect, useState } from "react";
 
-const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
+const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults, userToken, setUserToken, setMusicActive }) => {
   const [search, setSearch] = useState("");
-  const { userToken, setMusicActive, setUserToken } = useOutletContext();
   const navigate = useNavigate();
   const searchUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/";
 
@@ -56,7 +55,7 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
   };
 
   return (
-    <div className="navbar p-0 shadow-sm">
+    <div className="navbar p-0 shadow-sm fixed top-0 left-0 w-full z-50">
       {userToken ? (
         <>
           {/* Left side nav items */}
