@@ -1,0 +1,38 @@
+"""
+DRF Docs on using writable nested serializers
+https://www.django-rest-framework.org/api-guide/relations/#writable-nested-serializers
+
+"""
+
+from rest_framework.serializers import ModelSerializer, SerializerMethodField, PrimaryKeyRelatedField
+from rest_framework import serializers
+from .models import Playlist
+from track_app.serializers import TrackSerializer
+
+class PlaylistSerializer(ModelSerializer):
+  user_display = SerializerMethodField() # calls the get_user method before serialization to display the return value
+  user = PrimaryKeyRelatedField(read_only=True)
+
+  class Meta:
+    model = Playlist 
+    fields = ['id', 'name', 'user', 'user_display', 'description']
+    extra_kwargs = {
+      'description': {'required': False, 'allow_null': True, 'allow_blank': True}
+    }
+  def get_user_display(self, obj):
+    # goes into the current object (playlist) -> 
+    # get's the user object (since it's related) -> 
+    # returns the user instance's username
+    return obj.user.username
+  
+# this playlist will display the name, description, and how many songs are in the playlist
+class PlaylistDisplaySerializer(ModelSerializer):
+  tracks = SerializerMethodField()
+
+  class Meta:
+    model = Playlist
+    fields = ['tracks']
+  
+  def get_tracks(self, obj):
+    tracks = obj.tracks.all()
+    return TrackSerializer(tracks, many=True).data

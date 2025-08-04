@@ -1,0 +1,42 @@
+[
+  {
+    "model": "genre_app.genre",
+    "pk": 1,
+    "fields": {
+      "name": "Electronic Dance Music",
+      "description": "Electronic Dance Music, also known as EDM, is a broad term encompassing various genres. It's typically characterized by strong beats, rhythmic pulses, and electronic instruments."
+    }
+  },
+  {
+    "model": "genre_app.genre",
+    "pk": 2,
+    "fields": {
+      "name": "Indie Rock",
+      "description": "Indie rock is a genre of alternative rock music that originated in the United States and the United Kingdom during the 1980s and became widely popular in the 2000s."
+    }
+  },
+  {
+    "model": "genre_app.genre",
+    "pk": 3,
+    "fields": {
+      "name": "Hip Hop",
+      "description": "Hip hop is a cultural movement that originated in the 1970s in the Bronx, New York City, and includes elements like rapping, DJing, breakdancing, and graffiti."
+    }
+  },
+  {
+    "model": "genre_app.genre",
+    "pk": 4,
+    "fields": {
+      "name": "Jazz",
+      "description": "Jazz is a genre of music that originated in the African-American communities in New Orleans, Louisiana, around the beginning of the 20th century, characterized by swing and blue notes."
+    }
+  },
+  {
+    "model": "genre_app.genre",
+    "pk": 5,
+    "fields": {
+      "name": "Classical",
+      "description": "Classical music is a long-established tradition of music that spans over a thousand years, characterized by highly formalized structures and symphonic compositions."
+    }
+  }
+]

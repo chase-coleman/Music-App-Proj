@@ -1,0 +1,67 @@
+@import "tailwindcss";
+@plugin "daisyui";
+
+@font-face {
+  font-family: forta;
+  src: url(fortafont);
+}
+
+
+#root {
+  height: 100%;
+  padding: 1px !important;
+  margin: 0;
+  background-image: url("/shubham-dhage--2eXWZkliWo-unsplash.jpg");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+ 
+html, body {
+  font-family: "forta" !important;
+  margin: 0;
+  padding: 0;
+}
+
+.body {
+font-family: "forta" !important;  
+} 
+
+/* .body > blurbg {
+  background-color: rgba(179,179,179,.01);
+  backdrop-filter: blur(5px);
+  color: rgb(250, 245, 230);
+} */
+
+.landingpage-container {
+  background-color: rgba(179,179,179,.01);
+  backdrop-filter: blur(5px);
+  color: rgb(250, 245, 230);
+  /* font-family: forta; */
+}
+
+.login-container {
+  background-color: rgba(179,179,179,.01);
+  backdrop-filter: blur(5px);
+  color: rgb(250, 245, 230);
+  /* font-family: forta; */
+}
+
+.brand {
+  font-size: clamp(1em, 6vw, 10em);
+}
+
+.login-btn:hover {
+  border-radius: 75px;
+  color:rgb(250, 245, 230);
+  transform: scale(1.2);
+  box-sizing: border-box;
+} 
+
+button:hover {
+  border-radius: 75px;
+  color:rgb(244, 243, 241);
+  transform: scale(1.2);
+  box-sizing: border-box;
+}

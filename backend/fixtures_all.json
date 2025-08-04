@@ -1,0 +1,282 @@
+[
+  {
+    "model": "genre_app.genre",
+    "pk": 1,
+    "fields": {
+      "name": "Electronic Dance Music",
+      "description": "Electronic Dance Music, also known as EDM, is a broad term encompassing various genres. It's typically characterized by strong beats, rhythmic pulses, and electronic instruments."
+    }
+  },
+  {
+    "model": "genre_app.genre",
+    "pk": 2,
+    "fields": {
+      "name": "Indie Rock",
+      "description": "Indie rock is a genre of alternative rock music that originated in the United States and the United Kingdom during the 1980s and became widely popular in the 2000s."
+    }
+  },
+  {
+    "model": "genre_app.genre",
+    "pk": 3,
+    "fields": {
+      "name": "Hip Hop",
+      "description": "Hip hop is a cultural movement that originated in the 1970s in the Bronx, New York City, and includes elements like rapping, DJing, breakdancing, and graffiti."
+    }
+  },
+  {
+    "model": "genre_app.genre",
+    "pk": 4,
+    "fields": {
+      "name": "Jazz",
+      "description": "Jazz is a genre of music that originated in the African-American communities in New Orleans, Louisiana, around the beginning of the 20th century, characterized by swing and blue notes."
+    }
+  },
+  {
+    "model": "genre_app.genre",
+    "pk": 5,
+    "fields": {
+      "name": "Classical",
+      "description": "Classical music is a long-established tradition of music that spans over a thousand years, characterized by highly formalized structures and symphonic compositions."
+    }
+  },
+  {
+    "model": "artist_app.artist",
+    "pk": 1,
+    "fields": {
+      "name": "Blood Orange",
+      "genres": [1]
+    }
+  },
+  {
+    "model": "artist_app.artist",
+    "pk": 2,
+    "fields": {
+      "name": "Tame Impala",
+      "genres": [2]
+    }
+  },
+  {
+    "model": "artist_app.artist",
+    "pk": 3,
+    "fields": {
+      "name": "Kendrick Lamar",
+      "genres": [3]
+    }
+  },
+  {
+    "model": "artist_app.artist",
+    "pk": 4,
+    "fields": {
+      "name": "Miles Davis",
+      "genres": [4]
+    }
+  },
+  {
+    "model": "artist_app.artist",
+    "pk": 5,
+    "fields": {
+      "name": "Ludovico Einaudi",
+      "genres": [5]
+    }
+  },
+  {
+    "model": "album_app.album",
+    "pk": 1,
+    "fields": {
+      "name": "Coastal Grooves",
+      "description": "Coastal Grooves is Blood Orange's debut studio album. Released on August 30, 2011.",
+      "artist": [1],
+      "genres": [1]
+    }
+  },
+  {
+    "model": "album_app.album",
+    "pk": 2,
+    "fields": {
+      "name": "Lonerism",
+      "description": "Lonerism is Tame Impala's second studio album, released on October 5, 2012, blending psychedelic rock with electronic influences.",
+      "artist": [2],
+      "genres": [2]
+    }
+  },
+  {
+    "model": "album_app.album",
+    "pk": 3,
+    "fields": {
+      "name": "DAMN.",
+      "description": "DAMN. is Kendrick Lamar's fourth studio album, released on April 14, 2017. It's known for its complex storytelling and impactful lyrics.",
+      "artist": [3],
+      "genres": [3]
+    }
+  },
+  {
+    "model": "album_app.album",
+    "pk": 4,
+    "fields": {
+      "name": "Kind of Blue",
+      "description": "Kind of Blue is a landmark album by Miles Davis, released on August 17, 1959. It's regarded as one of the greatest jazz albums of all time.",
+      "artist": [4],
+      "genres": [4]
+    }
+  },
+  {
+    "model": "album_app.album",
+    "pk": 5,
+    "fields": {
+      "name": "In a Time Lapse",
+      "description": "In a Time Lapse is Ludovico Einaudi's album, released on January 21, 2013, blending classical and contemporary music.",
+      "artist": [5],
+      "genres": [5]
+    }
+  },
+  {
+    "model": "song_app.song",
+    "pk": 1,
+    "fields": {
+      "name": "Champagne Coast",
+      "artist": [1],
+      "albums": [1],
+      "genres": [1]
+    }
+  },
+  {
+    "model": "song_app.song",
+    "pk": 2,
+    "fields": {
+      "name": "You're Not Good Enough",
+      "artist": [1],
+      "albums": [1],
+      "genres": [1]
+    }
+  },
+  {
+    "model": "song_app.song",
+    "pk": 3,
+    "fields": {
+      "name": "Best to You",
+      "artist": [1],
+      "albums": [2],
+      "genres": [2]
+    }
+  },
+  {
+    "model": "song_app.song",
+    "pk": 4,
+    "fields": {
+      "name": "Augustine",
+      "artist": [1],
+      "albums": [2],
+      "genres": [2]
+    }
+  },
+  {
+    "model": "song_app.song",
+    "pk": 5,
+    "fields": {
+      "name": "It Is What It Is",
+      "artist": [2],
+      "albums": [3],
+      "genres": [3]
+    }
+  },
+  {
+    "model": "playlist_app.playlist",
+    "pk": 1,
+    "fields": {
+      "name": "Playlist 1",
+      "user": [1],
+      "songs": [1, 2]
+    }
+  },
+  {
+    "model": "playlist_app.playlist",
+    "pk": 2,
+    "fields": {
+      "name": "Chill Vibes",
+      "user": [1],
+      "songs": [3, 4]
+    }
+  },
+  {
+    "model": "playlist_app.playlist",
+    "pk": 3,
+    "fields": {
+      "name": "Workout Playlist",
+      "user": [2],
+      "songs": [1, 3, 5]
+    }
+  },
+  {
+    "model": "playlist_app.playlist",
+    "pk": 4,
+    "fields": {
+      "name": "Indie Hits",
+      "user": [2],
+      "songs": [2, 4]
+    }
+  },
+  {
+    "model": "playlist_app.playlist",
+    "pk": 5,
+    "fields": {
+      "name": "Summer Jams",
+      "user": [3],
+      "songs": [1, 5]
+    }
+  }, 
+  {
+    "model": "user_app.user",
+    "pk": 1,
+    "fields": {
+      "first_name": "Chase",
+      "last_name": "Coleman",
+      "email": "chase@gmail.com",
+      "username": "chase-coleman",
+      "password": "Password1!"
+    }
+  },
+  {
+    "model": "user_app.user",
+    "pk": 2,
+    "fields": {
+      "first_name": "Brian",
+      "last_name": "Kim",
+      "email": "brian.kim@example.com",
+      "username": "brian-kim",
+      "password": "Password2!"
+    }
+  },
+  {
+    "model": "user_app.user",
+    "pk": 3,
+    "fields": {
+      "first_name": "Austin",
+      "last_name": "Trotter",
+      "email": "austin.trotter@example.com",
+      "username": "austin-trotter",
+      "password": "Password3!"
+    }
+  },
+  {
+    "model": "user_app.user",
+    "pk": 4,
+    "fields": {
+      "first_name": "Anne",
+      "last_name": "Chhing",
+      "email": "anne.chhing@example.com",
+      "username": "anne-chhing",
+      "password": "Password4!"
+    }
+  },
+  {
+    "model": "user_app.user",
+    "pk": 5,
+    "fields": {
+      "first_name": "Ian",
+      "last_name": "Tank",
+      "email": "ian.tank@example.com",
+      "username": "ian-tank",
+      "password": "Password5!"
+    }
+  }
+]
