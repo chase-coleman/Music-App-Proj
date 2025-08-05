@@ -113,12 +113,12 @@ const HomePage = () => {
       timerFunction
     }}
     >
-    {!loginPage &&
+    {/* {!loginPage &&
       <Navbar
         setTrackResults={setTrackResults}
         setArtistResults={setArtistResults}
         setAlbumResults={setAlbumResults}
-      />}
+      />} */}
       <div className="page-container relative flex flex-wrap justify-around h-[calc(100vh-104px)] overflow-y-auto">
 
         {/* users playlists */}
