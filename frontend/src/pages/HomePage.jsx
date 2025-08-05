@@ -30,9 +30,9 @@ export const HomePageContext = createContext({
 const HomePage = () => {
   const [playlistView, setPlaylistView] = useState(null);
   const [playlistTracks, setPlaylistTracks] = useState([]);
-  const [trackResults, setTrackResults] = useState(null);
-  const [artistResults, setArtistResults] = useState(null);
-  const [albumResults, setAlbumResults] = useState(null);
+  // const [trackResults, setTrackResults] = useState(null);
+  // const [artistResults, setArtistResults] = useState(null);
+  // const [albumResults, setAlbumResults] = useState(null);
   const [notification, setNotification] = useState(false);
   const [popupMsg, setPopupMsg] = useState('')
   const location = useLocation();
@@ -46,6 +46,12 @@ const HomePage = () => {
     setIsPaused,
     setUserPlaylists,
     currentUserInfo,
+    trackResults,
+    setTrackResults,
+    albumResults,
+    setArtistResults,
+    artistResults,
+    setAlbumResults
   } = useOutletContext();
 
   // when page is mounted, grab the user's playlists 

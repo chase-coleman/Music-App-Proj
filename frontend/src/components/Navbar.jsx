@@ -20,7 +20,7 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults, userToken,
   const inputSearch = async () => {
     try {
       const response = await axios.get(searchUrl + search);
-      // console.log(response.data)
+      console.log(response.data)
       const tracks = response.data[0]["tracks"];
       // console.log("tracks:", tracks)
       const artists = response.data[0]["artists"];
@@ -36,7 +36,6 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults, userToken,
     }
   };
 
-  const goToSettings = () => {};
 
   const userLogout = async () => {
     const logoutUrl = "http://127.0.0.1:8000/api/v1/users/logout/";

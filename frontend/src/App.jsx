@@ -20,6 +20,9 @@ export default function App() {
   const [player, setPlayer] = useState(null);
   const [currentUserInfo, setCurrentUserInfo] = useState(null);
   const [queue, setQueue] = useState([]);
+  const [trackResults, setTrackResults] = useState(null);
+  const [artistResults, setArtistResults] = useState(null);
+  const [albumResults, setAlbumResults] = useState(null);
 
   // when a user logs in, set their token to localstorage and call the func to get an access token
   useEffect(() => {
@@ -69,6 +72,9 @@ export default function App() {
         userToken={userToken}
         setUserToken={setUserToken}
         setMusicActive={setMusicActive}
+        setTrackResults={setTrackResults}
+        setAlbumResults={setAlbumResults}
+        setArtistResults={setArtistResults}
       />
       <Outlet
         context={{
@@ -89,6 +95,12 @@ export default function App() {
           setUserPlaylists,
           queue,
           setQueue,
+          trackResults,
+          setTrackResults,
+          albumResults,
+          setAlbumResults,
+          artistResults,
+          setArtistResults
         }}
       />
       {userToken && accessToken && musicActive ? (

@@ -144,11 +144,14 @@ const Signup = () => {
             Please enter the required information:
           </h5>
           <span className="text-center text-[.75rem] mb-0 text-white">Indicated by a *</span>
-          <div className="signupinfocontainer rounded-xl flex flex-col items-center h-3/4 w-1/2">
+          <div className="signupinfocontainer rounded-xl flex flex-col justify-center items-center h-2/3 w-1/2">
             <fieldset className="fieldset gap-3">
 
               {/* first name */}
               <span className="text-[.6rem] text-red-500 max-h-[.3rem]">
+                
+                {/* check if errorMsg is true, and use .some() to iterate through and see if the field is in the error message. 
+                conditionally renders error message and also highlights input field border  */}
                 {errorMsg && errorMsg.some((msg) => msg.includes("first_name"))
                   ? "First name cannot be blank."
                   : null}

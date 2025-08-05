@@ -50,7 +50,6 @@ const LandingPage = () => {
 
   return (
     <>
-      <Navbar />
       <div className="h-screen flex flex-col justify-start items-center">
         <div className="landingpage-container !blurbg h-1/3 w-6/10 mt-[7em] flex justify-center items-center">
           {/* fix the pt issue where rhythm isnt centered verticall */}
