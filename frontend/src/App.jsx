@@ -1,5 +1,5 @@
 import { Outlet } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import "./App.css";
 import axiosInstance from "./axios";
 import MusicPlayer from "./components/MusicPlayer";
@@ -8,6 +8,20 @@ import { ListEnd } from "lucide-react"; // SYMBOL for adding song to a queue
 
 import { getAccessToken } from "./utils/SpotifyUtils";
 import Navbar from "./components/Navbar";
+import { HomePageContext } from "./pages/HomePage";
+
+export const AppContext = createContext({
+  userToken: null,
+  setUserToken: () => {},
+  artistResults: [],
+  setArtistResults: () => {},
+  albumResults: [],
+  setAlbumResults: () => {},
+  trackResults: [],
+  setTrackResults: () => {},
+
+
+})
 
 export default function App() {
   const [musicActive, setMusicActive] = useState(false);
@@ -68,14 +82,19 @@ export default function App() {
 
   return (
     <>
-      <Navbar
-        userToken={userToken}
-        setUserToken={setUserToken}
-        setMusicActive={setMusicActive}
-        setTrackResults={setTrackResults}
-        setAlbumResults={setAlbumResults}
-        setArtistResults={setArtistResults}
-      />
+    <AppContext.Provider
+    value={{
+      userToken,
+      setUserToken,
+      artistResults,
+      setArtistResults,
+      albumResults,
+      setAlbumResults,
+      trackResults,
+      setTrackResults,
+      setMusicActive
+    }} >
+      <Navbar />
       <Outlet
         context={{
           userToken,
@@ -113,6 +132,7 @@ export default function App() {
           accessToken={accessToken}
         />
       ) : null}
+      </AppContext.Provider>
     </>
   );
 }

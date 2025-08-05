@@ -6,12 +6,15 @@ import { House, Settings, LogOut, CircleUser } from "lucide-react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import axios from "../axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import App, { AppContext } from "../App";
 
-const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults, userToken, setUserToken, setMusicActive }) => {
+const Navbar = () => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
   const searchUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/";
+
+  const { setTrackResults, setArtistResults, setAlbumResults, userToken, setUserToken, setMusicActive } = useContext(AppContext)
 
   const handleSearch = async () => {
     inputSearch();
