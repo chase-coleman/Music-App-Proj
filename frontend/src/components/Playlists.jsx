@@ -35,8 +35,8 @@ const Playlists = () => {
     const filteredData = Object.fromEntries(
       Object.entries(editedData).filter(([key, value]) => value.length > 0)
     );
-    const response = await axios.put(
-      `${playlistUrl}${playlistToEdit.id}/`,
+    const response = await axiosInstance.put(
+      `playlists/${playlistToEdit.id}/`,
       filteredData
     );
     if (response.status === 200) {

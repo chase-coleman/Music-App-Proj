@@ -1,5 +1,4 @@
 import { use, useContext, useEffect, useState } from "react";
-import axios from "../axios";
 import { Link, useOutletContext } from "react-router-dom";
 import { CircleX, Play, Pencil, ListVideo } from 'lucide-react';
 import { HomePageContext } from "../pages/HomePage";

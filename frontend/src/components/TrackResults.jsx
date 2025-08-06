@@ -2,7 +2,7 @@ import { useOutletContext } from "react-router-dom";
 import AddToPlaylist from "./AddToPlaylist";
 import { useState } from "react";
 import { CircleX } from "lucide-react";
-import axios from "../axios";
+import axiosInstance from "../axios";
 
 
 // TO DO : add functionality for user to select specfic playlists to remove track from when unliking them 
@@ -11,7 +11,6 @@ const TrackResults = ({ track, removeTrack, removeLike, getTracks,grabUserPlayli
   const [likeBtn, setLikeBtn] = useState(false);
   const [showPlaylists, setShowPlaylists] = useState(false)
   const [selectedPlaylists, setSelectedPlaylists] = useState([])
-  const trackUrl = "http://127.0.0.1:8000/api/v1/tracks/"; // API endopint for working with tracks
 
   const { setMusicActive, setCurrentTrack, userPlaylists } = useOutletContext()
 
@@ -38,7 +37,7 @@ const TrackResults = ({ track, removeTrack, removeLike, getTracks,grabUserPlayli
     } else {
       try {
       for (const playlist of selectedPlaylists){
-          const response = await axios.post(`${trackUrl}${playlist.id}/`, track_to_add)
+          const response = await axiosInstance.post(`tracks/${playlist.id}/`, track_to_add)
           getTracks()
         }
       } catch (error) {

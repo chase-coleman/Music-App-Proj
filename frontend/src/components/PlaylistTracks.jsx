@@ -1,5 +1,4 @@
 import { useContext, useEffect, useState } from "react";
-import axios from "../axios";
 import { useOutletContext } from "react-router-dom";
 import { SkipBack, CircleX, Play, Pause, SkipForward, ListEnd } from "lucide-react";
 

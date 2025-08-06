@@ -2,12 +2,12 @@ import React, { useEffect, useState, createContext } from "react";
 import { Outlet, Link, useOutletContext, useLocation } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import Playlists from "../components/Playlists";
-import axios from "../axios";
 import PlaylistSongs from "../components/PlaylistSongs";
 import SearchResults from "../components/SearchResults";
 
 import { grabUserPlaylists, getTracks } from "../utils/MusicUtils";
 import ToastComponent from "../components/ToastComponent";
+import axiosInstance from "../axios";
 
 // TO DO : Find out why the getTracks function is being called twice.
 // TO DO : Find out why when selecting a new playlist, the song's are updating
@@ -77,8 +77,8 @@ const HomePage = () => {
     set deleted notification for user in the setTimeout
     recall the getTracks function to update the playlist tracks */
   const removeTrack = async (trackID, playlistName, playlistUrl) => {
-    const response = await axios.delete(
-      `${playlistUrl}${playlistView.name}/${trackID}/`
+    const response = await axiosInstance.delete(
+      `playlists/${playlistView.name}/${trackID}/`
     );
 
     if (response.status === 204) {
