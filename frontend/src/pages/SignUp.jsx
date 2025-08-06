@@ -166,7 +166,6 @@ const Signup = () => {
                 value={fname}
                 type="text"
                 placeholder="* First Name"
-                style={{ fontFamily: "'Forta', sans-serif" }}
               />
 
               {/* last name */}
@@ -185,7 +184,6 @@ const Signup = () => {
                 value={lname}
                 type="text"
                 placeholder="* Last Name"
-                style={{ fontFamily: "'Forta', sans-serif" }}
               />
 
               {/* email */}
@@ -203,7 +201,6 @@ const Signup = () => {
                 value={email}
                 type="text"
                 placeholder="* Email"
-                style={{ fontFamily: "'Forta', sans-serif" }}
               />
 
               {/* username */}
@@ -222,7 +219,6 @@ const Signup = () => {
                 value={username}
                 type="text"
                 placeholder="Username"
-                style={{ fontFamily: "'Forta', sans-serif" }}
               />
 
               {/* passwords */}

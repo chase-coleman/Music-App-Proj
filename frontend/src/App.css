@@ -55,7 +55,7 @@
 
 /* LOGIN PAGE */
 
-.field-container {
+.login-field-container {
   background-color: rgba(179,179,179,.01);
   backdrop-filter: blur(5px);
   color: rgb(244, 243, 241);
