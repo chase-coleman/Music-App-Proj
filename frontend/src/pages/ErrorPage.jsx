@@ -3,7 +3,9 @@ import React from "react";
 const ErrorPage= () => {
   return (
     <>
-    <h2>There was an issue handling your request!</h2>
+    <div className="errorpagecontainer flex w-full h-full justify-center items-center">
+    <h2 className="text-white">There was an issue handling your request!</h2>
+    </div>
     </>
   )
 }

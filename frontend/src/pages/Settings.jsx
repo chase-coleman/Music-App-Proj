@@ -126,7 +126,6 @@ const Settings = () => {
 
   return (
     <>
-      <Navbar />
       <div className="pg-container w-[100vw] h-[calc(100vh-64px)] flex items-center justify-center">
         <div className="edit-container h-full w-1/2 flex justify-center items-">
           <div className="menu gap-2 rounded-box w-[25vw] h-[25vh]">
@@ -174,36 +173,32 @@ const Settings = () => {
               </div>
               <fieldset className="fieldset gap-2">
                 <input
-                  className="input placeholder-gray text-black font-forta"
+                  className="input placeholder-gray text-black"
                   onChange={(e) => setFname(e.target.value)}
                   value={fname}
                   type="text"
                   placeholder="First Name"
-                  style={{ fontFamily: "'Forta', sans-serif" }}
                 />
                 <input
-                  className="input placeholder-gray text-black font-forta"
+                  className="input placeholder-gray text-black"
                   onChange={(e) => setLname(e.target.value)}
                   value={lname}
                   type="text"
                   placeholder="Last Name"
-                  style={{ fontFamily: "'Forta', sans-serif" }}
                 />
                 <input
-                  className="input placeholder-gray text-black font-forta"
+                  className="input placeholder-gray text-black"
                   onChange={(e) => setEmail(e.target.value)}
                   value={email}
                   type="text"
                   placeholder="Email"
-                  style={{ fontFamily: "'Forta', sans-serif" }}
                 />
                 <input
-                  className="input placeholder-gray text-black font-forta"
+                  className="input placeholder-gray text-black "
                   onChange={(e) => setUsername(e.target.value)}
                   value={username}
                   type="text"
                   placeholder="Username"
-                  style={{ fontFamily: "'Forta', sans-serif" }}
                 />
                 
                 {/* Custom password input with Forta for placeholder and visible text */}

@@ -6,13 +6,15 @@ import { House, Settings, LogOut, CircleUser } from "lucide-react";
 import { Link, useNavigate, useOutletContext } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import axios from "../axios";
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
+import App, { AppContext } from "../App";
 
-const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
+const Navbar = () => {
   const [search, setSearch] = useState("");
-  const { userToken, setMusicActive, setUserToken } = useOutletContext();
   const navigate = useNavigate();
   const searchUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/";
+
+  const { setTrackResults, setArtistResults, setAlbumResults, userToken, setUserToken, setMusicActive } = useContext(AppContext)
 
   const handleSearch = async () => {
     inputSearch();
@@ -21,13 +23,10 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
   const inputSearch = async () => {
     try {
       const response = await axios.get(searchUrl + search);
-      // console.log(response.data)
+      console.log(response.data)
       const tracks = response.data[0]["tracks"];
-      // console.log("tracks:", tracks)
       const artists = response.data[0]["artists"];
-      // console.log("artists:", artists)
       const albums = response.data[0]["albums"];
-      // console.log("albums:", albums)
       setTrackResults(tracks);
       setArtistResults(artists);
       setAlbumResults(albums);
@@ -37,7 +36,6 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
     }
   };
 
-  const goToSettings = () => {};
 
   const userLogout = async () => {
     const logoutUrl = "http://127.0.0.1:8000/api/v1/users/logout/";
@@ -56,7 +54,7 @@ const Navbar = ({ setTrackResults, setArtistResults, setAlbumResults }) => {
   };
 
   return (
-    <div className="navbar p-0 shadow-sm">
+    <div className="navbar p-0 shadow-sm fixed top-0 left-0 w-full z-50">
       {userToken ? (
         <>
           {/* Left side nav items */}

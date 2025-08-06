@@ -7,7 +7,6 @@ import { BouncyArc, DotPulse } from "ldrs/react";
 import { Eye, EyeOff } from "lucide-react";
 import "ldrs/react/BouncyArc.css";
 import "ldrs/react/DotPulse.css"
-// TO DO : error handling for incorrect user login info
 
 // Custom Password Input Component
 const PasswordInput = ({ 
@@ -104,9 +103,10 @@ function Login() {
 
   return (
     <>
-      <Navbar />
-      <div className="info-container h-screen w-screen mt-[5em] flex flex-col justify-start items-center">
-        <div className="field-container h-1/3 flex flex-col justify-start items-center p-3">
+          {/* the h-[calc(100vh-64px)] is to account for the navbar's size increasing the viewport causing issues
+    whenever h-full/screen is used.  */}
+      <div className="login-page-container h-[calc(100vh-64px)] w-screen flex flex-col justify-around items-center">
+        <div className="login-field-container h-64 w-56 flex flex-col justify-center items-center p-3">
           <div className="error-msg h-1/10 w-full flex items-center justify-center">
           {error &&
             <span className="text-[.5em] text-red-500">Invalid login credentials, please try again!</span>
@@ -114,12 +114,11 @@ function Login() {
           </div>
           <fieldset className="fieldset">
             <input
-              className="input placeholder-gray text-black font-forta"
+              className="input placeholder-gray text-black"
               onChange={(e) => setUsername(e.target.value)}
               value={username}
               type="text"
               placeholder="Username"
-              style={{ fontFamily: "'Forta', sans-serif" }}
             />
             
             {/* Replace standard password input with custom component */}
