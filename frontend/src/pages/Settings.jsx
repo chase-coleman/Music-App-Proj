@@ -126,7 +126,6 @@ const Settings = () => {
 
   return (
     <>
-      <Navbar />
       <div className="pg-container w-[100vw] h-[calc(100vh-64px)] flex items-center justify-center">
         <div className="edit-container h-full w-1/2 flex justify-center items-">
           <div className="menu gap-2 rounded-box w-[25vw] h-[25vh]">

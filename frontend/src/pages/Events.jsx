@@ -20,6 +20,7 @@ const Events = () => {
     const response = await axios.get(
       `${ticketmasterAPI}&postalCode=${zipInput}`
     );
+    console.log(response.data)
     const localEvents = response.data._embedded.events;
     setSearching(false);
     setSearchResults(localEvents);
@@ -28,7 +29,6 @@ const Events = () => {
 
   return (
     <>
-      <Navbar />
       <div className="eventpage-container h-[calc(100vh-70px)] w-screen flex flex-col items-center gap-1">
         <div className="eventinput-container w-full flex items-center justify-center">
           <div>
