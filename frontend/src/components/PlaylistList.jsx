@@ -2,12 +2,12 @@ import { use, useContext, useEffect, useState } from "react";
 import { Link, useOutletContext } from "react-router-dom";
 import { CircleX, Play, Pencil, ListVideo } from 'lucide-react';
 import { HomePageContext } from "../pages/HomePage";
-import { grabUserPlaylists } from "../utils/MusicUtils";
+import { getTracks, grabUserPlaylists } from "../utils/MusicUtils";
 
 const PlaylistList = ({ playlist, editPlaylist, deletePlaylist }) => {
   const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
   const {userToken, setUserPlaylists} = useOutletContext()
-  const { setPlaylistView } = useContext(HomePageContext)
+  const { setPlaylistView, setPlaylistTracks } = useContext(HomePageContext)
   const [delBtn, setDelBtn] = useState(false);
 
   /*
@@ -29,6 +29,13 @@ shared the same state. so clicking delete on one playlist, deleted them all
     editPlaylist(playlist)
   }
 
+  // when a new playlist is selected to be viewed, update the playlistTracks state to reflect the proper playlist
+  // via getTracks
+  const handlePlaylistViewChange = (playlist) => {
+    setPlaylistView(playlist)
+    getTracks(playlist.name, setPlaylistTracks)
+  }
+
 
   return (
     <>
@@ -38,7 +45,7 @@ shared the same state. so clicking delete on one playlist, deleted them all
       </div>
 
       <div className="text-container text-center text-[.75em] flex flex-col justify-center">
-        <button onClick={() => setPlaylistView(playlist)}>{playlist.name}</button> {/* Playlist Name goes here*/}
+        <button onClick={() => handlePlaylistViewChange(playlist)}>{playlist.name}</button> {/* Playlist Name goes here*/}
         <div className="uppercase font-semibold opacity-60 text-[0.5em] overflow-hidden text-ellipsis">          {/*Playlist Description goes here*/}
           {playlist.description}
         </div>
