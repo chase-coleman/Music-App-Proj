@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Outlet, Link, useOutletContext, useNavigate } from "react-router-dom";
 import { Nav } from "react-bootstrap";
 import Navbar from "../components/Navbar";
-import Login from "../components/Login";
+// import Login from "../components/Login";
 import axios from "axios";
 import "ldrs/react/DotPulse.css"
 import { DotPulse } from "ldrs/react";

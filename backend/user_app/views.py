@@ -85,7 +85,7 @@ class Login(APIView):
     def post(self, request):
         data = request.data.copy()
 
-        # setting their username to the email if they haven't create a username
+        # setting their username to the email if they haven't entered a username
         data["username"] = request.data.get("username", request.data.get("email"))
 
         # valid field are not empty
@@ -95,10 +95,15 @@ class Login(APIView):
                 status=s.HTTP_400_BAD_REQUEST,
             )
 
+
+        if "@" not in data.get("username"):
+            try:
+                user_obj = get_object_or_404(User, username = data.get("username"))
+                data["username"] = user_obj.email
+            except User.DoesNotExist:
+                pass
         # authenticate their provided username/password with their registered username/password
-        current_user = authenticate(
-            username=data.get("username"), password=data.get("password")
-        )
+        current_user = authenticate(username=data.get("username"), password=data.get("password"))
 
         if current_user:
             login(request, current_user)  # log them in
