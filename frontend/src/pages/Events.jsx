@@ -9,6 +9,8 @@ const Events = () => {
   const [zipInput, setZipInput] = useState("");
   const [searchResults, setSearchResults] = useState([]);
   const [searching, setSearching] = useState(false);
+  const [noResults, setNoResults] = useState(false)
+
   const ticketmasterKey = import.meta.env.VITE_TICKETMASTER_KEY;
   const ticketmasterSecret = import.meta.env.VITE_TICKETMASTER_SECRET;
 
@@ -16,15 +18,28 @@ const Events = () => {
 
   // handle the API call when search button is clicked
   const searchEvents = async () => {
+    if (noResults) { setNoResults(false)}
     setSearching(true);
+    try {
     const response = await axios.get(
       `${ticketmasterAPI}&postalCode=${zipInput}`
     );
-    console.log(response.data)
+    // if there are no events returned from ticketmaster API, set the searchResults back to empty
+    // the return will stop the rest of the code from running (localEvents would mess this up)
+    if (!response.data?._embedded?.events) {
+      setSearchResults([]);
+      setNoResults(true)
+      return
+    }
     const localEvents = response.data._embedded.events;
-    setSearching(false);
+    setZipInput("")
     setSearchResults(localEvents);
-    setZipInput("");
+  } catch (error) {
+    console.error("error", error)
+  } finally {
+    // no matter what, set the searching popup to false.
+    setSearching(false);
+  }
   };
 
   return (
@@ -45,14 +60,17 @@ const Events = () => {
                   value={zipInput}
                   onChange={(e) => setZipInput(e.target.value)}
                   placeholder="ZIP Code"
-                />
+                  />
                 <button
                   className="searchzip-btn rounded w-[20%] !text-[.75em] p-1"
                   onClick={searchEvents}
-                >
+                  >
                   Search
                 </button>
               </div>
+                  { noResults &&
+                  <span className="text-xs text-red-500">No events found for that ZIP code</span>
+                  }
             </fieldset>
           </div>
         </div>

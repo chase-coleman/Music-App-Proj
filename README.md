@@ -9,6 +9,13 @@ Create personalized playlists, discover new tracks, and even find live music eve
 ## 🧠 Important Dev Notes
 As of May 15, 2025:
 This was my first full-stack application, and I'm proud of how far it’s come. That said, there’s definitely room for code cleanup and architectural improvements. Before adding new features, I plan to refactor and optimize the existing codebase as time allows. There’s a lot more I want to build into this app — and I’m excited to keep improving it!
+
+As of August 7, 2025:
+Over the past few months here is what I have done while I job hunt, live my personal life, and continue to hold down a regular job:
+- Refactored some repeated code into helper functions (base64 function, getTracks function, etc). 
+- Added more page context to avoid lots of prop drilling. 
+- Added much more error handling on both front and back end.
+- Created a queue system for adding music to it. (Still a WIP - need to add some more functionality)
 ---
 ## ✨ Features
 

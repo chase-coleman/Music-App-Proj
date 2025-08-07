@@ -96,8 +96,7 @@ class Login(APIView):
             )
 
 
-        login_key = User.USERNAME_FIELD
-        if login_key == "email" and "@" not in data.get("username"):
+        if "@" not in data.get("username"):
             try:
                 user_obj = get_object_or_404(User, username = data.get("username"))
                 data["username"] = user_obj.email
