@@ -8,6 +8,7 @@ import { Nav } from "react-bootstrap";
 import axios from "../axios";
 import { useContext, useEffect, useState } from "react";
 import App, { AppContext } from "../App";
+import axiosInstance from "../axios";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
@@ -38,10 +39,9 @@ const Navbar = () => {
 
 
   const userLogout = async () => {
-    const logoutUrl = "http://127.0.0.1:8000/api/v1/users/logout/";
     try {
       // send a POST request to the logout endpoint (which will delete the user' auth token from the db)
-      const response = await axios.post(logoutUrl);
+      const response = await axiosInstance.post("users/logout/");
 
       localStorage.removeItem("token"); // remove the deleted token from the local storage
       console.log("user logged out!", userToken);

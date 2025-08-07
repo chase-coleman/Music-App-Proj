@@ -3,6 +3,7 @@ import { useOutletContext } from "react-router-dom";
 import axios from "../axios";
 import TrackResults from "../components/TrackResults";
 import { CircleX } from "lucide-react";
+import axiosInstance from "../axios";
 
 const SearchResults = ( { tracks, setTrackResults, userPlaylists, removeTrack, getTracks } ) => {
   // likedSongs is a list of objects containing any liked songs that the user has 
@@ -46,9 +47,7 @@ const SearchResults = ( { tracks, setTrackResults, userPlaylists, removeTrack, g
     };
     try { 
       console.log("song being liked!");
-      const response = await axios.post(trackUrl, track_to_add);
-      getTracks();
-      // alert(response.data['Message']) // alert the user that the song has been added to their liked songs 
+      const response = await axiosInstance.post("tracks/", track_to_add);
   } catch (error){
     console.error("Error:", error)
   };

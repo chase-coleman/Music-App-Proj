@@ -1,8 +1,9 @@
 import { useOutletContext } from "react-router-dom";
 import AddToPlaylist from "./AddToPlaylist";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { CircleX } from "lucide-react";
-import axios from "../axios";
+import axiosInstance from "../axios";
+import { HomePageContext } from "../pages/HomePage";
 
 
 // TO DO : add functionality for user to select specfic playlists to remove track from when unliking them 
@@ -11,9 +12,9 @@ const TrackResults = ({ track, removeTrack, removeLike, getTracks,grabUserPlayli
   const [likeBtn, setLikeBtn] = useState(false);
   const [showPlaylists, setShowPlaylists] = useState(false)
   const [selectedPlaylists, setSelectedPlaylists] = useState([])
-  const trackUrl = "http://127.0.0.1:8000/api/v1/tracks/"; // API endopint for working with tracks
 
   const { setMusicActive, setCurrentTrack, userPlaylists } = useOutletContext()
+  const { setPlaylistTracks, playlistView } = useContext(HomePageContext)
 
   const addToPlaylist = () => {
     setShowPlaylists(true)
@@ -38,8 +39,14 @@ const TrackResults = ({ track, removeTrack, removeLike, getTracks,grabUserPlayli
     } else {
       try {
       for (const playlist of selectedPlaylists){
-          const response = await axios.post(`${trackUrl}${playlist.id}/`, track_to_add)
-          getTracks()
+          const response = await axiosInstance.post(`tracks/${playlist.id}/`, track_to_add)
+          // add a check to see if the playlist that the song is being added to is the viewedPlaylist
+          // check if playlist.name is == to the playlistView.name
+          // if yes -> then call the getTracks function. 
+          // if no -> continue the loop
+          if (playlist.name == playlistView?.name){
+            getTracks(playlist.name, setPlaylistTracks)
+          }
         }
       } catch (error) {
         console.error(error)

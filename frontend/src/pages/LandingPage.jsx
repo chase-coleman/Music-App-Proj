@@ -6,6 +6,7 @@ import Login from "../components/Login";
 import axios from "axios";
 import "ldrs/react/DotPulse.css"
 import { DotPulse } from "ldrs/react";
+import axiosInstance from "../axios";
 
 const LandingPage = () => {
   const { userToken } = useOutletContext();
@@ -27,13 +28,9 @@ const LandingPage = () => {
   }, []);
 
   const verifyToken = async (localToken) => {
-    const verifyTokenUrl = "http://localhost:8000/api/v1/users/verify/";
+    // const verifyTokenUrl = "http://localhost:8000/api/v1/users/verify/";
     try {
-      const response = await axios.get(verifyTokenUrl, {
-        headers: {
-          Authorization: `Token ${localToken}`,
-        },
-      });
+      const response = await axiosInstance.get("users/verify");
       if (response.status === 200) {
           setSuccess(true); // show a message
           setTimeout(() => {

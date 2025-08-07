@@ -11,10 +11,9 @@ resource for using setTimeout() function
 import { BouncyArc } from "ldrs/react";
 import "ldrs/react/BouncyArc.css";
 import React, { useState, useEffect } from "react";
-import axios from "axios";
-import Navbar from "../components/Navbar";
 import { useNavigate, useOutletContext } from "react-router-dom";
 import { Eye, EyeOff } from "lucide-react";
+import axiosInstance from "../axios";
 // TO DO : create verification for account fields like email & password formatting
 
 // Custom Password Input Component
@@ -110,7 +109,7 @@ const Signup = () => {
     const signUpUrl = "http://127.0.0.1:8000/api/v1/users/signup/";
     try {
       // call backend signup view and send it the new user's entered info
-      const response = await axios.post(signUpUrl, accountInfo);
+      const response = await axiosInstance.post("users/signup/", accountInfo);
       localStorage.setItem("token", response.data.token);
       setShowSuccessMsg(true);
     } catch (error) {
