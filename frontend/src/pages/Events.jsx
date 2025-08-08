@@ -10,24 +10,39 @@ const Events = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [searching, setSearching] = useState(false);
   const [noResults, setNoResults] = useState(false)
+  const [errorMsg, setErrorMsg] = useState("")
 
   const ticketmasterKey = import.meta.env.VITE_TICKETMASTER_KEY;
   const ticketmasterSecret = import.meta.env.VITE_TICKETMASTER_SECRET;
 
   const ticketmasterAPI = `https://app.ticketmaster.com/discovery/v2/events.json?classificationName=music&apikey=${ticketmasterKey}`;
 
+  // function validates zip code input
+  const validateZip = (zip) => {
+    const trimmedZip = zip.trim()
+    const regexZip = /^\d{5}(-\d{4})?$/
+    return regexZip.test(trimmedZip)
+  }
+
+
   // handle the API call when search button is clicked
   const searchEvents = async () => {
     if (noResults) { setNoResults(false)}
     setSearching(true);
     try {
-    const response = await axios.get(
+      if (!validateZip(zipInput)){
+        setErrorMsg("Invalid ZIP input")
+        setNoResults(true)
+        return
+      }
+      const response = await axios.get(
       `${ticketmasterAPI}&postalCode=${zipInput}`
     );
     // if there are no events returned from ticketmaster API, set the searchResults back to empty
     // the return will stop the rest of the code from running (localEvents would mess this up)
     if (!response.data?._embedded?.events) {
       setSearchResults([]);
+      setErrorMsg("No events found for that ZIP code")
       setNoResults(true)
       return
     }
@@ -41,6 +56,7 @@ const Events = () => {
     setSearching(false);
   }
   };
+
 
   return (
     <>
@@ -69,7 +85,7 @@ const Events = () => {
                 </button>
               </div>
                   { noResults &&
-                  <span className="text-xs text-red-500">No events found for that ZIP code</span>
+                  <span className="text-xs text-red-500">{errorMsg}</span>
                   }
             </fieldset>
           </div>
