@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import { useOutletContext } from "react-router-dom";
 import axios from "axios";
 import { SkipBack, Play, Pause, SkipForward } from "lucide-react";
+import { AppContext } from "../App"
 
 const MusicPlayer = ({
   accessToken,
@@ -18,12 +19,31 @@ const MusicPlayer = ({
   const [duration, setDuration] = useState(0);
   const [position, setPosition] = useState(0);
 
+  const { queue, setQueue } = useContext(AppContext)
+
+
+  useEffect(() => {
+    console.log(position)
+    console.log(queue)
+    // checking if the song is nearing it's end within 500 ms, and the music is active to start the next song in queue
+    if (position >= duration - 500 && !isPaused){
+      playNextInQueue()
+    }
+  }, [position, duration])
+  
+  const playNextInQueue = () => {
+    console.log("playing the next song!")
+  }
+
+
   // Initialize Spotify Web Playback SDK
   useEffect(() => {
     if (!accessToken) {
       console.log("No access token.");
       return;
     }
+
+
 
     const scriptTag = document.createElement("script");
     scriptTag.src = "https://sdk.scdn.co/spotify-player.js";

@@ -11,6 +11,8 @@ import Navbar from "./components/Navbar";
 import { HomePageContext } from "./pages/HomePage";
 
 export const AppContext = createContext({
+  queue: [],
+  setQueue: () => {},
   userToken: null,
   setUserToken: () => {},
   artistResults: [],
@@ -84,6 +86,8 @@ export default function App() {
     <>
     <AppContext.Provider
     value={{
+      queue,
+      setQueue,
       userToken,
       setUserToken,
       artistResults,
