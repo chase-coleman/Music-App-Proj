@@ -10,6 +10,7 @@ import "ldrs/react/DotStream.css";
 import { HomePageContext } from "../pages/HomePage";
 import { grabUserPlaylists } from "../utils/MusicUtils";
 import axiosInstance from "../axios";
+import { Modal } from "./Modal";
 const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 
 // TO DO : create loading state variable to display while the API makes it's call
@@ -21,7 +22,7 @@ const Playlists = () => {
   const [showEditConfirmation, setShowEditConfirmation] = useState(false);
 
   const { userPlaylists, setUserPlaylists } = useOutletContext();
-  const { setPlaylistView } = useContext(HomePageContext)
+  const { setPlaylistView } = useContext(HomePageContext);
   const handlePlaylistCreation = () => {
     setCreateBtn(true);
   };
@@ -44,21 +45,19 @@ const Playlists = () => {
       const timer = setTimeout(() => {
         setShowEditConfirmation(false);
       }, 2000);
-      grabUserPlaylists(setUserPlaylists)
+      grabUserPlaylists(setUserPlaylists);
     }
-    setShowEditInfo(false)
+    setShowEditInfo(false);
   };
 
   const deletePlaylist = async (playlistID) => {
-
     try {
-    // do a DELETE request to remove the playlist instance from the db 
+      // do a DELETE request to remove the playlist instance from the db
       const response = await axiosInstance.delete(`playlists/${playlistID}/`);
-    
+
       // update usersPlaylist state variable without the deleted playlist
       // also also remove it to the page in the .map() function
-      grabUserPlaylists(setUserPlaylists)
-
+      grabUserPlaylists(setUserPlaylists);
     } catch (error) {
       console.error("Error:", error);
     }
@@ -73,11 +72,9 @@ const Playlists = () => {
           </button>
         </div>
         {createBtn ? (
-          <div className="search-results z-50 fixed inset-0 flex items-center justify-center">
-            <CreatePlaylist
-              setCreateBtn={setCreateBtn}
-            />
-          </div>
+          <Modal>
+            <CreatePlaylist setCreateBtn={setCreateBtn} />
+          </Modal>
         ) : null}
 
         {!userPlaylists ? (
@@ -103,11 +100,12 @@ const Playlists = () => {
         )}
       </div>
       {editInfo ? (
-        <div className="fixed inset-0 z-50 flex items-center justify-center">
-          <EditPlaylist 
-          setShowEditInfo={setShowEditInfo}
-          submitEdits={submitEdits} />
-        </div>
+        <Modal>
+          <EditPlaylist
+            setShowEditInfo={setShowEditInfo}
+            submitEdits={submitEdits}
+          />
+        </Modal>
       ) : null}
       {showEditConfirmation ? (
         <div className="absolute left-5 bottom-5 z-50">

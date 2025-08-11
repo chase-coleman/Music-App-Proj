@@ -21,7 +21,8 @@ const AddToPlaylist = ({ playlist, selectedPlaylists, setSelectedPlaylists, setL
 
   return (
     <>
-      <div className="img-container w-[100%] h-[100%]">
+    <div className="flex justify-around">
+      <div className="img-container w-[15%] h-[100%]">
         <img
           className="size-10 rounded-box"
           src="https://img.daisyui.com/images/profile/demo/1@94.webp"
@@ -31,22 +32,23 @@ const AddToPlaylist = ({ playlist, selectedPlaylists, setSelectedPlaylists, setL
 
       <div className="flex flex-col items-center justify-center text-[.75em] text-container text-center ">
         <Nav.Link as={Link} to={`/playlists/${playlist.name}`}>
-          <div>{playlist.name}</div> {/* Playlist Name goes here*/}
+          <div className="text-white">{playlist.name}</div> {/* Playlist Name goes here*/}
         </Nav.Link>
-        <div className="text-[.75em] uppercase font-semibold opacity-60">
+        <div className="text-[.75em] text-white uppercase font-semibold opacity-60">
           {/*Playlist Description goes here*/}
           {playlist.description}
         </div>
       </div>
       {updateAddBtn ? (
         <button className="btn btn-square btn-ghost" onClick={handleAdd}>
-          <CircleCheck size={20}/>
+          <CircleCheck color="white" size={20}/>
         </button>
       ) : (
         <button className="btn btn-square btn-ghost" onClick={handleAdd}>
-          <CirclePlus color="black" size={20} />
+          <CirclePlus color="white" size={20} />
         </button>
       )}
+      </div>
       {/*Put Trash icon here for users to delete a playlist*/}
     </>
   );

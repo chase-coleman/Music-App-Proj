@@ -4,7 +4,7 @@ import { useContext, useState } from "react";
 import { CircleX } from "lucide-react";
 import axiosInstance from "../axios";
 import { HomePageContext } from "../pages/HomePage";
-
+import { Modal } from "./Modal";
 
 // TO DO : add functionality for user to select specfic playlists to remove track from when unliking them 
 
@@ -96,16 +96,14 @@ const TrackResults = ({ track, removeTrack, removeLike, getTracks,grabUserPlayli
   return (
     <>
     {showPlaylists ? 
-  <div className="fixed inset-0 z-50 flex items-center justify-center">
-  <ul className="listofplaylists flex flex-col rounded-box shadow-md w-[40vw] p-0 gap-2">
-    <div className="flex relative">
-    <div className="text-center">
+  <Modal>
+<ul className="listofplaylists flex flex-col rounded-box shadow-md w-[40vw] p-0 gap-2">
+    <div className="text-center text-white">
       Select the playlists you'd like to add the song to!
     </div>
     <button onClick={cancelLike} className="absolute right-0 top-0">
-    <CircleX size={12}/>
+    <CircleX color="white" size={12}/>
     </button>
-    </div>
     {userPlaylists.map((playlist) => (
       <li className="list-row p-1 gap-1" key={playlist.id}>
         <AddToPlaylist
@@ -119,12 +117,12 @@ const TrackResults = ({ track, removeTrack, removeLike, getTracks,grabUserPlayli
       </li>
     ))}
     <div className="flex justify-center text-center">
-    <button className="closeplaylists flex items-center justify-center mb-2 !text-[0.65em] w-[20%]" onClick={handleAdding}>
+    <button className="closeplaylists flex items-center justify-center mb-2 text-white !text-[0.65em] w-[20%]" onClick={handleAdding}>
       Add
     </button>
     </div>
   </ul>
-</div>
+</Modal>
     : null
     }
       <div className="img-container w-[100%] h-[100%]">
