@@ -1,7 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { Link, useOutletContext, useNavigate } from "react-router-dom";
-import { Nav } from "react-bootstrap";
-import { BouncyArc, DotPulse } from "ldrs/react";
+import { useEffect, useState } from "react";
+import { useOutletContext, useNavigate } from "react-router-dom";
+import { DotPulse } from "ldrs/react";
 import { Eye, EyeOff } from "lucide-react";
 import "ldrs/react/BouncyArc.css";
 import "ldrs/react/DotPulse.css"
@@ -57,7 +56,6 @@ function Login() {
   const navigate = useNavigate();
 
   const handleLogin = async () => {
-    const loginUrl = "http://localhost:8000/api/v1/users/login/";
     try {
       // call backend login view and send user-input data to authenticate
       const response = await axiosInstance.post("users/login/", {

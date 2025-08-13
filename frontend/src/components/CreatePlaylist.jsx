@@ -1,15 +1,13 @@
-import React, { useState, useEffect } from "react";
+import { useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import { CircleX } from "lucide-react";
-
 import { grabUserPlaylists } from "../utils/MusicUtils";
 import axiosInstance from "../axios";
 
 const CreatePlaylist = ( { setCreateBtn } ) => {
   const [playlistName, setPlaylistName] = useState("");
   const [playlistDescription, setPlaylistDescription] = useState("");
-  const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/"; // url to playlist view
-  const {userToken, setUserPlaylists} = useOutletContext()
+  const { setUserPlaylists } = useOutletContext()
 
   const createPlaylist = async () => {
     // creating object to send to backend to create the playlist

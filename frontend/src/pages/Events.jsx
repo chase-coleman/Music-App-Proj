@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
+import { useState } from "react";
 import axios from "axios";
 import Event from "../components/EventComponent";
-import { BouncyArc, DotPulse } from "ldrs/react";
+import { BouncyArc } from "ldrs/react";
 import "ldrs/react/BouncyArc.css";
 
 const Events = () => {

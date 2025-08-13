@@ -4,14 +4,11 @@ tutorial help for the Spotify Web API
 """
 from rest_framework import status as s
 from rest_framework.response import Response
-from user_app.views import TokenReq, APIView
-from django.conf import settings
+from user_app.views import TokenReq
 from dotenv import load_dotenv
 from requests import post, get
-import requests
 import os 
 from .encoding import encode_client_credentials
-import base64 # used for encoding the spotify client ID + secret key together
 import json 
 
 # base64 is used to encode binary data into a string format using ASCII characters. ->

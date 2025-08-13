@@ -1,6 +1,5 @@
-import React, { useEffect, useState, createContext } from "react";
-import { Outlet, Link, useOutletContext, useLocation } from "react-router-dom";
-import Navbar from "../components/Navbar";
+import { useEffect, useState, createContext } from "react";
+import { useOutletContext, useLocation } from "react-router-dom";
 import Playlists from "../components/Playlists";
 import PlaylistSongs from "../components/PlaylistSongs";
 import SearchResults from "../components/SearchResults";
@@ -8,12 +7,6 @@ import SearchResults from "../components/SearchResults";
 import { grabUserPlaylists, getTracks } from "../utils/MusicUtils";
 import ToastComponent from "../components/ToastComponent";
 import axiosInstance from "../axios";
-
-// TO DO : Find out why the getTracks function is being called twice.
-// TO DO : Find out why when selecting a new playlist, the song's are updating
-
-const singlePlaylistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
-const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 
 
 export const HomePageContext = createContext({
@@ -35,23 +28,12 @@ const HomePage = () => {
   // const [albumResults, setAlbumResults] = useState(null);
   const [notification, setNotification] = useState(false);
   const [popupMsg, setPopupMsg] = useState('')
-  const location = useLocation();
-  const loginPage = location.pathname === "/login";
 
   const {
-    userToken,
-    currentTrack,
     userPlaylists,
-    isPaused,
-    setIsPaused,
     setUserPlaylists,
-    currentUserInfo,
     trackResults,
     setTrackResults,
-    albumResults,
-    setArtistResults,
-    artistResults,
-    setAlbumResults
   } = useOutletContext();
 
   // when page is mounted, grab the user's playlists 
@@ -76,7 +58,7 @@ const HomePage = () => {
   /* API call using a DELETE method to remove the track from the currently viewed playlist
     set deleted notification for user in the setTimeout
     recall the getTracks function to update the playlist tracks */
-  const removeTrack = async (trackID, playlistName, playlistUrl) => {
+  const removeTrack = async (trackID, playlistName) => {
     const response = await axiosInstance.delete(
       `playlists/${playlistView.name}/${trackID}/`
     );

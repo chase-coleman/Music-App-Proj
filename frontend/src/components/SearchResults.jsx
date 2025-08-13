@@ -1,6 +1,4 @@
-import React, { useEffect, useState } from "react";
-import { useOutletContext } from "react-router-dom";
-import axios from "../axios";
+import { useEffect, useState } from "react";
 import TrackResults from "../components/TrackResults";
 import { CircleX } from "lucide-react";
 import axiosInstance from "../axios";
@@ -9,7 +7,6 @@ const SearchResults = ( { tracks, setTrackResults, userPlaylists, removeTrack, g
   // likedSongs is a list of objects containing any liked songs that the user has 
   // liked from their search results
   const [likedSongs, setLikedSongs] = useState([]);
-  const trackUrl = "http://127.0.0.1:8000/api/v1/tracks/"; // API endopint for working with tracks
 
 
   useEffect(() => {

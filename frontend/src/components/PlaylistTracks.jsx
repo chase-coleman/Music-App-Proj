@@ -1,16 +1,12 @@
 import { useContext } from "react";
 import { useOutletContext } from "react-router-dom";
 import { CircleX, Play, Pause, ListEnd } from "lucide-react";
-
 import { addToQueue, removeFromQueue } from "../utils/MusicUtils";
 import { HomePageContext } from "../pages/HomePage";
-
-const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 
 const PlaylistTracks = ({ track, queued }) => {
   const {
     isPaused,
-    setIsPaused,            // kept in case you use elsewhere; we don't manually flip it here
     setMusicActive,
     currentTrack,
     player,
@@ -103,7 +99,7 @@ const PlaylistTracks = ({ track, queued }) => {
       ) : (
         <button
           className="btn btn-square btn-ghost"
-          onClick={() => removeTrack(track.id, playlistView.name, playlistUrl)}
+          onClick={() => removeTrack(track.id, playlistView.name)}
           title="Remove from playlist"
         >
           <CircleX color="black" />

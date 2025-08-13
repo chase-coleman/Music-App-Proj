@@ -3,12 +3,8 @@ import { createContext, useEffect, useState } from "react";
 import "./App.css";
 import axiosInstance from "./axios";
 import MusicPlayer from "./components/MusicPlayer";
-import SearchResults from "./components/SearchResults";
-import { ListEnd } from "lucide-react"; // SYMBOL for adding song to a queue
-
 import { getAccessToken } from "./utils/SpotifyUtils";
 import Navbar from "./components/Navbar";
-import { HomePageContext } from "./pages/HomePage";
 
 export const AppContext = createContext({
   queue: [],
@@ -30,7 +26,7 @@ export default function App() {
   const [userToken, setUserToken] = useState(null);
   const [accessToken, setAccessToken] = useState(null);
   const [currentTrack, setCurrentTrack] = useState(null);
-  const [userPlaylists, setUserPlaylists] = useState(null);
+  const [userPlaylists, setUserPlaylists] = useState([]);
   const [isPaused, setIsPaused] = useState(true);
   const [currentTrackID, setCurrentTrackID] = useState(null);
   const [player, setPlayer] = useState(null);

@@ -1,6 +1,4 @@
-import React, { useState, useEffect } from "react";
-import axios from "../axios";
-import { useOutletContext } from "react-router-dom";
+import { useState } from "react";
 import { CircleX } from "lucide-react";
 
 // TO DO : Make it so a user can remove the description from a playlist
@@ -8,8 +6,6 @@ import { CircleX } from "lucide-react";
 const EditPlaylist = ( { submitEdits, setShowEditInfo } ) => {
   const [playlistName, setPlaylistName] = useState("");
   const [playlistDescription, setPlaylistDescription] = useState("");
-  const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/"; // url to playlist view
-  const {userToken} = useOutletContext()
 
   const infoToEdit = async () => {
     const editedData = {

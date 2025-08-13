@@ -1,12 +1,9 @@
-import { use, useContext, useEffect, useState } from "react";
-import { Link, useOutletContext } from "react-router-dom";
+import { useContext, useEffect, useState } from "react";
 import { CircleX, Play, Pencil, ListVideo } from 'lucide-react';
 import { HomePageContext } from "../pages/HomePage";
-import { getTracks, grabUserPlaylists } from "../utils/MusicUtils";
+import { getTracks } from "../utils/MusicUtils";
 
 const PlaylistList = ({ playlist, editPlaylist, deletePlaylist }) => {
-  const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
-  const {userToken, setUserPlaylists} = useOutletContext()
   const { setPlaylistView, setPlaylistTracks } = useContext(HomePageContext)
   const [delBtn, setDelBtn] = useState(false);
 

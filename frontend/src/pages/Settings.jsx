@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "../axios";
-import Navbar from "../components/Navbar";
-import { Navigate, useNavigate, useOutletContext } from "react-router-dom";
+import { useNavigate, useOutletContext } from "react-router-dom";
 import { CircleX, UserRoundX, UserRoundPen, Eye, EyeOff } from "lucide-react";
 import { BouncyArc, DotPulse } from "ldrs/react";
 import "ldrs/react/BouncyArc.css";
@@ -56,7 +55,7 @@ const Settings = () => {
   const [showConfirmation, setShowConfirmation] = useState(false);
   const [accountDeleted, setAccountDeleted] = useState(false);
   const navigate = useNavigate();
-  const { currentUserInfo, getUserInfo, setUserToken } = useOutletContext();
+  const { getUserInfo, setUserToken } = useOutletContext();
 
   // if a user clicks on edit into, render the component
   const editUserInfo = () => {

@@ -3,17 +3,15 @@ https://reactrouter.com/6.30.0/hooks/use-navigate#optionsreplace
  - useNavigate doc
 */
 import { House, Settings, LogOut, CircleUser } from "lucide-react";
-import { Link, useNavigate, useOutletContext } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Nav } from "react-bootstrap";
-import axios from "../axios";
-import { useContext, useEffect, useState } from "react";
-import App, { AppContext } from "../App";
+import { useContext, useState } from "react";
+import { AppContext } from "../App";
 import axiosInstance from "../axios";
 
 const Navbar = () => {
   const [search, setSearch] = useState("");
   const navigate = useNavigate();
-  const searchUrl = "http://127.0.0.1:8000/api/v1/auth/spotify/callback/";
 
   const { setTrackResults, setArtistResults, setAlbumResults, userToken, setUserToken, setMusicActive } = useContext(AppContext)
 
@@ -23,7 +21,7 @@ const Navbar = () => {
 
   const inputSearch = async () => {
     try {
-      const response = await axios.get(searchUrl + search);
+      const response = await axiosInstance.get("auth/spotify/callback/" + search);
       console.log(response.data)
       const tracks = response.data[0]["tracks"];
       const artists = response.data[0]["artists"];
@@ -61,9 +59,6 @@ const Navbar = () => {
           <div className="flex-1 flex flex-row gap-5 items-center justify-center">
             <Nav.Link as={Link} to="/events" className="events-link text-white">
               Events
-            </Nav.Link>
-            <Nav.Link as={Link} to="/account" className="account-link text-white">
-            Account
             </Nav.Link>
           </div>
           {/* Right side nav items */}

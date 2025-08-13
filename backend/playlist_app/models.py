@@ -1,5 +1,3 @@
-from django.core.validators import MinValueValidator, MaxValueValidator, RegexValidator
-from django.contrib.auth.password_validation import validate_password
 from django.db import models
 from user_app.models import User
 from track_app.models import Track

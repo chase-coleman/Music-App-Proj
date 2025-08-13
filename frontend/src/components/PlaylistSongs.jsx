@@ -1,17 +1,15 @@
-import React, { useContext, useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
+import { useContext, useEffect, useState } from "react";
 import { useOutletContext } from "react-router-dom";
 import PlaylistTracks from "./PlaylistTracks";
-
 import { getTracks } from "../utils/MusicUtils";
 import { HomePageContext } from "../pages/HomePage";
 
 const PlaylistSongs = () => {
   const [queueView, setQueueView] = useState(false);
-  const { musicActive, setMusicActive, setCurrentTrack, queue, setQueue } =
+  const { queue } =
     useOutletContext();
 
-  const { playlistView, playlistTracks, setPlaylistTracks, removeTrack } =
+  const { playlistView, playlistTracks, setPlaylistTracks } =
     useContext(HomePageContext);
 
   useEffect(() => {
