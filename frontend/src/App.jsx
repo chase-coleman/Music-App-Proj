@@ -21,8 +21,8 @@ export const AppContext = createContext({
   setAlbumResults: () => {},
   trackResults: [],
   setTrackResults: () => {},
-
-
+  currentTrack: null,
+  setCurrentTrack: () => {}
 })
 
 export default function App() {
@@ -89,6 +89,8 @@ export default function App() {
       queue,
       setQueue,
       userToken,
+      currentTrack,
+      setCurrentTrack,
       setUserToken,
       artistResults,
       setArtistResults,
@@ -132,8 +134,9 @@ export default function App() {
           player={player}
           setPlayer={setPlayer}
           setIsPaused={setIsPaused}
-          currentTrack={currentTrack}
           accessToken={accessToken}
+          musicActive={musicActive}
+          setMusicActive={setMusicActive}
         />
       ) : null}
       </AppContext.Provider>
