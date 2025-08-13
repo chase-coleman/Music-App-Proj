@@ -39,8 +39,6 @@ const PlaylistTracks = ({ track, queued }) => {
     // with the new URI on your device.
     setCurrentTrack(track);
     setMusicActive(true);
-    // (Optional) optimistic UI:
-    // setIsPaused(false);
   };
 
   return (
