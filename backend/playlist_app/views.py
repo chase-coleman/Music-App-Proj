@@ -1,5 +1,5 @@
 from playlist_app.serializers import Playlist, PlaylistSerializer, PlaylistDisplaySerializer # importing needed models/serializers
-from rest_framework.views import Response, APIView # importing needed Response and APIView classes
+from rest_framework.views import Response  # importing needed Response and APIView classes
 from rest_framework import status as s
 from user_app.views import TokenReq
 from .models import Playlist

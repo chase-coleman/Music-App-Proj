@@ -1,6 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
-import Navbar from "../components/Navbar";
-import axios from "../axios";
+import { useContext, useState } from "react";
 import PlaylistList from "../components/PlaylistList";
 import { useOutletContext } from "react-router-dom";
 import CreatePlaylist from "./CreatePlaylist";
@@ -11,7 +9,6 @@ import { HomePageContext } from "../pages/HomePage";
 import { grabUserPlaylists } from "../utils/MusicUtils";
 import axiosInstance from "../axios";
 import { Modal } from "./Modal";
-const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
 
 // TO DO : create loading state variable to display while the API makes it's call
 

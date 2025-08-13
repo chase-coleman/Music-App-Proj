@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link } from 'lucide-react';
 
 const Event = ({event}) => {

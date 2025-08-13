@@ -1,11 +1,6 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-import { useOutletContext } from "react-router-dom";
 
 const ArtistResults = ({ artist }) => {
-  const playlistUrl = "http://127.0.0.1:8000/api/v1/playlists/";
-  const {userToken} = useOutletContext()
-  // const userToken = localStorage.getItem("token");
   const [likeBtn, setLikeBtn] = useState(false);
 
   useEffect(() => {

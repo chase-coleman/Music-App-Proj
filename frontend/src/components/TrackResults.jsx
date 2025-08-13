@@ -8,7 +8,7 @@ import { Modal } from "./Modal";
 
 // TO DO : add functionality for user to select specfic playlists to remove track from when unliking them 
 
-const TrackResults = ({ track, removeTrack, removeLike, getTracks,grabUserPlaylists, setLikedSongs }) => {
+const TrackResults = ({ track, removeLike, getTracks,grabUserPlaylists, setLikedSongs }) => {
   const [likeBtn, setLikeBtn] = useState(false);
   const [showPlaylists, setShowPlaylists] = useState(false)
   const [selectedPlaylists, setSelectedPlaylists] = useState([])

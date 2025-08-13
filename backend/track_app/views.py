@@ -1,4 +1,3 @@
-from django.shortcuts import render
 from track_app.models import Track
 from rest_framework.views import Response
 from user_app.views import TokenReq
